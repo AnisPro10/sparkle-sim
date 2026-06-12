@@ -80,9 +80,12 @@ export function AppSidebar() {
         <Link
           to="/"
           aria-label="Retour à l'accueil"
-          className="flex items-center gap-2 rounded-md px-2 py-2 text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+          className="flex items-center gap-2 rounded-md px-2 py-2 text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0"
         >
-          <BrandMark size={32} className="shrink-0 drop-shadow-sm" />
+          <BrandMark
+            size={32}
+            className="shrink-0 drop-shadow-sm group-data-[collapsible=icon]:h-7 group-data-[collapsible=icon]:w-7"
+          />
           <span className="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
             <span className="text-[10px] uppercase tracking-[0.18em] text-sidebar-primary">
               Simulateur
