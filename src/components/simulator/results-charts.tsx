@@ -482,13 +482,10 @@ export function SyntheseView({ h, m }: { h: Hypotheses; m: ModelResult }) {
         </div>
       </div>
 
-      {/* Graphes */}
+      {/* Graphes — la courbe de trésorerie et la cascade CA→net vivent dans leurs
+          rubriques dédiées (Trésorerie, Compte de résultat) : pas de doublon ici. */}
       <CaMensuelChart h={h} m={m} />
-      <div className="grid gap-5 lg:grid-cols-2">
-        <TresorerieMini m={m} />
-        <ChargesDonut h={h} m={m} />
-      </div>
-      <ResultatWaterfall h={h} m={m} />
+      <ChargesDonut h={h} m={m} />
     </section>
   );
 }
@@ -496,52 +493,6 @@ export function SyntheseView({ h, m }: { h: Hypotheses; m: ModelResult }) {
 // ============================================================================
 // Trésorerie 12 mois
 // ============================================================================
-function TresorerieMini({ m }: { m: ModelResult }) {
-  return (
-    <Card>
-      <CardContent className="p-5">
-        <div className="flex items-center justify-between mb-3">
-          <div className="text-xs font-semibold uppercase tracking-wider text-primary">
-            Trésorerie 12 mois
-          </div>
-          <div className="text-[11px] text-muted-foreground font-mono">
-            Point bas {euro(m.lowCash)}
-          </div>
-        </div>
-        <div className="h-64" role="img" aria-label="Aperçu de la courbe de trésorerie sur 12 mois">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={m.months} margin={{ top: 5, right: 8, left: 0, bottom: 0 }}>
-              <CartesianGrid stroke="var(--border)" strokeDasharray="2 4" vertical={false} />
-              <XAxis
-                dataKey="month"
-                tick={{ ...AXIS, fontSize: 10 }}
-                stroke="var(--border)"
-                interval="preserveStartEnd"
-              />
-              <YAxis
-                tick={{ ...AXIS, fontSize: 10 }}
-                stroke="var(--border)"
-                tickFormatter={fmtK}
-                width={46}
-              />
-              <Tooltip content={<ChartTip />} />
-              <ReferenceLine y={0} stroke="var(--destructive)" strokeDasharray="4 4" />
-              <Line
-                type="monotone"
-                dataKey="cash"
-                name="Trésorerie"
-                stroke={m.fundable ? "var(--chart-b2b)" : "var(--destructive)"}
-                strokeWidth={2}
-                dot={false}
-                activeDot={{ r: 4 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
 
 export function TresorerieView({ h, m }: { h: Hypotheses; m: ModelResult }) {
   const low = m.months.reduce((a, b) => (b.cash < a.cash ? b : a), m.months[0]);
