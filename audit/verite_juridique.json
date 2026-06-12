@@ -1,0 +1,1664 @@
+{
+ "Parametres": [
+  {
+   "cell": "A1",
+   "f": "PARAMÈTRES — modifie les cellules bleues, tous les onglets se recalculent",
+   "v": "PARAMÈTRES — modifie les cellules bleues, tous les onglets se recalculent"
+  },
+  {
+   "cell": "A2",
+   "f": "Hypothèses 2026 alignées sur le prévisionnel (Previsionnel_ProClean_AZ.xlsx) et la phase 5 de l'étude.",
+   "v": "Hypothèses 2026 alignées sur le prévisionnel (Previsionnel_ProClean_AZ.xlsx) et la phase 5 de l'étude."
+  },
+  {
+   "cell": "A4",
+   "f": "ACTIVITÉ (depuis le prévisionnel)",
+   "v": "ACTIVITÉ (depuis le prévisionnel)"
+  },
+  {
+   "cell": "A5",
+   "f": "CA annuel encaissé (€)",
+   "v": "CA annuel encaissé (€)"
+  },
+  {
+   "cell": "B5",
+   "f": "36573",
+   "v": 36573
+  },
+  {
+   "cell": "C5",
+   "f": "Correspond au CA année 1 du prévisionnel ; tester aussi 52 000 (croisière pleine) et 83 600 (plafond)",
+   "v": "Correspond au CA année 1 du prévisionnel ; tester aussi 52 000 (croisière pleine) et 83 600 (plafond)"
+  },
+  {
+   "cell": "A6",
+   "f": "Charges réelles variables (% du CA)",
+   "v": "Charges réelles variables (% du CA)"
+  },
+  {
+   "cell": "B6",
+   "f": "0.09",
+   "v": 0.09
+  },
+  {
+   "cell": "C6",
+   "f": "Produits 4 % + déplacements 5 %",
+   "v": "Produits 4 % + déplacements 5 %"
+  },
+  {
+   "cell": "A7",
+   "f": "Charges fixes réelles (€/an)",
+   "v": "Charges fixes réelles (€/an)"
+  },
+  {
+   "cell": "B7",
+   "f": "900",
+   "v": 900
+  },
+  {
+   "cell": "C7",
+   "f": "RC pro, téléphone, logiciel, banque, véhicule",
+   "v": "RC pro, téléphone, logiciel, banque, véhicule"
+  },
+  {
+   "cell": "A8",
+   "f": "CFE (€/an, dès l'année 2)",
+   "v": "CFE (€/an, dès l'année 2)"
+  },
+  {
+   "cell": "B8",
+   "f": "300",
+   "v": 300
+  },
+  {
+   "cell": "C8",
+   "f": "0 l'année de création",
+   "v": "0 l'année de création"
+  },
+  {
+   "cell": "A9",
+   "f": "MICRO-ENTREPRISE (BIC services, 2026)",
+   "v": "MICRO-ENTREPRISE (BIC services, 2026)"
+  },
+  {
+   "cell": "A10",
+   "f": "Taux cotisations sociales",
+   "v": "Taux cotisations sociales"
+  },
+  {
+   "cell": "B10",
+   "f": "0.212",
+   "v": 0.212
+  },
+  {
+   "cell": "C10",
+   "f": "economie.gouv.fr 2026",
+   "v": "economie.gouv.fr 2026"
+  },
+  {
+   "cell": "A11",
+   "f": "Taux cotisations avec ACRE (création après le 01/07/2026)",
+   "v": "Taux cotisations avec ACRE (création après le 01/07/2026)"
+  },
+  {
+   "cell": "B11",
+   "f": "0.159",
+   "v": 0.159
+  },
+  {
+   "cell": "C11",
+   "f": "Exonération 25 % — réforme décret 2026-69",
+   "v": "Exonération 25 % — réforme décret 2026-69"
+  },
+  {
+   "cell": "A12",
+   "f": "Taux versement fiscal libératoire (VFL)",
+   "v": "Taux versement fiscal libératoire (VFL)"
+  },
+  {
+   "cell": "B12",
+   "f": "0.017",
+   "v": 0.017
+  },
+  {
+   "cell": "C12",
+   "f": "Option, sous plafond de RFR",
+   "v": "Option, sous plafond de RFR"
+  },
+  {
+   "cell": "A13",
+   "f": "Contribution formation professionnelle (artisan)",
+   "v": "Contribution formation professionnelle (artisan)"
+  },
+  {
+   "cell": "B13",
+   "f": "0.003",
+   "v": 0.003
+  },
+  {
+   "cell": "C13",
+   "f": "0,3 % — nettoyage = artisanal",
+   "v": "0,3 % — nettoyage = artisanal"
+  },
+  {
+   "cell": "A14",
+   "f": "Abattement forfaitaire micro (services BIC)",
+   "v": "Abattement forfaitaire micro (services BIC)"
+  },
+  {
+   "cell": "B14",
+   "f": "0.5",
+   "v": 0.5
+  },
+  {
+   "cell": "C14",
+   "f": "Si barème au lieu du VFL",
+   "v": "Si barème au lieu du VFL"
+  },
+  {
+   "cell": "A15",
+   "f": "TMI du foyer fiscal d'Anis",
+   "v": "TMI du foyer fiscal d'Anis"
+  },
+  {
+   "cell": "B15",
+   "f": "0.11",
+   "v": 0.11
+  },
+  {
+   "cell": "C15",
+   "f": "0 % si non imposable — pilote micro-barème et EI/sociétés",
+   "v": "0 % si non imposable — pilote micro-barème et EI/sociétés"
+  },
+  {
+   "cell": "A16",
+   "f": "EI AU RÉEL & GÉRANT TNS (EURL)",
+   "v": "EI AU RÉEL & GÉRANT TNS (EURL)"
+  },
+  {
+   "cell": "A17",
+   "f": "Taux cotisations TNS (% du bénéfice)",
+   "v": "Taux cotisations TNS (% du bénéfice)"
+  },
+  {
+   "cell": "B17",
+   "f": "0.32",
+   "v": 0.32
+  },
+  {
+   "cell": "C17",
+   "f": "Approximation plate ~30-35 % — le réel est progressif",
+   "v": "Approximation plate ~30-35 % — le réel est progressif"
+  },
+  {
+   "cell": "A18",
+   "f": "Cotisations TNS minimales (€/an, même sans revenu)",
+   "v": "Cotisations TNS minimales (€/an, même sans revenu)"
+  },
+  {
+   "cell": "B18",
+   "f": "1300",
+   "v": 1300
+  },
+  {
+   "cell": "C18",
+   "f": "Le piège de l'EURL au démarrage",
+   "v": "Le piège de l'EURL au démarrage"
+  },
+  {
+   "cell": "A19",
+   "f": "Coefficient coût d'un salaire SASU (× le net)",
+   "v": "Coefficient coût d'un salaire SASU (× le net)"
+  },
+  {
+   "cell": "B19",
+   "f": "1.8",
+   "v": 1.8
+  },
+  {
+   "cell": "C19",
+   "f": "Président assimilé salarié : ~80 % de charges",
+   "v": "Président assimilé salarié : ~80 % de charges"
+  },
+  {
+   "cell": "A20",
+   "f": "Coefficient coût d'une rémunération EURL TNS (× le net)",
+   "v": "Coefficient coût d'une rémunération EURL TNS (× le net)"
+  },
+  {
+   "cell": "B20",
+   "f": "1.45",
+   "v": 1.45
+  },
+  {
+   "cell": "C20",
+   "f": "Gérant majoritaire : ~45 % de charges",
+   "v": "Gérant majoritaire : ~45 % de charges"
+  },
+  {
+   "cell": "A21",
+   "f": "SOCIÉTÉS (IS, DIVIDENDES) & SEUILS",
+   "v": "SOCIÉTÉS (IS, DIVIDENDES) & SEUILS"
+  },
+  {
+   "cell": "A22",
+   "f": "Seuil IS réduit (€)",
+   "v": "Seuil IS réduit (€)"
+  },
+  {
+   "cell": "B22",
+   "f": "42500",
+   "v": 42500
+  },
+  {
+   "cell": "A23",
+   "f": "Taux IS réduit",
+   "v": "Taux IS réduit"
+  },
+  {
+   "cell": "B23",
+   "f": "0.15",
+   "v": 0.15
+  },
+  {
+   "cell": "A24",
+   "f": "Taux IS normal",
+   "v": "Taux IS normal"
+  },
+  {
+   "cell": "B24",
+   "f": "0.25",
+   "v": 0.25
+  },
+  {
+   "cell": "A25",
+   "f": "Flat tax dividendes (PFU 2026)",
+   "v": "Flat tax dividendes (PFU 2026)"
+  },
+  {
+   "cell": "B25",
+   "f": "0.314",
+   "v": 0.314
+  },
+  {
+   "cell": "C25",
+   "f": "12,8 % IR + 18,6 % prélèvements sociaux",
+   "v": "12,8 % IR + 18,6 % prélèvements sociaux"
+  },
+  {
+   "cell": "A26",
+   "f": "Capital social (EURL/SASU, €)",
+   "v": "Capital social (EURL/SASU, €)"
+  },
+  {
+   "cell": "B26",
+   "f": "1000",
+   "v": 1000
+  },
+  {
+   "cell": "C26",
+   "f": "Petit capital adapté au projet",
+   "v": "Petit capital adapté au projet"
+  },
+  {
+   "cell": "A27",
+   "f": "Cotisations TNS sur dividendes EURL (> 10 % du capital)",
+   "v": "Cotisations TNS sur dividendes EURL (> 10 % du capital)"
+  },
+  {
+   "cell": "B27",
+   "f": "0.45",
+   "v": 0.45
+  },
+  {
+   "cell": "C27",
+   "f": "Spécificité gérant majoritaire",
+   "v": "Spécificité gérant majoritaire"
+  },
+  {
+   "cell": "A28",
+   "f": "IR sur ces mêmes dividendes (part > 10 %)",
+   "v": "IR sur ces mêmes dividendes (part > 10 %)"
+  },
+  {
+   "cell": "B28",
+   "f": "0.128",
+   "v": 0.128
+  },
+  {
+   "cell": "A30",
+   "f": "Salaire net plancher retraite (€/an)",
+   "v": "Salaire net plancher retraite (€/an)"
+  },
+  {
+   "cell": "B30",
+   "f": "5600",
+   "v": 5600
+  },
+  {
+   "cell": "C30",
+   "f": "~4 trimestres validés",
+   "v": "~4 trimestres validés"
+  },
+  {
+   "cell": "A31",
+   "f": "Plafond micro services (€/an, 2026-2028)",
+   "v": "Plafond micro services (€/an, 2026-2028)"
+  },
+  {
+   "cell": "B31",
+   "f": "83600",
+   "v": 83600
+  },
+  {
+   "cell": "C31",
+   "f": "Revalorisé +7,6 % au 01/01/2026",
+   "v": "Revalorisé +7,6 % au 01/01/2026"
+  },
+  {
+   "cell": "A32",
+   "f": "CA micro validant 4 trimestres de retraite (€/an)",
+   "v": "CA micro validant 4 trimestres de retraite (€/an)"
+  },
+  {
+   "cell": "B32",
+   "f": "13000",
+   "v": 13000
+  },
+  {
+   "cell": "C32",
+   "f": "Ordre de grandeur services BIC — à vérifier URSSAF",
+   "v": "Ordre de grandeur services BIC — à vérifier URSSAF"
+  },
+  {
+   "cell": "A34",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A35",
+   "f": "CA encaissé vs bénéfice",
+   "v": "CA encaissé vs bénéfice"
+  },
+  {
+   "cell": "B35",
+   "f": "En micro, tout se calcule sur le CA ENCAISSÉ (l'argent reçu). En EI au réel et en société, on raisonne sur le BÉNÉFICE (CA − charges réelles). C'est LA différence de logique entre les onglets.",
+   "v": "En micro, tout se calcule sur le CA ENCAISSÉ (l'argent reçu). En EI au réel et en société, on raisonne sur le BÉNÉFICE (CA − charges réelles). C'est LA différence de logique entre les onglets."
+  },
+  {
+   "cell": "A36",
+   "f": "Taux TNS approximé",
+   "v": "Taux TNS approximé"
+  },
+  {
+   "cell": "B36",
+   "f": "Les cotisations d'un indépendant au réel sont progressives et complexes ; 32 % du bénéfice est une approximation honnête pour comparer. Un expert-comptable affinera au moment d'une éventuelle bascule.",
+   "v": "Les cotisations d'un indépendant au réel sont progressives et complexes ; 32 % du bénéfice est une approximation honnête pour comparer. Un expert-comptable affinera au moment d'une éventuelle bascule."
+  },
+  {
+   "cell": "A37",
+   "f": "Pourquoi 36 573 € par défaut ?",
+   "v": "Pourquoi 36 573 € par défaut ?"
+  },
+  {
+   "cell": "B37",
+   "f": "C'est le CA année 1 du prévisionnel vérifié (phase 3). Changer B4 pour tester : 52 000 € (croisière pleine) ou 83 600 € (plafond micro).",
+   "v": "C'est le CA année 1 du prévisionnel vérifié (phase 3). Changer B4 pour tester : 52 000 € (croisière pleine) ou 83 600 € (plafond micro)."
+  },
+  {
+   "cell": "A38",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "Micro": [
+  {
+   "cell": "A1",
+   "f": "MICRO-ENTREPRISE — 4 variantes (le statut recommandé)",
+   "v": "MICRO-ENTREPRISE — 4 variantes (le statut recommandé)"
+  },
+  {
+   "cell": "A2",
+   "f": "Tout se calcule sur le CA encaissé. Les charges réelles ne réduisent pas l'impôt mais sortent de la poche — ligne dédiée.",
+   "v": "Tout se calcule sur le CA encaissé. Les charges réelles ne réduisent pas l'impôt mais sortent de la poche — ligne dédiée."
+  },
+  {
+   "cell": "A4",
+   "f": "Poste",
+   "v": "Poste"
+  },
+  {
+   "cell": "B4",
+   "f": "VFL, sans ACRE",
+   "v": "VFL, sans ACRE"
+  },
+  {
+   "cell": "C4",
+   "f": "VFL + ACRE (QPV)",
+   "v": "VFL + ACRE (QPV)"
+  },
+  {
+   "cell": "D4",
+   "f": "Barème (TMI), sans ACRE",
+   "v": "Barème (TMI), sans ACRE"
+  },
+  {
+   "cell": "E4",
+   "f": "Au plafond micro (VFL)",
+   "v": "Au plafond micro (VFL)"
+  },
+  {
+   "cell": "A5",
+   "f": "Chiffre d'affaires encaissé",
+   "v": "Chiffre d'affaires encaissé"
+  },
+  {
+   "cell": "B5",
+   "f": "=Parametres!$B$5",
+   "v": 36573
+  },
+  {
+   "cell": "C5",
+   "f": "=Parametres!$B$5",
+   "v": 36573
+  },
+  {
+   "cell": "D5",
+   "f": "=Parametres!$B$5",
+   "v": 36573
+  },
+  {
+   "cell": "E5",
+   "f": "=Parametres!$B$31",
+   "v": 83600
+  },
+  {
+   "cell": "A6",
+   "f": "(−) Cotisations sociales",
+   "v": "(−) Cotisations sociales"
+  },
+  {
+   "cell": "B6",
+   "f": "=-B5*Parametres!$B$10",
+   "v": -7753.476
+  },
+  {
+   "cell": "C6",
+   "f": "=-C5*Parametres!$B$11",
+   "v": -5815.107
+  },
+  {
+   "cell": "D6",
+   "f": "=-D5*Parametres!$B$10",
+   "v": -7753.476
+  },
+  {
+   "cell": "E6",
+   "f": "=-E5*Parametres!$B$10",
+   "v": -17723.2
+  },
+  {
+   "cell": "A7",
+   "f": "(−) CFP (0,3 %)",
+   "v": "(−) CFP (0,3 %)"
+  },
+  {
+   "cell": "B7",
+   "f": "=-B5*Parametres!$B$13",
+   "v": -109.719
+  },
+  {
+   "cell": "C7",
+   "f": "=-C5*Parametres!$B$13",
+   "v": -109.719
+  },
+  {
+   "cell": "D7",
+   "f": "=-D5*Parametres!$B$13",
+   "v": -109.719
+  },
+  {
+   "cell": "E7",
+   "f": "=-E5*Parametres!$B$13",
+   "v": -250.8
+  },
+  {
+   "cell": "A8",
+   "f": "(−) Impôt sur le revenu",
+   "v": "(−) Impôt sur le revenu"
+  },
+  {
+   "cell": "B8",
+   "f": "=-B5*Parametres!$B$12",
+   "v": -621.741
+  },
+  {
+   "cell": "C8",
+   "f": "=-C5*Parametres!$B$12",
+   "v": -621.741
+  },
+  {
+   "cell": "D8",
+   "f": "=-D5*(1-Parametres!$B$14)*Parametres!$B$15",
+   "v": -2011.515
+  },
+  {
+   "cell": "E8",
+   "f": "=-E5*Parametres!$B$12",
+   "v": -1421.2
+  },
+  {
+   "cell": "A9",
+   "f": "(−) Charges réelles (variables + fixes)",
+   "v": "(−) Charges réelles (variables + fixes)"
+  },
+  {
+   "cell": "B9",
+   "f": "=-B5*Parametres!$B$6-Parametres!$B$7",
+   "v": -4191.57
+  },
+  {
+   "cell": "C9",
+   "f": "=-C5*Parametres!$B$6-Parametres!$B$7",
+   "v": -4191.57
+  },
+  {
+   "cell": "D9",
+   "f": "=-D5*Parametres!$B$6-Parametres!$B$7",
+   "v": -4191.57
+  },
+  {
+   "cell": "E9",
+   "f": "=-E5*Parametres!$B$6-Parametres!$B$7",
+   "v": -8424
+  },
+  {
+   "cell": "A10",
+   "f": "NET EN POCHE / AN",
+   "v": "NET EN POCHE / AN"
+  },
+  {
+   "cell": "B10",
+   "f": "=SUM(B5:B9)",
+   "v": 23896.494
+  },
+  {
+   "cell": "C10",
+   "f": "=SUM(C5:C9)",
+   "v": 25834.863
+  },
+  {
+   "cell": "D10",
+   "f": "=SUM(D5:D9)",
+   "v": 22506.72
+  },
+  {
+   "cell": "E10",
+   "f": "=SUM(E5:E9)",
+   "v": 55780.8
+  },
+  {
+   "cell": "A11",
+   "f": "Net mensuel moyen",
+   "v": "Net mensuel moyen"
+  },
+  {
+   "cell": "B11",
+   "f": "=ROUND(B10/12,0)",
+   "v": 1991
+  },
+  {
+   "cell": "C11",
+   "f": "=ROUND(C10/12,0)",
+   "v": 2153
+  },
+  {
+   "cell": "D11",
+   "f": "=ROUND(D10/12,0)",
+   "v": 1876
+  },
+  {
+   "cell": "E11",
+   "f": "=ROUND(E10/12,0)",
+   "v": 4648
+  },
+  {
+   "cell": "A12",
+   "f": "Taux de prélèvement global effectif",
+   "v": "Taux de prélèvement global effectif"
+  },
+  {
+   "cell": "B12",
+   "f": "=(B5-B10)/B5",
+   "v": 0.3466
+  },
+  {
+   "cell": "C12",
+   "f": "=(C5-C10)/C5",
+   "v": 0.2936
+  },
+  {
+   "cell": "D12",
+   "f": "=(D5-D10)/D5",
+   "v": 0.3846
+  },
+  {
+   "cell": "E12",
+   "f": "=(E5-E10)/E5",
+   "v": 0.3328
+  },
+  {
+   "cell": "A13",
+   "f": "4 trimestres de retraite validés ?",
+   "v": "4 trimestres de retraite validés ?"
+  },
+  {
+   "cell": "B13",
+   "f": "=IF(B5>=Parametres!$B$32,\"oui\",\"à vérifier\")",
+   "v": "oui"
+  },
+  {
+   "cell": "C13",
+   "f": "=IF(C5>=Parametres!$B$32,\"oui\",\"à vérifier\")",
+   "v": "oui"
+  },
+  {
+   "cell": "D13",
+   "f": "=IF(D5>=Parametres!$B$32,\"oui\",\"à vérifier\")",
+   "v": "oui"
+  },
+  {
+   "cell": "E13",
+   "f": "=IF(E5>=Parametres!$B$32,\"oui\",\"à vérifier\")",
+   "v": "oui"
+  },
+  {
+   "cell": "A15",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A16",
+   "f": "VFL + ACRE (colonne C)",
+   "v": "VFL + ACRE (colonne C)"
+  },
+  {
+   "cell": "B16",
+   "f": "Le meilleur cas d'Anis : si son adresse 93 est en QPV, cotisations à 15,9 % au lieu de 21,2 % pendant ~12 mois. Écart avec la colonne B = l'enjeu de la vérification d'adresse (~1 900 € au CA saisi).",
+   "v": "Le meilleur cas d'Anis : si son adresse 93 est en QPV, cotisations à 15,9 % au lieu de 21,2 % pendant ~12 mois. Écart avec la colonne B = l'enjeu de la vérification d'adresse (~1 900 € au CA saisi)."
+  },
+  {
+   "cell": "A17",
+   "f": "Barème vs VFL (colonne D)",
+   "v": "Barème vs VFL (colonne D)"
+  },
+  {
+   "cell": "B17",
+   "f": "Sans VFL, la moitié du CA s'ajoute au revenu imposable du foyer (abattement 50 %). À TMI 11 %, les deux options sont proches — trancher avec le simulateur impots.gouv.fr au moment de la création.",
+   "v": "Sans VFL, la moitié du CA s'ajoute au revenu imposable du foyer (abattement 50 %). À TMI 11 %, les deux options sont proches — trancher avec le simulateur impots.gouv.fr au moment de la création."
+  },
+  {
+   "cell": "A18",
+   "f": "Charges réelles",
+   "v": "Charges réelles"
+  },
+  {
+   "cell": "B18",
+   "f": "Produits, carburant, assurance, téléphone : ~13 % du CA. Elles ne réduisent NI cotisations NI impôt en micro (l'abattement de 50 % les remplace fiscalement), mais elles sortent bien du compte — d'où leur ligne dans le net réel.",
+   "v": "Produits, carburant, assurance, téléphone : ~13 % du CA. Elles ne réduisent NI cotisations NI impôt en micro (l'abattement de 50 % les remplace fiscalement), mais elles sortent bien du compte — d'où leur ligne dans le net réel."
+  },
+  {
+   "cell": "A19",
+   "f": "Au plafond (colonne E)",
+   "v": "Au plafond (colonne E)"
+  },
+  {
+   "cell": "B19",
+   "f": "Ce que la micro peut donner AU MAXIMUM (83 600 € de CA) : ~53 000 € nets/an. Au-delà, bascule obligatoire — voir Comparatif.",
+   "v": "Ce que la micro peut donner AU MAXIMUM (83 600 € de CA) : ~53 000 € nets/an. Au-delà, bascule obligatoire — voir Comparatif."
+  },
+  {
+   "cell": "A20",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "EI_reel": [
+  {
+   "cell": "A1",
+   "f": "ENTREPRISE INDIVIDUELLE AU RÉEL — pour comparaison",
+   "v": "ENTREPRISE INDIVIDUELLE AU RÉEL — pour comparaison"
+  },
+  {
+   "cell": "A2",
+   "f": "Ici les charges réelles SE DÉDUISENT (logique bénéfice), mais les cotisations TNS sont plus lourdes et la comptabilité complète (~600-1 000 €/an d'expert-comptable non comptés).",
+   "v": "Ici les charges réelles SE DÉDUISENT (logique bénéfice), mais les cotisations TNS sont plus lourdes et la comptabilité complète (~600-1 000 €/an d'expert-comptable non comptés)."
+  },
+  {
+   "cell": "A4",
+   "f": "Poste",
+   "v": "Poste"
+  },
+  {
+   "cell": "B4",
+   "f": "Au CA prévisionnel",
+   "v": "Au CA prévisionnel"
+  },
+  {
+   "cell": "C4",
+   "f": "Au plafond micro (comparaison)",
+   "v": "Au plafond micro (comparaison)"
+  },
+  {
+   "cell": "A5",
+   "f": "Chiffre d'affaires",
+   "v": "Chiffre d'affaires"
+  },
+  {
+   "cell": "B5",
+   "f": "=Parametres!$B$5",
+   "v": 36573
+  },
+  {
+   "cell": "C5",
+   "f": "=Parametres!$B$31",
+   "v": 83600
+  },
+  {
+   "cell": "A6",
+   "f": "(−) Charges réelles déductibles",
+   "v": "(−) Charges réelles déductibles"
+  },
+  {
+   "cell": "B6",
+   "f": "=-B5*Parametres!$B$6-Parametres!$B$7-Parametres!$B$8",
+   "v": -4491.57
+  },
+  {
+   "cell": "C6",
+   "f": "=-C5*Parametres!$B$6-Parametres!$B$7-Parametres!$B$8",
+   "v": -8724
+  },
+  {
+   "cell": "A7",
+   "f": "BÉNÉFICE imposable",
+   "v": "BÉNÉFICE imposable"
+  },
+  {
+   "cell": "B7",
+   "f": "=B5+B6",
+   "v": 32081.43
+  },
+  {
+   "cell": "C7",
+   "f": "=C5+C6",
+   "v": 74876
+  },
+  {
+   "cell": "A8",
+   "f": "(−) Cotisations TNS (~32 % du bénéfice, minimum 1 300 €)",
+   "v": "(−) Cotisations TNS (~32 % du bénéfice, minimum 1 300 €)"
+  },
+  {
+   "cell": "B8",
+   "f": "=-MAX(B7*Parametres!$B$17,Parametres!$B$18)",
+   "v": -10266.0576
+  },
+  {
+   "cell": "C8",
+   "f": "=-MAX(C7*Parametres!$B$17,Parametres!$B$18)",
+   "v": -23960.32
+  },
+  {
+   "cell": "A9",
+   "f": "(−) Impôt sur le revenu (TMI sur bénéfice après cotisations)",
+   "v": "(−) Impôt sur le revenu (TMI sur bénéfice après cotisations)"
+  },
+  {
+   "cell": "B9",
+   "f": "=-MAX(B7+B8,0)*Parametres!$B$15",
+   "v": -2399.691
+  },
+  {
+   "cell": "C9",
+   "f": "=-MAX(C7+C8,0)*Parametres!$B$15",
+   "v": -5600.7248
+  },
+  {
+   "cell": "A10",
+   "f": "NET EN POCHE / AN",
+   "v": "NET EN POCHE / AN"
+  },
+  {
+   "cell": "B10",
+   "f": "=SUM(B7:B9)",
+   "v": 19415.6814
+  },
+  {
+   "cell": "C10",
+   "f": "=SUM(C7:C9)",
+   "v": 45314.9552
+  },
+  {
+   "cell": "A11",
+   "f": "Net mensuel moyen",
+   "v": "Net mensuel moyen"
+  },
+  {
+   "cell": "B11",
+   "f": "=ROUND(B10/12,0)",
+   "v": 1618
+  },
+  {
+   "cell": "C11",
+   "f": "=ROUND(C10/12,0)",
+   "v": 3776
+  },
+  {
+   "cell": "A13",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A14",
+   "f": "Quand l'EI au réel gagne-t-elle ?",
+   "v": "Quand l'EI au réel gagne-t-elle ?"
+  },
+  {
+   "cell": "B14",
+   "f": "Quand les charges réelles dépassent l'abattement micro de 50 % du CA. Au profil d'Anis (~13 %), la micro gagne nettement. L'EI au réel redevient une option en cas d'embauche, de véhicule utilitaire ou de local.",
+   "v": "Quand les charges réelles dépassent l'abattement micro de 50 % du CA. Au profil d'Anis (~13 %), la micro gagne nettement. L'EI au réel redevient une option en cas d'embauche, de véhicule utilitaire ou de local."
+  },
+  {
+   "cell": "A15",
+   "f": "Cotisations TNS",
+   "v": "Cotisations TNS"
+  },
+  {
+   "cell": "B15",
+   "f": "Calculées sur le BÉNÉFICE (pas le CA), taux réel progressif ~30-45 % approximé à 32 % ici. Contrairement à la micro : minimum ~1 300 €/an même en cas de bénéfice nul.",
+   "v": "Calculées sur le BÉNÉFICE (pas le CA), taux réel progressif ~30-45 % approximé à 32 % ici. Contrairement à la micro : minimum ~1 300 €/an même en cas de bénéfice nul."
+  },
+  {
+   "cell": "A16",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "EURL": [
+  {
+   "cell": "A1",
+   "f": "EURL (gérant associé unique, TNS) — 3 variantes de rémunération",
+   "v": "EURL (gérant associé unique, TNS) — 3 variantes de rémunération"
+  },
+  {
+   "cell": "A2",
+   "f": "La société paie l'IS ; Anis se paie en rémunération (coût ×1,45) et/ou en dividendes (cotisations TNS sur la part > 10 % du capital).",
+   "v": "La société paie l'IS ; Anis se paie en rémunération (coût ×1,45) et/ou en dividendes (cotisations TNS sur la part > 10 % du capital)."
+  },
+  {
+   "cell": "A4",
+   "f": "Poste",
+   "v": "Poste"
+  },
+  {
+   "cell": "B4",
+   "f": "1) Tout dividendes",
+   "v": "1) Tout dividendes"
+  },
+  {
+   "cell": "C4",
+   "f": "2) Rému plancher retraite + div.",
+   "v": "2) Rému plancher retraite + div."
+  },
+  {
+   "cell": "D4",
+   "f": "3) Rému 18 000 € net + div.",
+   "v": "3) Rému 18 000 € net + div."
+  },
+  {
+   "cell": "A5",
+   "f": "Bénéfice avant rémunération (CA − charges réelles)",
+   "v": "Bénéfice avant rémunération (CA − charges réelles)"
+  },
+  {
+   "cell": "B5",
+   "f": "=Parametres!$B$5*(1-Parametres!$B$6)-Parametres!$B$7-Parametres!$B$8",
+   "v": 32081.43
+  },
+  {
+   "cell": "C5",
+   "f": "=Parametres!$B$5*(1-Parametres!$B$6)-Parametres!$B$7-Parametres!$B$8",
+   "v": 32081.43
+  },
+  {
+   "cell": "D5",
+   "f": "=Parametres!$B$5*(1-Parametres!$B$6)-Parametres!$B$7-Parametres!$B$8",
+   "v": 32081.43
+  },
+  {
+   "cell": "A6",
+   "f": "Rémunération nette du gérant",
+   "v": "Rémunération nette du gérant"
+  },
+  {
+   "cell": "B6",
+   "f": "0",
+   "v": 0
+  },
+  {
+   "cell": "C6",
+   "f": "=Parametres!$B$30",
+   "v": 5600
+  },
+  {
+   "cell": "D6",
+   "f": "18000",
+   "v": 18000
+  },
+  {
+   "cell": "A7",
+   "f": "(−) Coût total de la rémunération (net × 1,45)",
+   "v": "(−) Coût total de la rémunération (net × 1,45)"
+  },
+  {
+   "cell": "B7",
+   "f": "=-B6*Parametres!$B$20",
+   "v": 0
+  },
+  {
+   "cell": "C7",
+   "f": "=-C6*Parametres!$B$20",
+   "v": -8120
+  },
+  {
+   "cell": "D7",
+   "f": "=-D6*Parametres!$B$20",
+   "v": -26100
+  },
+  {
+   "cell": "A8",
+   "f": "(−) Cotisations TNS minimales si rému nulle",
+   "v": "(−) Cotisations TNS minimales si rému nulle"
+  },
+  {
+   "cell": "B8",
+   "f": "=-IF(B6=0,Parametres!$B$18,0)",
+   "v": -1300
+  },
+  {
+   "cell": "C8",
+   "f": "=-IF(C6=0,Parametres!$B$18,0)",
+   "v": 0
+  },
+  {
+   "cell": "D8",
+   "f": "=-IF(D6=0,Parametres!$B$18,0)",
+   "v": 0
+  },
+  {
+   "cell": "A9",
+   "f": "Base imposable IS",
+   "v": "Base imposable IS"
+  },
+  {
+   "cell": "B9",
+   "f": "=MAX(B5+B7+B8,0)",
+   "v": 30781.43
+  },
+  {
+   "cell": "C9",
+   "f": "=MAX(C5+C7+C8,0)",
+   "v": 23961.43
+  },
+  {
+   "cell": "D9",
+   "f": "=MAX(D5+D7+D8,0)",
+   "v": 5981.43
+  },
+  {
+   "cell": "A10",
+   "f": "(−) Impôt sur les sociétés (15 % puis 25 %)",
+   "v": "(−) Impôt sur les sociétés (15 % puis 25 %)"
+  },
+  {
+   "cell": "B10",
+   "f": "=-(Parametres!$B$23*MIN(B9,Parametres!$B$22)+Parametres!$B$24*MAX(B9-Parametres!$B$22,0))",
+   "v": -4617.2145
+  },
+  {
+   "cell": "C10",
+   "f": "=-(Parametres!$B$23*MIN(C9,Parametres!$B$22)+Parametres!$B$24*MAX(C9-Parametres!$B$22,0))",
+   "v": -3594.2145
+  },
+  {
+   "cell": "D10",
+   "f": "=-(Parametres!$B$23*MIN(D9,Parametres!$B$22)+Parametres!$B$24*MAX(D9-Parametres!$B$22,0))",
+   "v": -897.2145
+  },
+  {
+   "cell": "A11",
+   "f": "Bénéfice distribuable",
+   "v": "Bénéfice distribuable"
+  },
+  {
+   "cell": "B11",
+   "f": "=B9+B10",
+   "v": 26164.2155
+  },
+  {
+   "cell": "C11",
+   "f": "=C9+C10",
+   "v": 20367.2155
+  },
+  {
+   "cell": "D11",
+   "f": "=D9+D10",
+   "v": 5084.2155
+  },
+  {
+   "cell": "A12",
+   "f": "Dividendes nets perçus",
+   "v": "Dividendes nets perçus"
+  },
+  {
+   "cell": "B12",
+   "f": "=MIN(B11,0.1*Parametres!$B$26)*(1-Parametres!$B$25)+MAX(B11-0.1*Parametres!$B$26,0)*(1-Parametres!$B$27-Parametres!$B$28)",
+   "v": 11067.6989
+  },
+  {
+   "cell": "C12",
+   "f": "=MIN(C11,0.1*Parametres!$B$26)*(1-Parametres!$B$25)+MAX(C11-0.1*Parametres!$B$26,0)*(1-Parametres!$B$27-Parametres!$B$28)",
+   "v": 8621.3649
+  },
+  {
+   "cell": "D12",
+   "f": "=MIN(D11,0.1*Parametres!$B$26)*(1-Parametres!$B$25)+MAX(D11-0.1*Parametres!$B$26,0)*(1-Parametres!$B$27-Parametres!$B$28)",
+   "v": 2171.9389
+  },
+  {
+   "cell": "A13",
+   "f": "NET EN POCHE / AN (rému + dividendes)",
+   "v": "NET EN POCHE / AN (rému + dividendes)"
+  },
+  {
+   "cell": "B13",
+   "f": "=B6+B12",
+   "v": 11067.6989
+  },
+  {
+   "cell": "C13",
+   "f": "=C6+C12",
+   "v": 14221.3649
+  },
+  {
+   "cell": "D13",
+   "f": "=D6+D12",
+   "v": 20171.9389
+  },
+  {
+   "cell": "A14",
+   "f": "4 trimestres de retraite validés ?",
+   "v": "4 trimestres de retraite validés ?"
+  },
+  {
+   "cell": "B14",
+   "f": "=IF(B6>=Parametres!$B$30,\"oui\",\"non\")",
+   "v": "non"
+  },
+  {
+   "cell": "C14",
+   "f": "=IF(C6>=Parametres!$B$30,\"oui\",\"non\")",
+   "v": "oui"
+  },
+  {
+   "cell": "D14",
+   "f": "=IF(D6>=Parametres!$B$30,\"oui\",\"non\")",
+   "v": "oui"
+  },
+  {
+   "cell": "A16",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A17",
+   "f": "Le piège des dividendes en EURL",
+   "v": "Le piège des dividendes en EURL"
+  },
+  {
+   "cell": "B17",
+   "f": "Pour un gérant majoritaire, les dividendes au-delà de 10 % du capital subissent ~45 % de cotisations TNS + 12,8 % d'IR — c'est pire qu'une rémunération. Avec un capital de 1 000 €, quasi tout passe au régime pénalisé : l'EURL « tout dividen",
+   "v": "Pour un gérant majoritaire, les dividendes au-delà de 10 % du capital subissent ~45 % de cotisations TNS + 12,8 % d'IR — c'est pire qu'une rémunération. Avec un capital de 1 000 €, quasi tout passe au régime pénalisé : l'EURL « tout dividendes » est la PIRE option du classeur."
+  },
+  {
+   "cell": "A18",
+   "f": "Coûts non comptés",
+   "v": "Coûts non comptés"
+  },
+  {
+   "cell": "B18",
+   "f": "Comptabilité d'engagement, dépôt des comptes, AG annuelle : ~800-1 500 €/an d'expert-comptable à déduire encore du net affiché.",
+   "v": "Comptabilité d'engagement, dépôt des comptes, AG annuelle : ~800-1 500 €/an d'expert-comptable à déduire encore du net affiché."
+  },
+  {
+   "cell": "A19",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "SASU": [
+  {
+   "cell": "A1",
+   "f": "SASU (président assimilé salarié) — 3 variantes",
+   "v": "SASU (président assimilé salarié) — 3 variantes"
+  },
+  {
+   "cell": "A2",
+   "f": "Chaque euro net de salaire coûte 1,80 € à la société. Les dividendes subissent la flat tax de 31,4 % sans cotisations — mais ne valident aucune retraite.",
+   "v": "Chaque euro net de salaire coûte 1,80 € à la société. Les dividendes subissent la flat tax de 31,4 % sans cotisations — mais ne valident aucune retraite."
+  },
+  {
+   "cell": "A4",
+   "f": "Poste",
+   "v": "Poste"
+  },
+  {
+   "cell": "B4",
+   "f": "1) Tout dividendes (rému 0)",
+   "v": "1) Tout dividendes (rému 0)"
+  },
+  {
+   "cell": "C4",
+   "f": "2) Rému plancher retraite + div.",
+   "v": "2) Rému plancher retraite + div."
+  },
+  {
+   "cell": "D4",
+   "f": "3) Rému 18 000 € net + div.",
+   "v": "3) Rému 18 000 € net + div."
+  },
+  {
+   "cell": "A5",
+   "f": "Bénéfice avant rémunération (CA − charges réelles)",
+   "v": "Bénéfice avant rémunération (CA − charges réelles)"
+  },
+  {
+   "cell": "B5",
+   "f": "=Parametres!$B$5*(1-Parametres!$B$6)-Parametres!$B$7-Parametres!$B$8",
+   "v": 32081.43
+  },
+  {
+   "cell": "C5",
+   "f": "=Parametres!$B$5*(1-Parametres!$B$6)-Parametres!$B$7-Parametres!$B$8",
+   "v": 32081.43
+  },
+  {
+   "cell": "D5",
+   "f": "=Parametres!$B$5*(1-Parametres!$B$6)-Parametres!$B$7-Parametres!$B$8",
+   "v": 32081.43
+  },
+  {
+   "cell": "A6",
+   "f": "Rémunération nette du président",
+   "v": "Rémunération nette du président"
+  },
+  {
+   "cell": "B6",
+   "f": "0",
+   "v": 0
+  },
+  {
+   "cell": "C6",
+   "f": "=Parametres!$B$30",
+   "v": 5600
+  },
+  {
+   "cell": "D6",
+   "f": "18000",
+   "v": 18000
+  },
+  {
+   "cell": "A7",
+   "f": "(−) Coût total de la rémunération (net × 1,80)",
+   "v": "(−) Coût total de la rémunération (net × 1,80)"
+  },
+  {
+   "cell": "B7",
+   "f": "=-B6*Parametres!$B$19",
+   "v": 0
+  },
+  {
+   "cell": "C7",
+   "f": "=-C6*Parametres!$B$19",
+   "v": -10080
+  },
+  {
+   "cell": "D7",
+   "f": "=-D6*Parametres!$B$19",
+   "v": -32400
+  },
+  {
+   "cell": "A8",
+   "f": "Base imposable IS",
+   "v": "Base imposable IS"
+  },
+  {
+   "cell": "B8",
+   "f": "=MAX(B5+B7,0)",
+   "v": 32081.43
+  },
+  {
+   "cell": "C8",
+   "f": "=MAX(C5+C7,0)",
+   "v": 22001.43
+  },
+  {
+   "cell": "D8",
+   "f": "=MAX(D5+D7,0)",
+   "v": 0
+  },
+  {
+   "cell": "A9",
+   "f": "(−) Impôt sur les sociétés (15 % puis 25 %)",
+   "v": "(−) Impôt sur les sociétés (15 % puis 25 %)"
+  },
+  {
+   "cell": "B9",
+   "f": "=-(Parametres!$B$23*MIN(B8,Parametres!$B$22)+Parametres!$B$24*MAX(B8-Parametres!$B$22,0))",
+   "v": -4812.2145
+  },
+  {
+   "cell": "C9",
+   "f": "=-(Parametres!$B$23*MIN(C8,Parametres!$B$22)+Parametres!$B$24*MAX(C8-Parametres!$B$22,0))",
+   "v": -3300.2145
+  },
+  {
+   "cell": "D9",
+   "f": "=-(Parametres!$B$23*MIN(D8,Parametres!$B$22)+Parametres!$B$24*MAX(D8-Parametres!$B$22,0))",
+   "v": 0
+  },
+  {
+   "cell": "A10",
+   "f": "Bénéfice distribuable",
+   "v": "Bénéfice distribuable"
+  },
+  {
+   "cell": "B10",
+   "f": "=B8+B9",
+   "v": 27269.2155
+  },
+  {
+   "cell": "C10",
+   "f": "=C8+C9",
+   "v": 18701.2155
+  },
+  {
+   "cell": "D10",
+   "f": "=D8+D9",
+   "v": 0
+  },
+  {
+   "cell": "A11",
+   "f": "Dividendes nets (flat tax 31,4 %)",
+   "v": "Dividendes nets (flat tax 31,4 %)"
+  },
+  {
+   "cell": "B11",
+   "f": "=MAX(B10,0)*(1-Parametres!$B$25)",
+   "v": 18706.6818
+  },
+  {
+   "cell": "C11",
+   "f": "=MAX(C10,0)*(1-Parametres!$B$25)",
+   "v": 12829.0338
+  },
+  {
+   "cell": "D11",
+   "f": "=MAX(D10,0)*(1-Parametres!$B$25)",
+   "v": 0
+  },
+  {
+   "cell": "A12",
+   "f": "NET EN POCHE / AN (rému + dividendes)",
+   "v": "NET EN POCHE / AN (rému + dividendes)"
+  },
+  {
+   "cell": "B12",
+   "f": "=B6+B11",
+   "v": 18706.6818
+  },
+  {
+   "cell": "C12",
+   "f": "=C6+C11",
+   "v": 18429.0338
+  },
+  {
+   "cell": "D12",
+   "f": "=D6+D11",
+   "v": 18000
+  },
+  {
+   "cell": "A13",
+   "f": "4 trimestres de retraite validés ?",
+   "v": "4 trimestres de retraite validés ?"
+  },
+  {
+   "cell": "B13",
+   "f": "=IF(B6>=Parametres!$B$30,\"oui\",\"non\")",
+   "v": "non"
+  },
+  {
+   "cell": "C13",
+   "f": "=IF(C6>=Parametres!$B$30,\"oui\",\"non\")",
+   "v": "oui"
+  },
+  {
+   "cell": "D13",
+   "f": "=IF(D6>=Parametres!$B$30,\"oui\",\"non\")",
+   "v": "oui"
+  },
+  {
+   "cell": "A15",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A16",
+   "f": "Quand la SASU a-t-elle du sens ?",
+   "v": "Quand la SASU a-t-elle du sens ?"
+  },
+  {
+   "cell": "B16",
+   "f": "Quand le créateur touche l'ARE (dividendes sans impact sur l'allocation) ou veut accueillir des investisseurs. Anis n'est dans aucun de ces cas (phase 4 : pas d'ARE) — la SASU lui coûte ~5 000 €/an de plus que la micro, plus ~1 000-1 500 € ",
+   "v": "Quand le créateur touche l'ARE (dividendes sans impact sur l'allocation) ou veut accueillir des investisseurs. Anis n'est dans aucun de ces cas (phase 4 : pas d'ARE) — la SASU lui coûte ~5 000 €/an de plus que la micro, plus ~1 000-1 500 € de comptabilité."
+  },
+  {
+   "cell": "A17",
+   "f": "Assimilé salarié",
+   "v": "Assimilé salarié"
+  },
+  {
+   "cell": "B17",
+   "f": "Bonne protection sociale (régime général) mais au prix fort : 1 € net = 1,80 € déboursé. Sans rémunération : aucune protection, aucune retraite.",
+   "v": "Bonne protection sociale (régime général) mais au prix fort : 1 € net = 1,80 € déboursé. Sans rémunération : aucune protection, aucune retraite."
+  },
+  {
+   "cell": "A18",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "Comparatif": [
+  {
+   "cell": "A1",
+   "f": "COMPARATIF FINAL — net annuel en poche d'Anis, même CA, mêmes charges",
+   "v": "COMPARATIF FINAL — net annuel en poche d'Anis, même CA, mêmes charges"
+  },
+  {
+   "cell": "A2",
+   "f": "Classement au CA prévisionnel (36 573 €). Les coûts de comptabilité des sociétés (~800-1 500 €/an) ne sont PAS déduits — l'écart réel est donc encore plus favorable à la micro.",
+   "v": "Classement au CA prévisionnel (36 573 €). Les coûts de comptabilité des sociétés (~800-1 500 €/an) ne sont PAS déduits — l'écart réel est donc encore plus favorable à la micro."
+  },
+  {
+   "cell": "A4",
+   "f": "Statut & variante",
+   "v": "Statut & variante"
+  },
+  {
+   "cell": "B4",
+   "f": "Net annuel en poche",
+   "v": "Net annuel en poche"
+  },
+  {
+   "cell": "C4",
+   "f": "Net mensuel",
+   "v": "Net mensuel"
+  },
+  {
+   "cell": "D4",
+   "f": "Lecture",
+   "v": "Lecture"
+  },
+  {
+   "cell": "A5",
+   "f": "MICRO + ACRE (QPV) + VFL",
+   "v": "MICRO + ACRE (QPV) + VFL"
+  },
+  {
+   "cell": "B5",
+   "f": "=Micro!C10",
+   "v": 25834.863
+  },
+  {
+   "cell": "C5",
+   "f": "=ROUND(B5/12,0)",
+   "v": 2153
+  },
+  {
+   "cell": "D5",
+   "f": "L'optimum si l'adresse est en QPV — à vérifier en priorité",
+   "v": "L'optimum si l'adresse est en QPV — à vérifier en priorité"
+  },
+  {
+   "cell": "A6",
+   "f": "MICRO + VFL (sans ACRE)",
+   "v": "MICRO + VFL (sans ACRE)"
+  },
+  {
+   "cell": "B6",
+   "f": "=Micro!B10",
+   "v": 23896.494
+  },
+  {
+   "cell": "C6",
+   "f": "=ROUND(B6/12,0)",
+   "v": 1991
+  },
+  {
+   "cell": "D6",
+   "f": "Le scénario de référence du dossier préfecture",
+   "v": "Le scénario de référence du dossier préfecture"
+  },
+  {
+   "cell": "A7",
+   "f": "MICRO au barème (TMI)",
+   "v": "MICRO au barème (TMI)"
+  },
+  {
+   "cell": "B7",
+   "f": "=Micro!D10",
+   "v": 22506.72
+  },
+  {
+   "cell": "C7",
+   "f": "=ROUND(B7/12,0)",
+   "v": 1876
+  },
+  {
+   "cell": "D7",
+   "f": "Proche du VFL à TMI 11 % — arbitrage au moment de la création",
+   "v": "Proche du VFL à TMI 11 % — arbitrage au moment de la création"
+  },
+  {
+   "cell": "A8",
+   "f": "EURL — rému 18 000 € net + dividendes",
+   "v": "EURL — rému 18 000 € net + dividendes"
+  },
+  {
+   "cell": "B8",
+   "f": "=EURL!D13",
+   "v": 20171.9389
+  },
+  {
+   "cell": "C8",
+   "f": "=ROUND(B8/12,0)",
+   "v": 1681
+  },
+  {
+   "cell": "D8",
+   "f": "La meilleure alternative société — et pourtant ~3 700 € de moins que la micro, hors frais de comptabilité",
+   "v": "La meilleure alternative société — et pourtant ~3 700 € de moins que la micro, hors frais de comptabilité"
+  },
+  {
+   "cell": "A9",
+   "f": "EI au réel",
+   "v": "EI au réel"
+  },
+  {
+   "cell": "B9",
+   "f": "=EI_reel!B10",
+   "v": 19415.6814
+  },
+  {
+   "cell": "C9",
+   "f": "=ROUND(B9/12,0)",
+   "v": 1618
+  },
+  {
+   "cell": "D9",
+   "f": "~4 500 € de moins : l'abattement de 50 % bat les charges réelles de 13 %",
+   "v": "~4 500 € de moins : l'abattement de 50 % bat les charges réelles de 13 %"
+  },
+  {
+   "cell": "A10",
+   "f": "SASU — tout dividendes (rému 0)",
+   "v": "SASU — tout dividendes (rému 0)"
+  },
+  {
+   "cell": "B10",
+   "f": "=SASU!B12",
+   "v": 18706.6818
+  },
+  {
+   "cell": "C10",
+   "f": "=ROUND(B10/12,0)",
+   "v": 1559
+  },
+  {
+   "cell": "D10",
+   "f": "Flat tax 31,4 % sur tout — et zéro retraite validée",
+   "v": "Flat tax 31,4 % sur tout — et zéro retraite validée"
+  },
+  {
+   "cell": "A11",
+   "f": "SASU — rému plancher + dividendes",
+   "v": "SASU — rému plancher + dividendes"
+  },
+  {
+   "cell": "B11",
+   "f": "=SASU!C12",
+   "v": 18429.0338
+  },
+  {
+   "cell": "C11",
+   "f": "=ROUND(B11/12,0)",
+   "v": 1536
+  },
+  {
+   "cell": "D11",
+   "f": "Le poids du 1,80 € par euro net",
+   "v": "Le poids du 1,80 € par euro net"
+  },
+  {
+   "cell": "A12",
+   "f": "EURL — tout dividendes",
+   "v": "EURL — tout dividendes"
+  },
+  {
+   "cell": "B12",
+   "f": "=EURL!B13",
+   "v": 11067.6989
+  },
+  {
+   "cell": "C12",
+   "f": "=ROUND(B12/12,0)",
+   "v": 922
+  },
+  {
+   "cell": "D12",
+   "f": "LA PIRE option : dividendes TNS sur-taxés au-delà de 10 % du capital",
+   "v": "LA PIRE option : dividendes TNS sur-taxés au-delà de 10 % du capital"
+  },
+  {
+   "cell": "A14",
+   "f": "SEUILS DE BASCULE — quand rouvrir le dossier",
+   "v": "SEUILS DE BASCULE — quand rouvrir le dossier"
+  },
+  {
+   "cell": "A15",
+   "f": "CA approche le plafond micro",
+   "v": "CA approche le plafond micro"
+  },
+  {
+   "cell": "B15",
+   "f": "=Parametres!$B$31",
+   "v": 83600
+  },
+  {
+   "cell": "D15",
+   "f": "Préparer la bascule un an avant (statuts, compta, TVA déjà acquise)",
+   "v": "Préparer la bascule un an avant (statuts, compta, TVA déjà acquise)"
+  },
+  {
+   "cell": "A16",
+   "f": "Charges réelles dépassent l'abattement de 50 %",
+   "v": "Charges réelles dépassent l'abattement de 50 %"
+  },
+  {
+   "cell": "B16",
+   "f": "=Parametres!$B$5*0.5",
+   "v": 18286.5
+  },
+  {
+   "cell": "D16",
+   "f": "Embauche, utilitaire, local : recalculer EI réel / EURL",
+   "v": "Embauche, utilitaire, local : recalculer EI réel / EURL"
+  },
+  {
+   "cell": "A17",
+   "f": "Seuil TVA (rappel — indépendant de la forme)",
+   "v": "Seuil TVA (rappel — indépendant de la forme)"
+  },
+  {
+   "cell": "B17",
+   "f": "37500",
+   "v": 37500
+  },
+  {
+   "cell": "D17",
+   "f": "Dépassement attendu dès l'an 2 — sans lien avec le choix de statut",
+   "v": "Dépassement attendu dès l'an 2 — sans lien avec le choix de statut"
+  },
+  {
+   "cell": "A19",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A20",
+   "f": "Pourquoi la micro gagne-t-elle si nettement ?",
+   "v": "Pourquoi la micro gagne-t-elle si nettement ?"
+  },
+  {
+   "cell": "B20",
+   "f": "Le fisc lui accorde un abattement forfaitaire de 50 % du CA alors que les charges réelles d'Anis ne font que ~13 % : la différence (37 points de CA) est un cadeau fiscal net. Plus le métier est léger en charges, plus la micro est imbattable",
+   "v": "Le fisc lui accorde un abattement forfaitaire de 50 % du CA alors que les charges réelles d'Anis ne font que ~13 % : la différence (37 points de CA) est un cadeau fiscal net. Plus le métier est léger en charges, plus la micro est imbattable."
+  },
+  {
+   "cell": "A21",
+   "f": "Le classement change-t-il avec le CA ?",
+   "v": "Le classement change-t-il avec le CA ?"
+  },
+  {
+   "cell": "B21",
+   "f": "Non, pas avant le plafond : tester B4=83 600 dans Parametres — la micro reste en tête. C'est le PLAFOND qui force la sortie, pas l'optimisation.",
+   "v": "Non, pas avant le plafond : tester B4=83 600 dans Parametres — la micro reste en tête. C'est le PLAFOND qui force la sortie, pas l'optimisation."
+  },
+  {
+   "cell": "A22",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ]
+}

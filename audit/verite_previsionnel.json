@@ -1,0 +1,3049 @@
+{
+ "Hypotheses": [
+  {
+   "cell": "A1",
+   "f": "PRÉVISIONNEL — L'AZ DU CLEAN (ENTRETIEN & NETTOYAGE)  |  Hypothèses",
+   "v": "PRÉVISIONNEL — L'AZ DU CLEAN (ENTRETIEN & NETTOYAGE)  |  Hypothèses"
+  },
+  {
+   "cell": "A2",
+   "f": "Cellules bleues = modifiables (fond jaune = pilotes clés). Tout le reste se recalcule automatiquement. Micro-entreprise, BIC prestations de services.",
+   "v": "Cellules bleues = modifiables (fond jaune = pilotes clés). Tout le reste se recalcule automatiquement. Micro-entreprise, BIC prestations de services."
+  },
+  {
+   "cell": "A4",
+   "f": "1) PRESTATIONS — DURÉES, TAUX HORAIRES & PANIERS",
+   "v": "1) PRESTATIONS — DURÉES, TAUX HORAIRES & PANIERS"
+  },
+  {
+   "cell": "A5",
+   "f": "Prestation",
+   "v": "Prestation"
+  },
+  {
+   "cell": "B5",
+   "f": "Heures / prestation",
+   "v": "Heures / prestation"
+  },
+  {
+   "cell": "C5",
+   "f": "Taux horaire (€/h)",
+   "v": "Taux horaire (€/h)"
+  },
+  {
+   "cell": "D5",
+   "f": "CA par prestation (€)",
+   "v": "CA par prestation (€)"
+  },
+  {
+   "cell": "E5",
+   "f": "Note",
+   "v": "Note"
+  },
+  {
+   "cell": "A6",
+   "f": "B2B — passage d'entretien (bureau, commerce, cabinet)",
+   "v": "B2B — passage d'entretien (bureau, commerce, cabinet)"
+  },
+  {
+   "cell": "B6",
+   "f": "1.2",
+   "v": 1.2
+  },
+  {
+   "cell": "C6",
+   "f": "=B15",
+   "v": null
+  },
+  {
+   "cell": "D6",
+   "f": "=B6*C6",
+   "v": null
+  },
+  {
+   "cell": "E6",
+   "f": "Taux effectif calculé lignes 11-16",
+   "v": "Taux effectif calculé lignes 11-16"
+  },
+  {
+   "cell": "A7",
+   "f": "Vitrerie — intervention chez un client sous contrat",
+   "v": "Vitrerie — intervention chez un client sous contrat"
+  },
+  {
+   "cell": "B7",
+   "f": "2",
+   "v": 2
+  },
+  {
+   "cell": "C7",
+   "f": "32",
+   "v": 32
+  },
+  {
+   "cell": "D7",
+   "f": "=B7*C7",
+   "v": null
+  },
+  {
+   "cell": "E7",
+   "f": "Prestation mieux valorisée",
+   "v": "Prestation mieux valorisée"
+  },
+  {
+   "cell": "A8",
+   "f": "Airbnb — rotation entre deux locataires",
+   "v": "Airbnb — rotation entre deux locataires"
+  },
+  {
+   "cell": "B8",
+   "f": "2.5",
+   "v": 2.5
+  },
+  {
+   "cell": "C8",
+   "f": "30",
+   "v": 30
+  },
+  {
+   "cell": "D8",
+   "f": "=B8*C8",
+   "v": null
+  },
+  {
+   "cell": "E8",
+   "f": "Linge fourni par le propriétaire",
+   "v": "Linge fourni par le propriétaire"
+  },
+  {
+   "cell": "A9",
+   "f": "Particuliers — prestation de ménage",
+   "v": "Particuliers — prestation de ménage"
+  },
+  {
+   "cell": "B9",
+   "f": "3",
+   "v": 3
+  },
+  {
+   "cell": "C9",
+   "f": "30",
+   "v": 30
+  },
+  {
+   "cell": "D9",
+   "f": "=B9*C9",
+   "v": null
+  },
+  {
+   "cell": "E9",
+   "f": "Sans engagement, à la demande",
+   "v": "Sans engagement, à la demande"
+  },
+  {
+   "cell": "A10",
+   "f": "Taux horaire B2B standard — contrat mensuel",
+   "v": "Taux horaire B2B standard — contrat mensuel"
+  },
+  {
+   "cell": "B10",
+   "f": "30",
+   "v": 30
+  },
+  {
+   "cell": "A11",
+   "f": "Part des contrats B2B en formule annuelle",
+   "v": "Part des contrats B2B en formule annuelle"
+  },
+  {
+   "cell": "B11",
+   "f": "0.5",
+   "v": 0.5
+  },
+  {
+   "cell": "A12",
+   "f": "Remise de la formule annuelle (28 €/h au lieu de 30 €/h)",
+   "v": "Remise de la formule annuelle (28 €/h au lieu de 30 €/h)"
+  },
+  {
+   "cell": "B12",
+   "f": "0.067",
+   "v": 0.067
+  },
+  {
+   "cell": "A13",
+   "f": "Passages par site B2B et par semaine",
+   "v": "Passages par site B2B et par semaine"
+  },
+  {
+   "cell": "B13",
+   "f": "2",
+   "v": 2
+  },
+  {
+   "cell": "A14",
+   "f": "Semaines facturées par mois",
+   "v": "Semaines facturées par mois"
+  },
+  {
+   "cell": "B14",
+   "f": "4.33",
+   "v": 4.33
+  },
+  {
+   "cell": "A15",
+   "f": "Taux horaire B2B effectif (standard pondéré par la remise)",
+   "v": "Taux horaire B2B effectif (standard pondéré par la remise)"
+  },
+  {
+   "cell": "B15",
+   "f": "=B10*(1-B11*B12)",
+   "v": null
+  },
+  {
+   "cell": "A16",
+   "f": "CA mensuel par site B2B sous contrat",
+   "v": "CA mensuel par site B2B sous contrat"
+  },
+  {
+   "cell": "B16",
+   "f": "=B13*B14*B6*B15",
+   "v": null
+  },
+  {
+   "cell": "C16",
+   "f": "passages/sem × semaines × heures/passage × taux effectif",
+   "v": "passages/sem × semaines × heures/passage × taux effectif"
+  },
+  {
+   "cell": "A17",
+   "f": "Part de la vitrerie (en % du CA B2B — pour scénarios et sensibilité)",
+   "v": "Part de la vitrerie (en % du CA B2B — pour scénarios et sensibilité)"
+  },
+  {
+   "cell": "B17",
+   "f": "0.07",
+   "v": 0.07
+  },
+  {
+   "cell": "A19",
+   "f": "2) PRÉLÈVEMENTS SOCIAUX & FISCAUX (MICRO, BIC SERVICES)",
+   "v": "2) PRÉLÈVEMENTS SOCIAUX & FISCAUX (MICRO, BIC SERVICES)"
+  },
+  {
+   "cell": "A20",
+   "f": "Taux de cotisations sociales (2026)",
+   "v": "Taux de cotisations sociales (2026)"
+  },
+  {
+   "cell": "B20",
+   "f": "0.212",
+   "v": 0.212
+  },
+  {
+   "cell": "C20",
+   "f": "Source : economie.gouv.fr, taux au 01/01/2026",
+   "v": "Source : economie.gouv.fr, taux au 01/01/2026"
+  },
+  {
+   "cell": "A21",
+   "f": "ACRE active la première année ? (OUI/NON)",
+   "v": "ACRE active la première année ? (OUI/NON)"
+  },
+  {
+   "cell": "B21",
+   "f": "NON",
+   "v": "NON"
+  },
+  {
+   "cell": "C21",
+   "f": "Voie réaliste : critère QPV (adresse 93 à vérifier) — phase 4",
+   "v": "Voie réaliste : critère QPV (adresse 93 à vérifier) — phase 4"
+  },
+  {
+   "cell": "A22",
+   "f": "Taux de cotisations avec ACRE",
+   "v": "Taux de cotisations avec ACRE"
+  },
+  {
+   "cell": "B22",
+   "f": "0.159",
+   "v": 0.159
+  },
+  {
+   "cell": "C22",
+   "f": "15,9 % — taux post-réforme du 01/07/2026 (10,6 % réservé aux créations antérieures)",
+   "v": "15,9 % — taux post-réforme du 01/07/2026 (10,6 % réservé aux créations antérieures)"
+  },
+  {
+   "cell": "A23",
+   "f": "Versement fiscal libératoire ? (OUI/NON)",
+   "v": "Versement fiscal libératoire ? (OUI/NON)"
+  },
+  {
+   "cell": "B23",
+   "f": "OUI",
+   "v": "OUI"
+  },
+  {
+   "cell": "C23",
+   "f": "15,9 % — taux post-réforme du 01/07/2026 (le 10,6 % ne s'applique qu'aux créations antérieures)",
+   "v": "15,9 % — taux post-réforme du 01/07/2026 (le 10,6 % ne s'applique qu'aux créations antérieures)"
+  },
+  {
+   "cell": "A24",
+   "f": "Taux du versement libératoire (BIC services)",
+   "v": "Taux du versement libératoire (BIC services)"
+  },
+  {
+   "cell": "B24",
+   "f": "0.017",
+   "v": 0.017
+  },
+  {
+   "cell": "A25",
+   "f": "Contribution à la formation professionnelle (CFP)",
+   "v": "Contribution à la formation professionnelle (CFP)"
+  },
+  {
+   "cell": "B25",
+   "f": "0.003",
+   "v": 0.003
+  },
+  {
+   "cell": "C25",
+   "f": "0,3 % — taux ARTISAN (nettoyage 81.21Z = activité artisanale, phase 5)",
+   "v": "0,3 % — taux ARTISAN (nettoyage 81.21Z = activité artisanale, phase 5)"
+  },
+  {
+   "cell": "A26",
+   "f": "Taux marginal d'imposition (TMI) du foyer d'Anis",
+   "v": "Taux marginal d'imposition (TMI) du foyer d'Anis"
+  },
+  {
+   "cell": "B26",
+   "f": "0.11",
+   "v": 0.11
+  },
+  {
+   "cell": "C26",
+   "f": "0 % si non imposable — pilote la comparaison VFL/barème (TMI 11 % retenu, cf. Simulation_Juridique)",
+   "v": "0 % si non imposable — pilote la comparaison VFL/barème (TMI 11 % retenu, cf. Simulation_Juridique)"
+  },
+  {
+   "cell": "A27",
+   "f": "TAUX GLOBAL ANNÉE 1 (cotisations + VFL + CFP, ACRE si OUI)",
+   "v": "TAUX GLOBAL ANNÉE 1 (cotisations + VFL + CFP, ACRE si OUI)"
+  },
+  {
+   "cell": "B27",
+   "f": "=IF(B21=\"OUI\",B22,B20)+IF(B23=\"OUI\",B24,0)+B25",
+   "v": null
+  },
+  {
+   "cell": "A28",
+   "f": "Taux global PLEIN (années 2 et suivantes, sans ACRE)",
+   "v": "Taux global PLEIN (années 2 et suivantes, sans ACRE)"
+  },
+  {
+   "cell": "B28",
+   "f": "=B20+IF(B23=\"OUI\",B24,0)+B25",
+   "v": null
+  },
+  {
+   "cell": "A29",
+   "f": "Abattement forfaitaire BIC services (si barème classique)",
+   "v": "Abattement forfaitaire BIC services (si barème classique)"
+  },
+  {
+   "cell": "B29",
+   "f": "0.5",
+   "v": 0.5
+  },
+  {
+   "cell": "A30",
+   "f": "COMPARAISON IMPÔT SUR LE REVENU",
+   "v": "COMPARAISON IMPÔT SUR LE REVENU"
+  },
+  {
+   "cell": "A31",
+   "f": "Impôt via versement libératoire (1,7 % du CA année 1)",
+   "v": "Impôt via versement libératoire (1,7 % du CA année 1)"
+  },
+  {
+   "cell": "B31",
+   "f": "=ROUND(Resultat!$F$5*B24,0)",
+   "v": null
+  },
+  {
+   "cell": "A32",
+   "f": "Impôt via barème (TMI × CA après abattement de 50 %)",
+   "v": "Impôt via barème (TMI × CA après abattement de 50 %)"
+  },
+  {
+   "cell": "B32",
+   "f": "=ROUND(Resultat!$F$5*(1-B29)*B26,0)",
+   "v": null
+  },
+  {
+   "cell": "A33",
+   "f": "Option la moins chère pour Anis",
+   "v": "Option la moins chère pour Anis"
+  },
+  {
+   "cell": "B33",
+   "f": "=IF(B31<=B32,\"Versement libératoire\",\"Barème classique\")",
+   "v": null
+  },
+  {
+   "cell": "A35",
+   "f": "3) CHARGES VARIABLES (EN % DU CA)",
+   "v": "3) CHARGES VARIABLES (EN % DU CA)"
+  },
+  {
+   "cell": "A36",
+   "f": "Produits & consommables (lavettes, détergents, sacs)",
+   "v": "Produits & consommables (lavettes, détergents, sacs)"
+  },
+  {
+   "cell": "B36",
+   "f": "0.04",
+   "v": 0.04
+  },
+  {
+   "cell": "A37",
+   "f": "Déplacements (carburant, stationnement Paris/petite couronne)",
+   "v": "Déplacements (carburant, stationnement Paris/petite couronne)"
+  },
+  {
+   "cell": "B37",
+   "f": "0.05",
+   "v": 0.05
+  },
+  {
+   "cell": "A39",
+   "f": "4) CHARGES FIXES MENSUELLES",
+   "v": "4) CHARGES FIXES MENSUELLES"
+  },
+  {
+   "cell": "A40",
+   "f": "Assurance responsabilité civile professionnelle",
+   "v": "Assurance responsabilité civile professionnelle"
+  },
+  {
+   "cell": "B40",
+   "f": "15",
+   "v": 15
+  },
+  {
+   "cell": "C40",
+   "f": "100-250 €/an",
+   "v": "100-250 €/an"
+  },
+  {
+   "cell": "A41",
+   "f": "Surprime véhicule usage professionnel",
+   "v": "Surprime véhicule usage professionnel"
+  },
+  {
+   "cell": "B41",
+   "f": "12",
+   "v": 12
+  },
+  {
+   "cell": "A42",
+   "f": "Téléphone professionnel",
+   "v": "Téléphone professionnel"
+  },
+  {
+   "cell": "B42",
+   "f": "15",
+   "v": 15
+  },
+  {
+   "cell": "A43",
+   "f": "Logiciel de facturation / gestion",
+   "v": "Logiciel de facturation / gestion"
+  },
+  {
+   "cell": "B43",
+   "f": "25",
+   "v": 25
+  },
+  {
+   "cell": "C43",
+   "f": "Inclut le suivi des seuils micro",
+   "v": "Inclut le suivi des seuils micro"
+  },
+  {
+   "cell": "A44",
+   "f": "Compte bancaire professionnel",
+   "v": "Compte bancaire professionnel"
+  },
+  {
+   "cell": "B44",
+   "f": "8",
+   "v": 8
+  },
+  {
+   "cell": "A45",
+   "f": "Total charges fixes / mois",
+   "v": "Total charges fixes / mois"
+  },
+  {
+   "cell": "B45",
+   "f": "=SUM(B40:B44)",
+   "v": null
+  },
+  {
+   "cell": "A46",
+   "f": "Total charges fixes / an",
+   "v": "Total charges fixes / an"
+  },
+  {
+   "cell": "B46",
+   "f": "=B45*12",
+   "v": null
+  },
+  {
+   "cell": "A47",
+   "f": "CFE annuelle (exonérée l'année de création, due dès l'année 2)",
+   "v": "CFE annuelle (exonérée l'année de création, due dès l'année 2)"
+  },
+  {
+   "cell": "B47",
+   "f": "300",
+   "v": 300
+  },
+  {
+   "cell": "A49",
+   "f": "5) INVESTISSEMENT, APPORT & ENCAISSEMENTS",
+   "v": "5) INVESTISSEMENT, APPORT & ENCAISSEMENTS"
+  },
+  {
+   "cell": "A50",
+   "f": "Matériel initial (aspirateur pro, chariot, kit vitres, stock produits)",
+   "v": "Matériel initial (aspirateur pro, chariot, kit vitres, stock produits)"
+  },
+  {
+   "cell": "B50",
+   "f": "1200",
+   "v": 1200
+  },
+  {
+   "cell": "A51",
+   "f": "Apport de départ (trésorerie initiale)",
+   "v": "Apport de départ (trésorerie initiale)"
+  },
+  {
+   "cell": "B51",
+   "f": "2000",
+   "v": 2000
+  },
+  {
+   "cell": "C51",
+   "f": "Le bon montant se lit dans Tresorerie (apport minimal)",
+   "v": "Le bon montant se lit dans Tresorerie (apport minimal)"
+  },
+  {
+   "cell": "A52",
+   "f": "Part du CA B2B + vitrerie encaissée à 30 jours",
+   "v": "Part du CA B2B + vitrerie encaissée à 30 jours"
+  },
+  {
+   "cell": "B52",
+   "f": "1",
+   "v": 1
+  },
+  {
+   "cell": "C52",
+   "f": "Factures B2B payées le mois suivant ; Airbnb et particuliers comptant",
+   "v": "Factures B2B payées le mois suivant ; Airbnb et particuliers comptant"
+  },
+  {
+   "cell": "A54",
+   "f": "6) OBJECTIF, CAPACITÉ & PLAFONDS",
+   "v": "6) OBJECTIF, CAPACITÉ & PLAFONDS"
+  },
+  {
+   "cell": "A55",
+   "f": "Revenu net mensuel cible (après charges, avant IR)",
+   "v": "Revenu net mensuel cible (après charges, avant IR)"
+  },
+  {
+   "cell": "B55",
+   "f": "1500",
+   "v": 1500
+  },
+  {
+   "cell": "A56",
+   "f": "Capacité maximale d'heures facturables par mois (solo)",
+   "v": "Capacité maximale d'heures facturables par mois (solo)"
+  },
+  {
+   "cell": "B56",
+   "f": "165",
+   "v": 165
+  },
+  {
+   "cell": "C56",
+   "f": "38 h/sem × 4,33 — le reste : prospection, trajets, admin",
+   "v": "38 h/sem × 4,33 — le reste : prospection, trajets, admin"
+  },
+  {
+   "cell": "A57",
+   "f": "Plafond de CA micro — prestations de services (€/an)",
+   "v": "Plafond de CA micro — prestations de services (€/an)"
+  },
+  {
+   "cell": "B57",
+   "f": "83600",
+   "v": 83600
+  },
+  {
+   "cell": "A58",
+   "f": "Seuil de franchise TVA — services (€/an)",
+   "v": "Seuil de franchise TVA — services (€/an)"
+  },
+  {
+   "cell": "B58",
+   "f": "37500",
+   "v": 37500
+  },
+  {
+   "cell": "A59",
+   "f": "Seuil TVA majoré (tolérance un an)",
+   "v": "Seuil TVA majoré (tolérance un an)"
+  },
+  {
+   "cell": "B59",
+   "f": "41250",
+   "v": 41250
+  },
+  {
+   "cell": "A61",
+   "f": "7) PROJECTION 5 ANS — CROISSANCE DU CA",
+   "v": "7) PROJECTION 5 ANS — CROISSANCE DU CA"
+  },
+  {
+   "cell": "A62",
+   "f": "Croissance du CA — année 2",
+   "v": "Croissance du CA — année 2"
+  },
+  {
+   "cell": "B62",
+   "f": "0.3",
+   "v": 0.3
+  },
+  {
+   "cell": "A63",
+   "f": "Croissance du CA — année 3",
+   "v": "Croissance du CA — année 3"
+  },
+  {
+   "cell": "B63",
+   "f": "0.2",
+   "v": 0.2
+  },
+  {
+   "cell": "A64",
+   "f": "Croissance du CA — année 4",
+   "v": "Croissance du CA — année 4"
+  },
+  {
+   "cell": "B64",
+   "f": "0.1",
+   "v": 0.1
+  },
+  {
+   "cell": "A65",
+   "f": "Croissance du CA — année 5",
+   "v": "Croissance du CA — année 5"
+  },
+  {
+   "cell": "B65",
+   "f": "0.1",
+   "v": 0.1
+  },
+  {
+   "cell": "A67",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A68",
+   "f": "Taux horaire effectif B2B",
+   "v": "Taux horaire effectif B2B"
+  },
+  {
+   "cell": "B68",
+   "f": "Le taux moyen réellement facturé : taux standard × (1 − part annuelle × remise). Exemple : 30 € × (1 − 50 % × 6,7 %) = 29,00 €/h.",
+   "v": "Le taux moyen réellement facturé : taux standard × (1 − part annuelle × remise). Exemple : 30 € × (1 − 50 % × 6,7 %) = 29,00 €/h."
+  },
+  {
+   "cell": "A69",
+   "f": "CA mensuel par site B2B",
+   "v": "CA mensuel par site B2B"
+  },
+  {
+   "cell": "B69",
+   "f": "Ce qu'un client sous contrat rapporte chaque mois : passages/semaine × semaines × heures/passage × taux effectif = 2 × 4,33 × 1,2 × 29 € ≈ 301 €.",
+   "v": "Ce qu'un client sous contrat rapporte chaque mois : passages/semaine × semaines × heures/passage × taux effectif = 2 × 4,33 × 1,2 × 29 € ≈ 301 €."
+  },
+  {
+   "cell": "A70",
+   "f": "Taux global",
+   "v": "Taux global"
+  },
+  {
+   "cell": "B70",
+   "f": "Tout ce qui est prélevé sur CHAQUE euro encaissé : cotisations sociales + impôt libératoire + formation professionnelle. Sans ACRE : 21,2 + 1,7 + 0,3 = 23,2 %.",
+   "v": "Tout ce qui est prélevé sur CHAQUE euro encaissé : cotisations sociales + impôt libératoire + formation professionnelle. Sans ACRE : 21,2 + 1,7 + 0,3 = 23,2 %."
+  },
+  {
+   "cell": "A71",
+   "f": "ACRE",
+   "v": "ACRE"
+  },
+  {
+   "cell": "B71",
+   "f": "Aide à la création : cotisations réduites à 10,6 % environ un an. Mettre OUI en B22 seulement si l'éligibilité d'Anis est confirmée (phase 5 de l'étude).",
+   "v": "Aide à la création : cotisations réduites à 10,6 % environ un an. Mettre OUI en B22 seulement si l'éligibilité d'Anis est confirmée (phase 5 de l'étude)."
+  },
+  {
+   "cell": "A72",
+   "f": "Versement libératoire vs barème",
+   "v": "Versement libératoire vs barème"
+  },
+  {
+   "cell": "B72",
+   "f": "Deux façons de payer l'impôt sur le revenu. VFL : 1,7 % du CA, payé au fil de l'eau, soldé. Barème : le CA après abattement de 50 % s'ajoute aux revenus du foyer. La ligne 34 désigne automatiquement l'option la moins chère selon le TMI sais",
+   "v": "Deux façons de payer l'impôt sur le revenu. VFL : 1,7 % du CA, payé au fil de l'eau, soldé. Barème : le CA après abattement de 50 % s'ajoute aux revenus du foyer. La ligne 34 désigne automatiquement l'option la moins chère selon le TMI saisi en B27."
+  },
+  {
+   "cell": "A73",
+   "f": "Part encaissée à 30 jours",
+   "v": "Part encaissée à 30 jours"
+  },
+  {
+   "cell": "B73",
+   "f": "Les clients B2B paient sur facture le mois suivant la prestation : 100 % = tout le B2B est encaissé avec un mois de décalage. Pilote le besoin de trésorerie.",
+   "v": "Les clients B2B paient sur facture le mois suivant la prestation : 100 % = tout le B2B est encaissé avec un mois de décalage. Pilote le besoin de trésorerie."
+  },
+  {
+   "cell": "A74",
+   "f": "Apport de départ",
+   "v": "Apport de départ"
+  },
+  {
+   "cell": "B74",
+   "f": "L'argent mis sur le compte pro au lancement pour traverser la montée en charge. L'onglet Tresorerie calcule l'apport minimal nécessaire.",
+   "v": "L'argent mis sur le compte pro au lancement pour traverser la montée en charge. L'onglet Tresorerie calcule l'apport minimal nécessaire."
+  },
+  {
+   "cell": "A75",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "Resultat": [
+  {
+   "cell": "A1",
+   "f": "RÉSULTAT ANALYTIQUE — ANNÉE 1, PAR ACTIVITÉ",
+   "v": "RÉSULTAT ANALYTIQUE — ANNÉE 1, PAR ACTIVITÉ"
+  },
+  {
+   "cell": "A2",
+   "f": "Vue de gestion micro-entreprise : les charges réelles ne réduisent pas l'impôt (abattement forfaitaire) mais sortent bien de la poche — d'où le « net réel ».",
+   "v": "Vue de gestion micro-entreprise : les charges réelles ne réduisent pas l'impôt (abattement forfaitaire) mais sortent bien de la poche — d'où le « net réel »."
+  },
+  {
+   "cell": "A4",
+   "f": "Poste",
+   "v": "Poste"
+  },
+  {
+   "cell": "B4",
+   "f": "B2B",
+   "v": "B2B"
+  },
+  {
+   "cell": "C4",
+   "f": "Vitrerie",
+   "v": "Vitrerie"
+  },
+  {
+   "cell": "D4",
+   "f": "Airbnb",
+   "v": "Airbnb"
+  },
+  {
+   "cell": "E4",
+   "f": "Particuliers",
+   "v": "Particuliers"
+  },
+  {
+   "cell": "F4",
+   "f": "TOTAL",
+   "v": "TOTAL"
+  },
+  {
+   "cell": "A5",
+   "f": "Chiffre d'affaires",
+   "v": "Chiffre d'affaires"
+  },
+  {
+   "cell": "B5",
+   "f": "=Plan_Activite!N8",
+   "v": null
+  },
+  {
+   "cell": "C5",
+   "f": "=Plan_Activite!N11",
+   "v": null
+  },
+  {
+   "cell": "D5",
+   "f": "=Plan_Activite!N14",
+   "v": null
+  },
+  {
+   "cell": "E5",
+   "f": "=Plan_Activite!N17",
+   "v": null
+  },
+  {
+   "cell": "F5",
+   "f": "=SUM(B5:E5)",
+   "v": null
+  },
+  {
+   "cell": "A6",
+   "f": "(−) Cotisations sociales",
+   "v": "(−) Cotisations sociales"
+  },
+  {
+   "cell": "B6",
+   "f": "=-ROUND(B5*IF(Hypotheses!$B$21=\"OUI\",Hypotheses!$B$22,Hypotheses!$B$20),0)",
+   "v": null
+  },
+  {
+   "cell": "C6",
+   "f": "=-ROUND(C5*IF(Hypotheses!$B$21=\"OUI\",Hypotheses!$B$22,Hypotheses!$B$20),0)",
+   "v": null
+  },
+  {
+   "cell": "D6",
+   "f": "=-ROUND(D5*IF(Hypotheses!$B$21=\"OUI\",Hypotheses!$B$22,Hypotheses!$B$20),0)",
+   "v": null
+  },
+  {
+   "cell": "E6",
+   "f": "=-ROUND(E5*IF(Hypotheses!$B$21=\"OUI\",Hypotheses!$B$22,Hypotheses!$B$20),0)",
+   "v": null
+  },
+  {
+   "cell": "F6",
+   "f": "=SUM(B6:E6)",
+   "v": null
+  },
+  {
+   "cell": "A7",
+   "f": "(−) Impôt sur le revenu (option choisie en Hypotheses)",
+   "v": "(−) Impôt sur le revenu (option choisie en Hypotheses)"
+  },
+  {
+   "cell": "B7",
+   "f": "=-ROUND(B5*IF(Hypotheses!$B$23=\"OUI\",Hypotheses!$B$24,(1-Hypotheses!$B$29)*Hypotheses!$B$26),0)",
+   "v": null
+  },
+  {
+   "cell": "C7",
+   "f": "=-ROUND(C5*IF(Hypotheses!$B$23=\"OUI\",Hypotheses!$B$24,(1-Hypotheses!$B$29)*Hypotheses!$B$26),0)",
+   "v": null
+  },
+  {
+   "cell": "D7",
+   "f": "=-ROUND(D5*IF(Hypotheses!$B$23=\"OUI\",Hypotheses!$B$24,(1-Hypotheses!$B$29)*Hypotheses!$B$26),0)",
+   "v": null
+  },
+  {
+   "cell": "E7",
+   "f": "=-ROUND(E5*IF(Hypotheses!$B$23=\"OUI\",Hypotheses!$B$24,(1-Hypotheses!$B$29)*Hypotheses!$B$26),0)",
+   "v": null
+  },
+  {
+   "cell": "F7",
+   "f": "=SUM(B7:E7)",
+   "v": null
+  },
+  {
+   "cell": "A8",
+   "f": "(−) Formation professionnelle (CFP)",
+   "v": "(−) Formation professionnelle (CFP)"
+  },
+  {
+   "cell": "B8",
+   "f": "=-ROUND(B5*Hypotheses!$B$25,0)",
+   "v": null
+  },
+  {
+   "cell": "C8",
+   "f": "=-ROUND(C5*Hypotheses!$B$25,0)",
+   "v": null
+  },
+  {
+   "cell": "D8",
+   "f": "=-ROUND(D5*Hypotheses!$B$25,0)",
+   "v": null
+  },
+  {
+   "cell": "E8",
+   "f": "=-ROUND(E5*Hypotheses!$B$25,0)",
+   "v": null
+  },
+  {
+   "cell": "F8",
+   "f": "=SUM(B8:E8)",
+   "v": null
+  },
+  {
+   "cell": "A9",
+   "f": "(−) Produits & consommables",
+   "v": "(−) Produits & consommables"
+  },
+  {
+   "cell": "B9",
+   "f": "=-ROUND(B5*Hypotheses!$B$36,0)",
+   "v": null
+  },
+  {
+   "cell": "C9",
+   "f": "=-ROUND(C5*Hypotheses!$B$36,0)",
+   "v": null
+  },
+  {
+   "cell": "D9",
+   "f": "=-ROUND(D5*Hypotheses!$B$36,0)",
+   "v": null
+  },
+  {
+   "cell": "E9",
+   "f": "=-ROUND(E5*Hypotheses!$B$36,0)",
+   "v": null
+  },
+  {
+   "cell": "F9",
+   "f": "=SUM(B9:E9)",
+   "v": null
+  },
+  {
+   "cell": "A10",
+   "f": "(−) Déplacements",
+   "v": "(−) Déplacements"
+  },
+  {
+   "cell": "B10",
+   "f": "=-ROUND(B5*Hypotheses!$B$37,0)",
+   "v": null
+  },
+  {
+   "cell": "C10",
+   "f": "=-ROUND(C5*Hypotheses!$B$37,0)",
+   "v": null
+  },
+  {
+   "cell": "D10",
+   "f": "=-ROUND(D5*Hypotheses!$B$37,0)",
+   "v": null
+  },
+  {
+   "cell": "E10",
+   "f": "=-ROUND(E5*Hypotheses!$B$37,0)",
+   "v": null
+  },
+  {
+   "cell": "F10",
+   "f": "=SUM(B10:E10)",
+   "v": null
+  },
+  {
+   "cell": "A11",
+   "f": "CONTRIBUTION PAR ACTIVITÉ",
+   "v": "CONTRIBUTION PAR ACTIVITÉ"
+  },
+  {
+   "cell": "B11",
+   "f": "=SUM(B5:B10)",
+   "v": null
+  },
+  {
+   "cell": "C11",
+   "f": "=SUM(C5:C10)",
+   "v": null
+  },
+  {
+   "cell": "D11",
+   "f": "=SUM(D5:D10)",
+   "v": null
+  },
+  {
+   "cell": "E11",
+   "f": "=SUM(E5:E10)",
+   "v": null
+  },
+  {
+   "cell": "F11",
+   "f": "=SUM(F5:F10)",
+   "v": null
+  },
+  {
+   "cell": "A12",
+   "f": "Contribution en % du CA",
+   "v": "Contribution en % du CA"
+  },
+  {
+   "cell": "B12",
+   "f": "=IF(B5=0,\"\",B11/B5)",
+   "v": null
+  },
+  {
+   "cell": "C12",
+   "f": "=IF(C5=0,\"\",C11/C5)",
+   "v": null
+  },
+  {
+   "cell": "D12",
+   "f": "=IF(D5=0,\"\",D11/D5)",
+   "v": null
+  },
+  {
+   "cell": "E12",
+   "f": "=IF(E5=0,\"\",E11/E5)",
+   "v": null
+  },
+  {
+   "cell": "F12",
+   "f": "=IF(F5=0,\"\",F11/F5)",
+   "v": null
+  },
+  {
+   "cell": "A13",
+   "f": "CHARGES COMMUNES (NON RÉPARTIES PAR ACTIVITÉ)",
+   "v": "CHARGES COMMUNES (NON RÉPARTIES PAR ACTIVITÉ)"
+  },
+  {
+   "cell": "A14",
+   "f": "(−) Charges fixes annuelles",
+   "v": "(−) Charges fixes annuelles"
+  },
+  {
+   "cell": "F14",
+   "f": "=-Hypotheses!$B$46",
+   "v": null
+  },
+  {
+   "cell": "A15",
+   "f": "(−) CFE année 1 (exonérée — saisir 0)",
+   "v": "(−) CFE année 1 (exonérée — saisir 0)"
+  },
+  {
+   "cell": "B15",
+   "f": "Devient −300 € dès l'année 2 (voir Projection_5ans)",
+   "v": "Devient −300 € dès l'année 2 (voir Projection_5ans)"
+  },
+  {
+   "cell": "F15",
+   "f": "0",
+   "v": 0
+  },
+  {
+   "cell": "A16",
+   "f": "(−) Matériel initial (investissement de départ)",
+   "v": "(−) Matériel initial (investissement de départ)"
+  },
+  {
+   "cell": "F16",
+   "f": "=-Hypotheses!$B$50",
+   "v": null
+  },
+  {
+   "cell": "A17",
+   "f": "SYNTHÈSE & VIABILITÉ",
+   "v": "SYNTHÈSE & VIABILITÉ"
+  },
+  {
+   "cell": "A18",
+   "f": "NET RÉEL ANNÉE 1 — la poche d'Anis, avant IR si barème",
+   "v": "NET RÉEL ANNÉE 1 — la poche d'Anis, avant IR si barème"
+  },
+  {
+   "cell": "F18",
+   "f": "=F11+F14+F15+F16",
+   "v": null
+  },
+  {
+   "cell": "A19",
+   "f": "Net réel mensuel moyen (montée en charge incluse)",
+   "v": "Net réel mensuel moyen (montée en charge incluse)"
+  },
+  {
+   "cell": "F19",
+   "f": "=ROUND(F18/12,0)",
+   "v": null
+  },
+  {
+   "cell": "A20",
+   "f": "Net mensuel en RÉGIME DE CROISIÈRE (moyenne juin-août, saisonnalité incluse)",
+   "v": "Net mensuel en RÉGIME DE CROISIÈRE (moyenne juin-août, saisonnalité incluse)"
+  },
+  {
+   "cell": "F20",
+   "f": "=ROUND(AVERAGE(Plan_Activite!K22:M22),0)",
+   "v": null
+  },
+  {
+   "cell": "A21",
+   "f": "Objectif de revenu mensuel",
+   "v": "Objectif de revenu mensuel"
+  },
+  {
+   "cell": "F21",
+   "f": "=Hypotheses!$B$55",
+   "v": null
+  },
+  {
+   "cell": "A22",
+   "f": "Le projet est-il viable en croisière ?",
+   "v": "Le projet est-il viable en croisière ?"
+  },
+  {
+   "cell": "F22",
+   "f": "=IF(F20>=F21,\"OUI\",\"NON — revoir volumes ou taux\")",
+   "v": null
+  },
+  {
+   "cell": "A24",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A25",
+   "f": "Contribution par activité",
+   "v": "Contribution par activité"
+  },
+  {
+   "cell": "B25",
+   "f": "Ce que chaque métier laisse après prélèvements et charges variables. Permet de comparer la rentabilité des 4 activités : la colonne au % le plus haut est la plus rentable à l'heure.",
+   "v": "Ce que chaque métier laisse après prélèvements et charges variables. Permet de comparer la rentabilité des 4 activités : la colonne au % le plus haut est la plus rentable à l'heure."
+  },
+  {
+   "cell": "A26",
+   "f": "Charges fixes non réparties",
+   "v": "Charges fixes non réparties"
+  },
+  {
+   "cell": "B26",
+   "f": "Les 900 €/an de fixes sont communs aux 4 activités et volontairement non répartis — la lecture reste simple.",
+   "v": "Les 900 €/an de fixes sont communs aux 4 activités et volontairement non répartis — la lecture reste simple."
+  },
+  {
+   "cell": "A27",
+   "f": "Net réel",
+   "v": "Net réel"
+  },
+  {
+   "cell": "B27",
+   "f": "Contribution totale − fixes − CFE − matériel. C'est l'argent qui reste vraiment à Anis avant impôt sur le revenu (déjà payé si versement libératoire). LE chiffre que regarde la préfecture.",
+   "v": "Contribution totale − fixes − CFE − matériel. C'est l'argent qui reste vraiment à Anis avant impôt sur le revenu (déjà payé si versement libératoire). LE chiffre que regarde la préfecture."
+  },
+  {
+   "cell": "A28",
+   "f": "Croisière (juin-août)",
+   "v": "Croisière (juin-août)"
+  },
+  {
+   "cell": "B28",
+   "f": "Moyenne des 3 derniers mois du plan : le niveau de revenu une fois le carnet rempli — l'indicateur de viabilité durable, contrairement à la moyenne annuelle tirée vers le bas par le démarrage.",
+   "v": "Moyenne des 3 derniers mois du plan : le niveau de revenu une fois le carnet rempli — l'indicateur de viabilité durable, contrairement à la moyenne annuelle tirée vers le bas par le démarrage."
+  },
+  {
+   "cell": "A29",
+   "f": "Pourquoi un IR dans le résultat ?",
+   "v": "Pourquoi un IR dans le résultat ?"
+  },
+  {
+   "cell": "B29",
+   "f": "Avec le versement libératoire (1,7 % du CA), l'impôt est payé au fil de l'eau : il est donc déduit ici. Si l'option barème est choisie en Hypotheses, la ligne utilise TMI × CA × 50 %.",
+   "v": "Avec le versement libératoire (1,7 % du CA), l'impôt est payé au fil de l'eau : il est donc déduit ici. Si l'option barème est choisie en Hypotheses, la ligne utilise TMI × CA × 50 %."
+  },
+  {
+   "cell": "A30",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "Tresorerie": [
+  {
+   "cell": "A1",
+   "f": "TRÉSORERIE MENSUELLE — ANNÉE 1 (encaissements réels, B2B payé à 30 jours)",
+   "v": "TRÉSORERIE MENSUELLE — ANNÉE 1 (encaissements réels, B2B payé à 30 jours)"
+  },
+  {
+   "cell": "A2",
+   "f": "Différence avec le Resultat : ici on suit l'ARGENT RÉEL sur le compte — les factures B2B arrivent avec un mois de retard, l'URSSAF se paie sur l'encaissé.",
+   "v": "Différence avec le Resultat : ici on suit l'ARGENT RÉEL sur le compte — les factures B2B arrivent avec un mois de retard, l'URSSAF se paie sur l'encaissé."
+  },
+  {
+   "cell": "A4",
+   "f": "Flux",
+   "v": "Flux"
+  },
+  {
+   "cell": "B4",
+   "f": "2026-09-01 00:00:00",
+   "v": "2026-09-01 00:00:00"
+  },
+  {
+   "cell": "C4",
+   "f": "2026-10-01 00:00:00",
+   "v": "2026-10-01 00:00:00"
+  },
+  {
+   "cell": "D4",
+   "f": "2026-11-01 00:00:00",
+   "v": "2026-11-01 00:00:00"
+  },
+  {
+   "cell": "E4",
+   "f": "2026-12-01 00:00:00",
+   "v": "2026-12-01 00:00:00"
+  },
+  {
+   "cell": "F4",
+   "f": "2027-01-01 00:00:00",
+   "v": "2027-01-01 00:00:00"
+  },
+  {
+   "cell": "G4",
+   "f": "2027-02-01 00:00:00",
+   "v": "2027-02-01 00:00:00"
+  },
+  {
+   "cell": "H4",
+   "f": "2027-03-01 00:00:00",
+   "v": "2027-03-01 00:00:00"
+  },
+  {
+   "cell": "I4",
+   "f": "2027-04-01 00:00:00",
+   "v": "2027-04-01 00:00:00"
+  },
+  {
+   "cell": "J4",
+   "f": "2027-05-01 00:00:00",
+   "v": "2027-05-01 00:00:00"
+  },
+  {
+   "cell": "K4",
+   "f": "2027-06-01 00:00:00",
+   "v": "2027-06-01 00:00:00"
+  },
+  {
+   "cell": "L4",
+   "f": "2027-07-01 00:00:00",
+   "v": "2027-07-01 00:00:00"
+  },
+  {
+   "cell": "M4",
+   "f": "2027-08-01 00:00:00",
+   "v": "2027-08-01 00:00:00"
+  },
+  {
+   "cell": "N4",
+   "f": "AN 1",
+   "v": "AN 1"
+  },
+  {
+   "cell": "A5",
+   "f": "Trésorerie en début de mois",
+   "v": "Trésorerie en début de mois"
+  },
+  {
+   "cell": "B5",
+   "f": "=Hypotheses!$B$51",
+   "v": null
+  },
+  {
+   "cell": "C5",
+   "f": "=B12",
+   "v": null
+  },
+  {
+   "cell": "D5",
+   "f": "=C12",
+   "v": null
+  },
+  {
+   "cell": "E5",
+   "f": "=D12",
+   "v": null
+  },
+  {
+   "cell": "F5",
+   "f": "=E12",
+   "v": null
+  },
+  {
+   "cell": "G5",
+   "f": "=F12",
+   "v": null
+  },
+  {
+   "cell": "H5",
+   "f": "=G12",
+   "v": null
+  },
+  {
+   "cell": "I5",
+   "f": "=H12",
+   "v": null
+  },
+  {
+   "cell": "J5",
+   "f": "=I12",
+   "v": null
+  },
+  {
+   "cell": "K5",
+   "f": "=J12",
+   "v": null
+  },
+  {
+   "cell": "L5",
+   "f": "=K12",
+   "v": null
+  },
+  {
+   "cell": "M5",
+   "f": "=L12",
+   "v": null
+  },
+  {
+   "cell": "N5",
+   "f": "=B5",
+   "v": null
+  },
+  {
+   "cell": "A6",
+   "f": "Encaissements B2B + vitrerie (décalés de 30 jours)",
+   "v": "Encaissements B2B + vitrerie (décalés de 30 jours)"
+  },
+  {
+   "cell": "B6",
+   "f": "=ROUND((Plan_Activite!B8+Plan_Activite!B11)*(1-Hypotheses!$B$52),0)",
+   "v": null
+  },
+  {
+   "cell": "C6",
+   "f": "=ROUND((Plan_Activite!C8+Plan_Activite!C11)*(1-Hypotheses!$B$52)+(Plan_Activite!B8+Plan_Activite!B11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "D6",
+   "f": "=ROUND((Plan_Activite!D8+Plan_Activite!D11)*(1-Hypotheses!$B$52)+(Plan_Activite!C8+Plan_Activite!C11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "E6",
+   "f": "=ROUND((Plan_Activite!E8+Plan_Activite!E11)*(1-Hypotheses!$B$52)+(Plan_Activite!D8+Plan_Activite!D11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "F6",
+   "f": "=ROUND((Plan_Activite!F8+Plan_Activite!F11)*(1-Hypotheses!$B$52)+(Plan_Activite!E8+Plan_Activite!E11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "G6",
+   "f": "=ROUND((Plan_Activite!G8+Plan_Activite!G11)*(1-Hypotheses!$B$52)+(Plan_Activite!F8+Plan_Activite!F11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "H6",
+   "f": "=ROUND((Plan_Activite!H8+Plan_Activite!H11)*(1-Hypotheses!$B$52)+(Plan_Activite!G8+Plan_Activite!G11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "I6",
+   "f": "=ROUND((Plan_Activite!I8+Plan_Activite!I11)*(1-Hypotheses!$B$52)+(Plan_Activite!H8+Plan_Activite!H11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "J6",
+   "f": "=ROUND((Plan_Activite!J8+Plan_Activite!J11)*(1-Hypotheses!$B$52)+(Plan_Activite!I8+Plan_Activite!I11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "K6",
+   "f": "=ROUND((Plan_Activite!K8+Plan_Activite!K11)*(1-Hypotheses!$B$52)+(Plan_Activite!J8+Plan_Activite!J11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "L6",
+   "f": "=ROUND((Plan_Activite!L8+Plan_Activite!L11)*(1-Hypotheses!$B$52)+(Plan_Activite!K8+Plan_Activite!K11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "M6",
+   "f": "=ROUND((Plan_Activite!M8+Plan_Activite!M11)*(1-Hypotheses!$B$52)+(Plan_Activite!L8+Plan_Activite!L11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "N6",
+   "f": "=SUM(B6:M6)",
+   "v": null
+  },
+  {
+   "cell": "A7",
+   "f": "Encaissements comptant (Airbnb + particuliers)",
+   "v": "Encaissements comptant (Airbnb + particuliers)"
+  },
+  {
+   "cell": "B7",
+   "f": "=Plan_Activite!B14+Plan_Activite!B17",
+   "v": null
+  },
+  {
+   "cell": "C7",
+   "f": "=Plan_Activite!C14+Plan_Activite!C17",
+   "v": null
+  },
+  {
+   "cell": "D7",
+   "f": "=Plan_Activite!D14+Plan_Activite!D17",
+   "v": null
+  },
+  {
+   "cell": "E7",
+   "f": "=Plan_Activite!E14+Plan_Activite!E17",
+   "v": null
+  },
+  {
+   "cell": "F7",
+   "f": "=Plan_Activite!F14+Plan_Activite!F17",
+   "v": null
+  },
+  {
+   "cell": "G7",
+   "f": "=Plan_Activite!G14+Plan_Activite!G17",
+   "v": null
+  },
+  {
+   "cell": "H7",
+   "f": "=Plan_Activite!H14+Plan_Activite!H17",
+   "v": null
+  },
+  {
+   "cell": "I7",
+   "f": "=Plan_Activite!I14+Plan_Activite!I17",
+   "v": null
+  },
+  {
+   "cell": "J7",
+   "f": "=Plan_Activite!J14+Plan_Activite!J17",
+   "v": null
+  },
+  {
+   "cell": "K7",
+   "f": "=Plan_Activite!K14+Plan_Activite!K17",
+   "v": null
+  },
+  {
+   "cell": "L7",
+   "f": "=Plan_Activite!L14+Plan_Activite!L17",
+   "v": null
+  },
+  {
+   "cell": "M7",
+   "f": "=Plan_Activite!M14+Plan_Activite!M17",
+   "v": null
+  },
+  {
+   "cell": "N7",
+   "f": "=SUM(B7:M7)",
+   "v": null
+  },
+  {
+   "cell": "A8",
+   "f": "(−) Prélèvements URSSAF + impôt + CFP (sur l'encaissé)",
+   "v": "(−) Prélèvements URSSAF + impôt + CFP (sur l'encaissé)"
+  },
+  {
+   "cell": "B8",
+   "f": "=-ROUND((B6+B7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "C8",
+   "f": "=-ROUND((C6+C7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "D8",
+   "f": "=-ROUND((D6+D7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "E8",
+   "f": "=-ROUND((E6+E7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "F8",
+   "f": "=-ROUND((F6+F7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "G8",
+   "f": "=-ROUND((G6+G7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "H8",
+   "f": "=-ROUND((H6+H7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "I8",
+   "f": "=-ROUND((I6+I7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "J8",
+   "f": "=-ROUND((J6+J7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "K8",
+   "f": "=-ROUND((K6+K7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "L8",
+   "f": "=-ROUND((L6+L7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "M8",
+   "f": "=-ROUND((M6+M7)*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "N8",
+   "f": "=SUM(B8:M8)",
+   "v": null
+  },
+  {
+   "cell": "A9",
+   "f": "(−) Produits & déplacements (sur l'activité du mois)",
+   "v": "(−) Produits & déplacements (sur l'activité du mois)"
+  },
+  {
+   "cell": "B9",
+   "f": "=-ROUND(Plan_Activite!B19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "C9",
+   "f": "=-ROUND(Plan_Activite!C19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "D9",
+   "f": "=-ROUND(Plan_Activite!D19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "E9",
+   "f": "=-ROUND(Plan_Activite!E19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "F9",
+   "f": "=-ROUND(Plan_Activite!F19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "G9",
+   "f": "=-ROUND(Plan_Activite!G19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "H9",
+   "f": "=-ROUND(Plan_Activite!H19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "I9",
+   "f": "=-ROUND(Plan_Activite!I19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "J9",
+   "f": "=-ROUND(Plan_Activite!J19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "K9",
+   "f": "=-ROUND(Plan_Activite!K19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "L9",
+   "f": "=-ROUND(Plan_Activite!L19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "M9",
+   "f": "=-ROUND(Plan_Activite!M19*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "N9",
+   "f": "=SUM(B9:M9)",
+   "v": null
+  },
+  {
+   "cell": "A10",
+   "f": "(−) Charges fixes",
+   "v": "(−) Charges fixes"
+  },
+  {
+   "cell": "B10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "C10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "D10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "E10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "F10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "G10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "H10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "I10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "J10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "K10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "L10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "M10",
+   "f": "=-Hypotheses!$B$45",
+   "v": null
+  },
+  {
+   "cell": "N10",
+   "f": "=SUM(B10:M10)",
+   "v": null
+  },
+  {
+   "cell": "A11",
+   "f": "(−) Matériel initial (premier mois)",
+   "v": "(−) Matériel initial (premier mois)"
+  },
+  {
+   "cell": "B11",
+   "f": "=IF(B$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "C11",
+   "f": "=IF(C$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "D11",
+   "f": "=IF(D$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "E11",
+   "f": "=IF(E$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "F11",
+   "f": "=IF(F$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "G11",
+   "f": "=IF(G$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "H11",
+   "f": "=IF(H$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "I11",
+   "f": "=IF(I$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "J11",
+   "f": "=IF(J$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "K11",
+   "f": "=IF(K$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "L11",
+   "f": "=IF(L$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "M11",
+   "f": "=IF(M$4=$B$4,-Hypotheses!$B$50,0)",
+   "v": null
+  },
+  {
+   "cell": "N11",
+   "f": "=SUM(B11:M11)",
+   "v": null
+  },
+  {
+   "cell": "A12",
+   "f": "TRÉSORERIE EN FIN DE MOIS",
+   "v": "TRÉSORERIE EN FIN DE MOIS"
+  },
+  {
+   "cell": "B12",
+   "f": "=B5+SUM(B6:B11)",
+   "v": null
+  },
+  {
+   "cell": "C12",
+   "f": "=C5+SUM(C6:C11)",
+   "v": null
+  },
+  {
+   "cell": "D12",
+   "f": "=D5+SUM(D6:D11)",
+   "v": null
+  },
+  {
+   "cell": "E12",
+   "f": "=E5+SUM(E6:E11)",
+   "v": null
+  },
+  {
+   "cell": "F12",
+   "f": "=F5+SUM(F6:F11)",
+   "v": null
+  },
+  {
+   "cell": "G12",
+   "f": "=G5+SUM(G6:G11)",
+   "v": null
+  },
+  {
+   "cell": "H12",
+   "f": "=H5+SUM(H6:H11)",
+   "v": null
+  },
+  {
+   "cell": "I12",
+   "f": "=I5+SUM(I6:I11)",
+   "v": null
+  },
+  {
+   "cell": "J12",
+   "f": "=J5+SUM(J6:J11)",
+   "v": null
+  },
+  {
+   "cell": "K12",
+   "f": "=K5+SUM(K6:K11)",
+   "v": null
+  },
+  {
+   "cell": "L12",
+   "f": "=L5+SUM(L6:L11)",
+   "v": null
+  },
+  {
+   "cell": "M12",
+   "f": "=M5+SUM(M6:M11)",
+   "v": null
+  },
+  {
+   "cell": "N12",
+   "f": "=M12",
+   "v": null
+  },
+  {
+   "cell": "A14",
+   "f": "SYNTHÈSE — CAPITAL, OBJECTIF & SEUILS",
+   "v": "SYNTHÈSE — CAPITAL, OBJECTIF & SEUILS"
+  },
+  {
+   "cell": "A15",
+   "f": "Point bas de trésorerie sur l'année",
+   "v": "Point bas de trésorerie sur l'année"
+  },
+  {
+   "cell": "B15",
+   "f": "=MIN(B12:M12)",
+   "v": null
+  },
+  {
+   "cell": "A16",
+   "f": "L'apport de départ suffit-il ?",
+   "v": "L'apport de départ suffit-il ?"
+  },
+  {
+   "cell": "B16",
+   "f": "=IF(B15>=0,\"OUI\",\"NON — augmenter l'apport (Hypotheses B52)\")",
+   "v": null
+  },
+  {
+   "cell": "A17",
+   "f": "Apport minimal pour ne jamais être à découvert",
+   "v": "Apport minimal pour ne jamais être à découvert"
+  },
+  {
+   "cell": "B17",
+   "f": "=ROUNDUP(Hypotheses!$B$51-B15,-2)",
+   "v": null
+  },
+  {
+   "cell": "A18",
+   "f": "Apport recommandé (minimal + marge de sécurité 30 %)",
+   "v": "Apport recommandé (minimal + marge de sécurité 30 %)"
+  },
+  {
+   "cell": "B18",
+   "f": "=ROUNDUP(B17*1.3,-2)",
+   "v": null
+  },
+  {
+   "cell": "A19",
+   "f": "Créances clients en fin d'année (facturé août, encaissé septembre)",
+   "v": "Créances clients en fin d'année (facturé août, encaissé septembre)"
+  },
+  {
+   "cell": "B19",
+   "f": "=ROUND((Plan_Activite!M8+Plan_Activite!M11)*Hypotheses!$B$52,0)",
+   "v": null
+  },
+  {
+   "cell": "A20",
+   "f": "Premier mois où l'objectif de revenu est atteint",
+   "v": "Premier mois où l'objectif de revenu est atteint"
+  },
+  {
+   "cell": "B20",
+   "f": "=IFERROR(INDEX(Plan_Activite!B4:M4,MATCH(\"OUI\",Plan_Activite!B23:M23,0)),\"non atteint an 1\")",
+   "v": null
+  },
+  {
+   "cell": "A21",
+   "f": "Contrôle plafonds (CA facturé année 1)",
+   "v": "Contrôle plafonds (CA facturé année 1)"
+  },
+  {
+   "cell": "B21",
+   "f": "=IF(Resultat!F5>Hypotheses!$B$57,\"PLAFOND MICRO DÉPASSÉ\",IF(Resultat!F5>Hypotheses!$B$58,\"SEUIL TVA DÉPASSÉ\",\"OK — micro et franchise TVA\"))",
+   "v": null
+  },
+  {
+   "cell": "A23",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A24",
+   "f": "Décalage de 30 jours",
+   "v": "Décalage de 30 jours"
+  },
+  {
+   "cell": "B24",
+   "f": "Les clients B2B paient sur facture le mois suivant : le CA de septembre arrive sur le compte en octobre. C'est pour cela que le premier mois est difficile — on travaille sans encaisser le B2B.",
+   "v": "Les clients B2B paient sur facture le mois suivant : le CA de septembre arrive sur le compte en octobre. C'est pour cela que le premier mois est difficile — on travaille sans encaisser le B2B."
+  },
+  {
+   "cell": "A25",
+   "f": "Prélèvements sur l'encaissé",
+   "v": "Prélèvements sur l'encaissé"
+  },
+  {
+   "cell": "B25",
+   "f": "Particularité micro : l'URSSAF se déclare sur ce qui est ENCAISSÉ dans le mois, pas sur ce qui est facturé. La trésorerie est donc légèrement différente du Resultat (l'écart se résorbe au 13e mois).",
+   "v": "Particularité micro : l'URSSAF se déclare sur ce qui est ENCAISSÉ dans le mois, pas sur ce qui est facturé. La trésorerie est donc légèrement différente du Resultat (l'écart se résorbe au 13e mois)."
+  },
+  {
+   "cell": "A26",
+   "f": "Trésorerie fin de mois",
+   "v": "Trésorerie fin de mois"
+  },
+  {
+   "cell": "B26",
+   "f": "Début de mois + entrées − sorties. La ligne se chaîne : la fin d'un mois devient le début du suivant. Premier mois = l'apport de départ.",
+   "v": "Début de mois + entrées − sorties. La ligne se chaîne : la fin d'un mois devient le début du suivant. Premier mois = l'apport de départ."
+  },
+  {
+   "cell": "A27",
+   "f": "Point bas / apport minimal",
+   "v": "Point bas / apport minimal"
+  },
+  {
+   "cell": "B27",
+   "f": "Le creux le plus profond de l'année. Apport minimal = apport actuel − point bas : c'est LA réponse à « combien faut-il pour démarrer ». La ligne 17 ajoute 30 % de marge de sécurité.",
+   "v": "Le creux le plus profond de l'année. Apport minimal = apport actuel − point bas : c'est LA réponse à « combien faut-il pour démarrer ». La ligne 17 ajoute 30 % de marge de sécurité."
+  },
+  {
+   "cell": "A28",
+   "f": "Créances clients",
+   "v": "Créances clients"
+  },
+  {
+   "cell": "B28",
+   "f": "Argent gagné mais pas encore reçu en fin d'année (factures d'août payées en septembre). C'est le BFR du modèle — faible ici, mais réel.",
+   "v": "Argent gagné mais pas encore reçu en fin d'année (factures d'août payées en septembre). C'est le BFR du modèle — faible ici, mais réel."
+  },
+  {
+   "cell": "A29",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "Scenarios": [
+  {
+   "cell": "A1",
+   "f": "COMPARATEUR DE SCÉNARIOS — ANNÉE 1",
+   "v": "COMPARATEUR DE SCÉNARIOS — ANNÉE 1"
+  },
+  {
+   "cell": "A2",
+   "f": "Colonne Réaliste (verte) = liée au plan d'activité. Pessimiste / Optimiste (bleues) = pré-calculées, modifiables. La banque et la préfecture jugent sur le Pessimiste.",
+   "v": "Colonne Réaliste (verte) = liée au plan d'activité. Pessimiste / Optimiste (bleues) = pré-calculées, modifiables. La banque et la préfecture jugent sur le Pessimiste."
+  },
+  {
+   "cell": "A4",
+   "f": "PILOTES DU SCÉNARIO",
+   "v": "PILOTES DU SCÉNARIO"
+  },
+  {
+   "cell": "B4",
+   "f": "Pessimiste",
+   "v": "Pessimiste"
+  },
+  {
+   "cell": "C4",
+   "f": "Réaliste",
+   "v": "Réaliste"
+  },
+  {
+   "cell": "D4",
+   "f": "Optimiste",
+   "v": "Optimiste"
+  },
+  {
+   "cell": "A5",
+   "f": "Sites B2B en fin d'année",
+   "v": "Sites B2B en fin d'année"
+  },
+  {
+   "cell": "B5",
+   "f": "=ROUND(Plan_Activite!M6*0.65,0)",
+   "v": null
+  },
+  {
+   "cell": "C5",
+   "f": "=Plan_Activite!M6",
+   "v": null
+  },
+  {
+   "cell": "D5",
+   "f": "=ROUND(Plan_Activite!M6*1.35,0)",
+   "v": null
+  },
+  {
+   "cell": "A6",
+   "f": "CA mensuel par site B2B (€)",
+   "v": "CA mensuel par site B2B (€)"
+  },
+  {
+   "cell": "B6",
+   "f": "=ROUND(Hypotheses!$B$16*0.95,0)",
+   "v": null
+  },
+  {
+   "cell": "C6",
+   "f": "=Hypotheses!$B$16",
+   "v": null
+  },
+  {
+   "cell": "D6",
+   "f": "=ROUND(Hypotheses!$B$16*1.05,0)",
+   "v": null
+  },
+  {
+   "cell": "A7",
+   "f": "Rotations Airbnb par mois (plateau)",
+   "v": "Rotations Airbnb par mois (plateau)"
+  },
+  {
+   "cell": "B7",
+   "f": "=ROUND(MAX(Plan_Activite!B13:M13)*0.6,0)",
+   "v": null
+  },
+  {
+   "cell": "C7",
+   "f": "=MAX(Plan_Activite!B13:M13)",
+   "v": null
+  },
+  {
+   "cell": "D7",
+   "f": "=ROUND(MAX(Plan_Activite!B13:M13)*1.25,0)",
+   "v": null
+  },
+  {
+   "cell": "A8",
+   "f": "Prestations particuliers par mois (plateau)",
+   "v": "Prestations particuliers par mois (plateau)"
+  },
+  {
+   "cell": "B8",
+   "f": "=ROUND(MAX(Plan_Activite!B16:M16)*0.6,0)",
+   "v": null
+  },
+  {
+   "cell": "C8",
+   "f": "=MAX(Plan_Activite!B16:M16)",
+   "v": null
+  },
+  {
+   "cell": "D8",
+   "f": "=ROUND(MAX(Plan_Activite!B16:M16)*1.25,0)",
+   "v": null
+  },
+  {
+   "cell": "A9",
+   "f": "Interventions vitrerie sur l'année",
+   "v": "Interventions vitrerie sur l'année"
+  },
+  {
+   "cell": "B9",
+   "f": "=ROUND(Plan_Activite!N10*0.6,0)",
+   "v": null
+  },
+  {
+   "cell": "C9",
+   "f": "=Plan_Activite!N10",
+   "v": null
+  },
+  {
+   "cell": "D9",
+   "f": "=ROUND(Plan_Activite!N10*1.4,0)",
+   "v": null
+  },
+  {
+   "cell": "A11",
+   "f": "RÉSULTATS DU SCÉNARIO",
+   "v": "RÉSULTATS DU SCÉNARIO"
+  },
+  {
+   "cell": "A12",
+   "f": "CA B2B + vitrerie",
+   "v": "CA B2B + vitrerie"
+  },
+  {
+   "cell": "B12",
+   "f": "=ROUND((Plan_Activite!$B$6+B5)/2*12*B6*Plan_Activite!$N$7,0)+ROUND(B9*Hypotheses!$D$7,0)",
+   "v": null
+  },
+  {
+   "cell": "C12",
+   "f": "=Plan_Activite!N8+Plan_Activite!N11",
+   "v": null
+  },
+  {
+   "cell": "D12",
+   "f": "=ROUND((Plan_Activite!$B$6+D5)/2*12*D6*Plan_Activite!$N$7,0)+ROUND(D9*Hypotheses!$D$7,0)",
+   "v": null
+  },
+  {
+   "cell": "A13",
+   "f": "CA Airbnb (proportionnel au plan)",
+   "v": "CA Airbnb (proportionnel au plan)"
+  },
+  {
+   "cell": "B13",
+   "f": "=ROUND(Plan_Activite!$N$14*B7/MAX(Plan_Activite!$B$13:$M$13),0)",
+   "v": null
+  },
+  {
+   "cell": "C13",
+   "f": "=Plan_Activite!N14",
+   "v": null
+  },
+  {
+   "cell": "D13",
+   "f": "=ROUND(Plan_Activite!$N$14*D7/MAX(Plan_Activite!$B$13:$M$13),0)",
+   "v": null
+  },
+  {
+   "cell": "A14",
+   "f": "CA particuliers (proportionnel au plan)",
+   "v": "CA particuliers (proportionnel au plan)"
+  },
+  {
+   "cell": "B14",
+   "f": "=ROUND(Plan_Activite!$N$17*B8/MAX(Plan_Activite!$B$16:$M$16),0)",
+   "v": null
+  },
+  {
+   "cell": "C14",
+   "f": "=Plan_Activite!N17",
+   "v": null
+  },
+  {
+   "cell": "D14",
+   "f": "=ROUND(Plan_Activite!$N$17*D8/MAX(Plan_Activite!$B$16:$M$16),0)",
+   "v": null
+  },
+  {
+   "cell": "A15",
+   "f": "CHIFFRE D'AFFAIRES TOTAL",
+   "v": "CHIFFRE D'AFFAIRES TOTAL"
+  },
+  {
+   "cell": "B15",
+   "f": "=SUM(B12:B14)",
+   "v": null
+  },
+  {
+   "cell": "C15",
+   "f": "=SUM(C12:C14)",
+   "v": null
+  },
+  {
+   "cell": "D15",
+   "f": "=SUM(D12:D14)",
+   "v": null
+  },
+  {
+   "cell": "A16",
+   "f": "(−) Prélèvements sur le CA (taux année 1)",
+   "v": "(−) Prélèvements sur le CA (taux année 1)"
+  },
+  {
+   "cell": "B16",
+   "f": "=-ROUND(B15*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "C16",
+   "f": "=-ROUND(C15*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "D16",
+   "f": "=-ROUND(D15*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "A17",
+   "f": "(−) Charges variables (produits + déplacements)",
+   "v": "(−) Charges variables (produits + déplacements)"
+  },
+  {
+   "cell": "B17",
+   "f": "=-ROUND(B15*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "C17",
+   "f": "=-ROUND(C15*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "D17",
+   "f": "=-ROUND(D15*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "A18",
+   "f": "(−) Charges fixes + matériel initial",
+   "v": "(−) Charges fixes + matériel initial"
+  },
+  {
+   "cell": "B18",
+   "f": "=-Hypotheses!$B$46-Hypotheses!$B$50",
+   "v": null
+  },
+  {
+   "cell": "C18",
+   "f": "=-Hypotheses!$B$46-Hypotheses!$B$50",
+   "v": null
+  },
+  {
+   "cell": "D18",
+   "f": "=-Hypotheses!$B$46-Hypotheses!$B$50",
+   "v": null
+  },
+  {
+   "cell": "A19",
+   "f": "NET RÉEL ANNÉE 1",
+   "v": "NET RÉEL ANNÉE 1"
+  },
+  {
+   "cell": "B19",
+   "f": "=SUM(B15:B18)",
+   "v": null
+  },
+  {
+   "cell": "C19",
+   "f": "=SUM(C15:C18)",
+   "v": null
+  },
+  {
+   "cell": "D19",
+   "f": "=SUM(D15:D18)",
+   "v": null
+  },
+  {
+   "cell": "A20",
+   "f": "Net réel mensuel moyen",
+   "v": "Net réel mensuel moyen"
+  },
+  {
+   "cell": "B20",
+   "f": "=ROUND(B19/12,0)",
+   "v": null
+  },
+  {
+   "cell": "C20",
+   "f": "=ROUND(C19/12,0)",
+   "v": null
+  },
+  {
+   "cell": "D20",
+   "f": "=ROUND(D19/12,0)",
+   "v": null
+  },
+  {
+   "cell": "A21",
+   "f": "Net mensuel en croisière (plein régime, HORS saisonnalité)",
+   "v": "Net mensuel en croisière (plein régime, HORS saisonnalité)"
+  },
+  {
+   "cell": "B21",
+   "f": "=ROUND((B5*B6*(1+Hypotheses!$B$17)+B7*Hypotheses!$D$8+B8*Hypotheses!$D$9)*(1-Hypotheses!$B$27-Hypotheses!$B$36-Hypotheses!$B$37)-Hypotheses!$B$45,0)",
+   "v": null
+  },
+  {
+   "cell": "C21",
+   "f": "=ROUND((C5*C6*(1+Hypotheses!$B$17)+C7*Hypotheses!$D$8+C8*Hypotheses!$D$9)*(1-Hypotheses!$B$27-Hypotheses!$B$36-Hypotheses!$B$37)-Hypotheses!$B$45,0)",
+   "v": null
+  },
+  {
+   "cell": "D21",
+   "f": "=ROUND((D5*D6*(1+Hypotheses!$B$17)+D7*Hypotheses!$D$8+D8*Hypotheses!$D$9)*(1-Hypotheses!$B$27-Hypotheses!$B$36-Hypotheses!$B$37)-Hypotheses!$B$45,0)",
+   "v": null
+  },
+  {
+   "cell": "A22",
+   "f": "Objectif de revenu atteint en croisière ?",
+   "v": "Objectif de revenu atteint en croisière ?"
+  },
+  {
+   "cell": "B22",
+   "f": "=IF(B21>=Hypotheses!$B$55,\"OUI\",\"NON\")",
+   "v": null
+  },
+  {
+   "cell": "C22",
+   "f": "=IF(C21>=Hypotheses!$B$55,\"OUI\",\"NON\")",
+   "v": null
+  },
+  {
+   "cell": "D22",
+   "f": "=IF(D21>=Hypotheses!$B$55,\"OUI\",\"NON\")",
+   "v": null
+  },
+  {
+   "cell": "A23",
+   "f": "Plafond micro / franchise TVA",
+   "v": "Plafond micro / franchise TVA"
+  },
+  {
+   "cell": "B23",
+   "f": "=IF(B15>Hypotheses!$B$57,\"PLAFOND DÉPASSÉ\",IF(B15>Hypotheses!$B$58,\"TVA à facturer\",\"OK\"))",
+   "v": null
+  },
+  {
+   "cell": "C23",
+   "f": "=IF(C15>Hypotheses!$B$57,\"PLAFOND DÉPASSÉ\",IF(C15>Hypotheses!$B$58,\"TVA à facturer\",\"OK\"))",
+   "v": null
+  },
+  {
+   "cell": "D23",
+   "f": "=IF(D15>Hypotheses!$B$57,\"PLAFOND DÉPASSÉ\",IF(D15>Hypotheses!$B$58,\"TVA à facturer\",\"OK\"))",
+   "v": null
+  },
+  {
+   "cell": "A25",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A26",
+   "f": "Pilotes",
+   "v": "Pilotes"
+  },
+  {
+   "cell": "B26",
+   "f": "Les 5 leviers du scénario. La colonne Réaliste (verte) lit le plan d'activité ; Pessimiste et Optimiste (bleues) sont des formules pré-réglées (−35 %/+35 % sur les sites, etc.) que tu peux remplacer par tes propres chiffres.",
+   "v": "Les 5 leviers du scénario. La colonne Réaliste (verte) lit le plan d'activité ; Pessimiste et Optimiste (bleues) sont des formules pré-réglées (−35 %/+35 % sur les sites, etc.) que tu peux remplacer par tes propres chiffres."
+  },
+  {
+   "cell": "A27",
+   "f": "Colonne Réaliste = le plan exact",
+   "v": "Colonne Réaliste = le plan exact"
+  },
+  {
+   "cell": "B27",
+   "f": "Les lignes CA de la colonne Réaliste sont des LIENS directs vers les totaux du Plan_Activite (vert) : mêmes chiffres au centime. Pessimiste et Optimiste utilisent une approximation pilotée (montée en charge moyennée × saisonnalité moyenne d",
+   "v": "Les lignes CA de la colonne Réaliste sont des LIENS directs vers les totaux du Plan_Activite (vert) : mêmes chiffres au centime. Pessimiste et Optimiste utilisent une approximation pilotée (montée en charge moyennée × saisonnalité moyenne du plan)."
+  },
+  {
+   "cell": "A28",
+   "f": "Croisière (hors saisonnalité)",
+   "v": "Croisière (hors saisonnalité)"
+  },
+  {
+   "cell": "B28",
+   "f": "Ici : le revenu d'un mois PLEIN une fois le carnet rempli, sans creux d'août — pour comparer les scénarios entre eux. L'onglet Resultat affiche l'autre lecture (moyenne juin-août, saisonnalité incluse) : les deux chiffres sont complémentair",
+   "v": "Ici : le revenu d'un mois PLEIN une fois le carnet rempli, sans creux d'août — pour comparer les scénarios entre eux. L'onglet Resultat affiche l'autre lecture (moyenne juin-août, saisonnalité incluse) : les deux chiffres sont complémentaires, pas contradictoires."
+  },
+  {
+   "cell": "A29",
+   "f": "Pourquoi le Pessimiste compte",
+   "v": "Pourquoi le Pessimiste compte"
+  },
+  {
+   "cell": "B29",
+   "f": "Si le projet tient à 65 % des volumes (net croisière ≥ objectif), il est robuste : c'est l'argument n° 1 du dossier préfecture/banque.",
+   "v": "Si le projet tient à 65 % des volumes (net croisière ≥ objectif), il est robuste : c'est l'argument n° 1 du dossier préfecture/banque."
+  },
+  {
+   "cell": "A30",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "Projection_5ans": [
+  {
+   "cell": "A1",
+   "f": "PROJECTION 5 ANS — TRAJECTOIRE & BASCULE EN SOCIÉTÉ",
+   "v": "PROJECTION 5 ANS — TRAJECTOIRE & BASCULE EN SOCIÉTÉ"
+  },
+  {
+   "cell": "A2",
+   "f": "Années au-delà du plafond micro : chiffres indicatifs — la bascule EURL/SASU (phase 5) change cotisations et fiscalité. ACRE limitée à l'année 1.",
+   "v": "Années au-delà du plafond micro : chiffres indicatifs — la bascule EURL/SASU (phase 5) change cotisations et fiscalité. ACRE limitée à l'année 1."
+  },
+  {
+   "cell": "A4",
+   "f": "COMPTE DE RÉSULTAT PRÉVISIONNEL — 5 ANS",
+   "v": "COMPTE DE RÉSULTAT PRÉVISIONNEL — 5 ANS"
+  },
+  {
+   "cell": "A5",
+   "f": "Poste",
+   "v": "Poste"
+  },
+  {
+   "cell": "B5",
+   "f": "Année 1",
+   "v": "Année 1"
+  },
+  {
+   "cell": "C5",
+   "f": "Année 2",
+   "v": "Année 2"
+  },
+  {
+   "cell": "D5",
+   "f": "Année 3",
+   "v": "Année 3"
+  },
+  {
+   "cell": "E5",
+   "f": "Année 4",
+   "v": "Année 4"
+  },
+  {
+   "cell": "F5",
+   "f": "Année 5",
+   "v": "Année 5"
+  },
+  {
+   "cell": "A6",
+   "f": "Chiffre d'affaires",
+   "v": "Chiffre d'affaires"
+  },
+  {
+   "cell": "B6",
+   "f": "=Resultat!F5",
+   "v": null
+  },
+  {
+   "cell": "C6",
+   "f": "=ROUND(B6*(1+Hypotheses!B62),0)",
+   "v": null
+  },
+  {
+   "cell": "D6",
+   "f": "=ROUND(C6*(1+Hypotheses!B63),0)",
+   "v": null
+  },
+  {
+   "cell": "E6",
+   "f": "=ROUND(D6*(1+Hypotheses!B64),0)",
+   "v": null
+  },
+  {
+   "cell": "F6",
+   "f": "=ROUND(E6*(1+Hypotheses!B65),0)",
+   "v": null
+  },
+  {
+   "cell": "A7",
+   "f": "(−) Prélèvements sur le CA",
+   "v": "(−) Prélèvements sur le CA"
+  },
+  {
+   "cell": "B7",
+   "f": "=-ROUND(B6*Hypotheses!$B$27,0)",
+   "v": null
+  },
+  {
+   "cell": "C7",
+   "f": "=-ROUND(C6*Hypotheses!$B$28,0)",
+   "v": null
+  },
+  {
+   "cell": "D7",
+   "f": "=-ROUND(D6*Hypotheses!$B$28,0)",
+   "v": null
+  },
+  {
+   "cell": "E7",
+   "f": "=-ROUND(E6*Hypotheses!$B$28,0)",
+   "v": null
+  },
+  {
+   "cell": "F7",
+   "f": "=-ROUND(F6*Hypotheses!$B$28,0)",
+   "v": null
+  },
+  {
+   "cell": "A8",
+   "f": "(−) Charges variables (produits + déplacements)",
+   "v": "(−) Charges variables (produits + déplacements)"
+  },
+  {
+   "cell": "B8",
+   "f": "=-ROUND(B6*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "C8",
+   "f": "=-ROUND(C6*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "D8",
+   "f": "=-ROUND(D6*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "E8",
+   "f": "=-ROUND(E6*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "F8",
+   "f": "=-ROUND(F6*(Hypotheses!$B$36+Hypotheses!$B$37),0)",
+   "v": null
+  },
+  {
+   "cell": "A9",
+   "f": "(−) Charges fixes",
+   "v": "(−) Charges fixes"
+  },
+  {
+   "cell": "B9",
+   "f": "=-Hypotheses!$B$46",
+   "v": null
+  },
+  {
+   "cell": "C9",
+   "f": "=-Hypotheses!$B$46",
+   "v": null
+  },
+  {
+   "cell": "D9",
+   "f": "=-Hypotheses!$B$46",
+   "v": null
+  },
+  {
+   "cell": "E9",
+   "f": "=-Hypotheses!$B$46",
+   "v": null
+  },
+  {
+   "cell": "F9",
+   "f": "=-Hypotheses!$B$46",
+   "v": null
+  },
+  {
+   "cell": "A10",
+   "f": "(−) CFE (exonérée la première année)",
+   "v": "(−) CFE (exonérée la première année)"
+  },
+  {
+   "cell": "B10",
+   "f": "=0",
+   "v": null
+  },
+  {
+   "cell": "C10",
+   "f": "=-Hypotheses!$B$47",
+   "v": null
+  },
+  {
+   "cell": "D10",
+   "f": "=-Hypotheses!$B$47",
+   "v": null
+  },
+  {
+   "cell": "E10",
+   "f": "=-Hypotheses!$B$47",
+   "v": null
+  },
+  {
+   "cell": "F10",
+   "f": "=-Hypotheses!$B$47",
+   "v": null
+  },
+  {
+   "cell": "A11",
+   "f": "NET RÉEL (avant matériel initial)",
+   "v": "NET RÉEL (avant matériel initial)"
+  },
+  {
+   "cell": "B11",
+   "f": "=SUM(B6:B10)",
+   "v": null
+  },
+  {
+   "cell": "C11",
+   "f": "=SUM(C6:C10)",
+   "v": null
+  },
+  {
+   "cell": "D11",
+   "f": "=SUM(D6:D10)",
+   "v": null
+  },
+  {
+   "cell": "E11",
+   "f": "=SUM(E6:E10)",
+   "v": null
+  },
+  {
+   "cell": "F11",
+   "f": "=SUM(F6:F10)",
+   "v": null
+  },
+  {
+   "cell": "A12",
+   "f": "Net réel mensuel moyen",
+   "v": "Net réel mensuel moyen"
+  },
+  {
+   "cell": "B12",
+   "f": "=ROUND(B11/12,0)",
+   "v": null
+  },
+  {
+   "cell": "C12",
+   "f": "=ROUND(C11/12,0)",
+   "v": null
+  },
+  {
+   "cell": "D12",
+   "f": "=ROUND(D11/12,0)",
+   "v": null
+  },
+  {
+   "cell": "E12",
+   "f": "=ROUND(E11/12,0)",
+   "v": null
+  },
+  {
+   "cell": "F12",
+   "f": "=ROUND(F11/12,0)",
+   "v": null
+  },
+  {
+   "cell": "A13",
+   "f": "SEUILS & STATUTS RÉGLEMENTAIRES",
+   "v": "SEUILS & STATUTS RÉGLEMENTAIRES"
+  },
+  {
+   "cell": "A14",
+   "f": "Statut plafond micro (83 600 €)",
+   "v": "Statut plafond micro (83 600 €)"
+  },
+  {
+   "cell": "B14",
+   "f": "=IF(B6>Hypotheses!$B$57,\"BASCULE SOCIÉTÉ\",\"micro OK\")",
+   "v": null
+  },
+  {
+   "cell": "C14",
+   "f": "=IF(C6>Hypotheses!$B$57,\"BASCULE SOCIÉTÉ\",\"micro OK\")",
+   "v": null
+  },
+  {
+   "cell": "D14",
+   "f": "=IF(D6>Hypotheses!$B$57,\"BASCULE SOCIÉTÉ\",\"micro OK\")",
+   "v": null
+  },
+  {
+   "cell": "E14",
+   "f": "=IF(E6>Hypotheses!$B$57,\"BASCULE SOCIÉTÉ\",\"micro OK\")",
+   "v": null
+  },
+  {
+   "cell": "F14",
+   "f": "=IF(F6>Hypotheses!$B$57,\"BASCULE SOCIÉTÉ\",\"micro OK\")",
+   "v": null
+  },
+  {
+   "cell": "A15",
+   "f": "Statut franchise TVA (37 500 €)",
+   "v": "Statut franchise TVA (37 500 €)"
+  },
+  {
+   "cell": "B15",
+   "f": "=IF(B6>Hypotheses!$B$58,\"TVA à facturer\",\"franchise OK\")",
+   "v": null
+  },
+  {
+   "cell": "C15",
+   "f": "=IF(C6>Hypotheses!$B$58,\"TVA à facturer\",\"franchise OK\")",
+   "v": null
+  },
+  {
+   "cell": "D15",
+   "f": "=IF(D6>Hypotheses!$B$58,\"TVA à facturer\",\"franchise OK\")",
+   "v": null
+  },
+  {
+   "cell": "E15",
+   "f": "=IF(E6>Hypotheses!$B$58,\"TVA à facturer\",\"franchise OK\")",
+   "v": null
+  },
+  {
+   "cell": "F15",
+   "f": "=IF(F6>Hypotheses!$B$58,\"TVA à facturer\",\"franchise OK\")",
+   "v": null
+  },
+  {
+   "cell": "A17",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A18",
+   "f": "Croissance du CA",
+   "v": "Croissance du CA"
+  },
+  {
+   "cell": "B18",
+   "f": "Hypothèses de l'onglet Hypotheses (lignes 63-66) : +30 % en année 2 (carnet qui se remplit), puis +20 %, +10 %, +10 %. Modifiables à volonté.",
+   "v": "Hypothèses de l'onglet Hypotheses (lignes 63-66) : +30 % en année 2 (carnet qui se remplit), puis +20 %, +10 %, +10 %. Modifiables à volonté."
+  },
+  {
+   "cell": "A19",
+   "f": "Taux plein vs taux année 1",
+   "v": "Taux plein vs taux année 1"
+  },
+  {
+   "cell": "B19",
+   "f": "Si l'ACRE est active, elle ne dure qu'environ un an : les années 2 à 5 utilisent automatiquement le taux plein (23,2 %).",
+   "v": "Si l'ACRE est active, elle ne dure qu'environ un an : les années 2 à 5 utilisent automatiquement le taux plein (23,2 %)."
+  },
+  {
+   "cell": "A20",
+   "f": "Bascule société",
+   "v": "Bascule société"
+  },
+  {
+   "cell": "B20",
+   "f": "Le dépassement du plafond micro deux années de suite impose la sortie du régime : passage en EURL/SASU avec charges réelles déductibles et TVA. C'est le scénario de SUCCÈS du projet — il se prépare un an à l'avance.",
+   "v": "Le dépassement du plafond micro deux années de suite impose la sortie du régime : passage en EURL/SASU avec charges réelles déductibles et TVA. C'est le scénario de SUCCÈS du projet — il se prépare un an à l'avance."
+  },
+  {
+   "cell": "A21",
+   "f": "TVA dès l'année 2",
+   "v": "TVA dès l'année 2"
+  },
+  {
+   "cell": "B21",
+   "f": "Le CA prévu en année 2 dépasse 37 500 € : facturation de la TVA à prévoir. Neutre pour les clients B2B (ils la récupèrent), à intégrer dans les prix particuliers.",
+   "v": "Le CA prévu en année 2 dépasse 37 500 € : facturation de la TVA à prévoir. Neutre pour les clients B2B (ils la récupèrent), à intégrer dans les prix particuliers."
+  },
+  {
+   "cell": "A22",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ],
+ "Ratios": [
+  {
+   "cell": "A1",
+   "f": "RATIOS & POINTS DE PILOTAGE",
+   "v": "RATIOS & POINTS DE PILOTAGE"
+  },
+  {
+   "cell": "A2",
+   "f": "Les indicateurs qu'un banquier ou un conseiller regarde en premier — tous recalculés depuis les autres onglets.",
+   "v": "Les indicateurs qu'un banquier ou un conseiller regarde en premier — tous recalculés depuis les autres onglets."
+  },
+  {
+   "cell": "A4",
+   "f": "Indicateur",
+   "v": "Indicateur"
+  },
+  {
+   "cell": "B4",
+   "f": "Valeur",
+   "v": "Valeur"
+  },
+  {
+   "cell": "C4",
+   "f": "Source / lecture",
+   "v": "Source / lecture"
+  },
+  {
+   "cell": "A5",
+   "f": "RENTABILITÉ HORAIRE",
+   "v": "RENTABILITÉ HORAIRE"
+  },
+  {
+   "cell": "A6",
+   "f": "CA moyen par heure facturée (réalisé année 1)",
+   "v": "CA moyen par heure facturée (réalisé année 1)"
+  },
+  {
+   "cell": "B6",
+   "f": "=IF(Plan_Activite!N20=0,\"\",ROUND(Resultat!F5/Plan_Activite!N20,1))",
+   "v": null
+  },
+  {
+   "cell": "C6",
+   "f": "Toutes activités confondues",
+   "v": "Toutes activités confondues"
+  },
+  {
+   "cell": "A7",
+   "f": "Marge nette par heure au taux B2B standard",
+   "v": "Marge nette par heure au taux B2B standard"
+  },
+  {
+   "cell": "B7",
+   "f": "=ROUND(Hypotheses!$B$10*(1-Hypotheses!$B$27-Hypotheses!$B$36-Hypotheses!$B$37),2)",
+   "v": null
+  },
+  {
+   "cell": "C7",
+   "f": "Après prélèvements et variables",
+   "v": "Après prélèvements et variables"
+  },
+  {
+   "cell": "A8",
+   "f": "Point mort mensuel (heures pour couvrir les fixes)",
+   "v": "Point mort mensuel (heures pour couvrir les fixes)"
+  },
+  {
+   "cell": "B8",
+   "f": "=IF(B7=0,\"\",ROUND(Hypotheses!$B$45/B7,1))",
+   "v": null
+  },
+  {
+   "cell": "C8",
+   "f": "Moins d'une demi-journée de travail",
+   "v": "Moins d'une demi-journée de travail"
+  },
+  {
+   "cell": "A9",
+   "f": "Heures par mois pour atteindre l'objectif de revenu",
+   "v": "Heures par mois pour atteindre l'objectif de revenu"
+  },
+  {
+   "cell": "B9",
+   "f": "=IF(B7=0,\"\",ROUND((Hypotheses!$B$55+Hypotheses!$B$45)/B7,0))",
+   "v": null
+  },
+  {
+   "cell": "C9",
+   "f": "À comparer à la capacité de 165 h",
+   "v": "À comparer à la capacité de 165 h"
+  },
+  {
+   "cell": "A11",
+   "f": "STRUCTURE & SEUILS",
+   "v": "STRUCTURE & SEUILS"
+  },
+  {
+   "cell": "A12",
+   "f": "Taux global prélevé sur le CA (année 1)",
+   "v": "Taux global prélevé sur le CA (année 1)"
+  },
+  {
+   "cell": "B12",
+   "f": "=Hypotheses!$B$27",
+   "v": null
+  },
+  {
+   "cell": "A13",
+   "f": "Net réel / CA (rendement global année 1)",
+   "v": "Net réel / CA (rendement global année 1)"
+  },
+  {
+   "cell": "B13",
+   "f": "=IF(Resultat!F5=0,\"\",Resultat!F18/Resultat!F5)",
+   "v": null
+  },
+  {
+   "cell": "A14",
+   "f": "CA année 1 / plafond micro (83 600 €)",
+   "v": "CA année 1 / plafond micro (83 600 €)"
+  },
+  {
+   "cell": "B14",
+   "f": "=Resultat!F5/Hypotheses!$B$57",
+   "v": null
+  },
+  {
+   "cell": "C14",
+   "f": "Marge avant bascule en société",
+   "v": "Marge avant bascule en société"
+  },
+  {
+   "cell": "A15",
+   "f": "CA année 1 / seuil de franchise TVA (37 500 €)",
+   "v": "CA année 1 / seuil de franchise TVA (37 500 €)"
+  },
+  {
+   "cell": "B15",
+   "f": "=Resultat!F5/Hypotheses!$B$58",
+   "v": null
+  },
+  {
+   "cell": "A16",
+   "f": "Alerte TVA",
+   "v": "Alerte TVA"
+  },
+  {
+   "cell": "B16",
+   "f": "=IF(Resultat!F5>Hypotheses!$B$58,\"SEUIL DÉPASSÉ\",IF(Resultat!F5>0.95*Hypotheses!$B$58,\"ATTENTION — seuil à moins de 5 %\",\"marge confortable\"))",
+   "v": null
+  },
+  {
+   "cell": "A17",
+   "f": "Part du CA en B2B récurrent + vitrerie",
+   "v": "Part du CA en B2B récurrent + vitrerie"
+  },
+  {
+   "cell": "B17",
+   "f": "=IF(Resultat!F5=0,\"\",(Resultat!B5+Resultat!C5)/Resultat!F5)",
+   "v": null
+  },
+  {
+   "cell": "C17",
+   "f": "Objectif ~70-75 %",
+   "v": "Objectif ~70-75 %"
+  },
+  {
+   "cell": "A19",
+   "f": "CAPACITÉ & CAPITAL",
+   "v": "CAPACITÉ & CAPITAL"
+  },
+  {
+   "cell": "A20",
+   "f": "Heures du mois le plus chargé / capacité",
+   "v": "Heures du mois le plus chargé / capacité"
+  },
+  {
+   "cell": "B20",
+   "f": "=MAX(Plan_Activite!B20:M20)/Hypotheses!$B$56",
+   "v": null
+  },
+  {
+   "cell": "C20",
+   "f": "Au-delà de 95 % : plus de tampon pour les imprévus",
+   "v": "Au-delà de 95 % : plus de tampon pour les imprévus"
+  },
+  {
+   "cell": "A21",
+   "f": "Mois où l'objectif de revenu est atteint",
+   "v": "Mois où l'objectif de revenu est atteint"
+  },
+  {
+   "cell": "B21",
+   "f": "=COUNTIF(Plan_Activite!B23:M23,\"OUI\")&\" mois sur 12\"",
+   "v": null
+  },
+  {
+   "cell": "A22",
+   "f": "Apport minimal de départ (depuis Tresorerie)",
+   "v": "Apport minimal de départ (depuis Tresorerie)"
+  },
+  {
+   "cell": "B22",
+   "f": "=Tresorerie!B17",
+   "v": null
+  },
+  {
+   "cell": "C22",
+   "f": "Point bas couvert",
+   "v": "Point bas couvert"
+  },
+  {
+   "cell": "A23",
+   "f": "Apport recommandé (marge de sécurité 30 %)",
+   "v": "Apport recommandé (marge de sécurité 30 %)"
+  },
+  {
+   "cell": "B23",
+   "f": "=Tresorerie!B18",
+   "v": null
+  },
+  {
+   "cell": "A24",
+   "f": "Net de croisière / objectif",
+   "v": "Net de croisière / objectif"
+  },
+  {
+   "cell": "B24",
+   "f": "=IF(Resultat!F21=0,\"\",Resultat!F20/Resultat!F21)",
+   "v": null
+  },
+  {
+   "cell": "C24",
+   "f": "> 100 % = viable",
+   "v": "> 100 % = viable"
+  },
+  {
+   "cell": "A26",
+   "f": "DÉFINITIONS DES TERMES DE CET ONGLET",
+   "v": "DÉFINITIONS DES TERMES DE CET ONGLET"
+  },
+  {
+   "cell": "A27",
+   "f": "Marge nette par heure",
+   "v": "Marge nette par heure"
+  },
+  {
+   "cell": "B27",
+   "f": "Sur 1 heure facturée 30 €, ce qui reste après le taux global (23,2 %) et les charges variables (9 %) : 30 × 67,8 % ≈ 20,34 €. C'est le moteur du modèle.",
+   "v": "Sur 1 heure facturée 30 €, ce qui reste après le taux global (23,2 %) et les charges variables (9 %) : 30 × 67,8 % ≈ 20,34 €. C'est le moteur du modèle."
+  },
+  {
+   "cell": "A28",
+   "f": "Point mort",
+   "v": "Point mort"
+  },
+  {
+   "cell": "B28",
+   "f": "Heures à facturer chaque mois rien que pour payer les charges fixes : 75 € ÷ 20,34 € ≈ 3,7 heures. Quasi nul — le modèle ne peut presque pas perdre d'argent.",
+   "v": "Heures à facturer chaque mois rien que pour payer les charges fixes : 75 € ÷ 20,34 € ≈ 3,7 heures. Quasi nul — le modèle ne peut presque pas perdre d'argent."
+  },
+  {
+   "cell": "A29",
+   "f": "Alerte TVA",
+   "v": "Alerte TVA"
+  },
+  {
+   "cell": "B29",
+   "f": "Le CA de l'année 1 frôle le seuil de franchise (37 500 €). Le dépassement est attendu dès l'année 2 : neutre en B2B (le client récupère la TVA), à anticiper côté particuliers.",
+   "v": "Le CA de l'année 1 frôle le seuil de franchise (37 500 €). Le dépassement est attendu dès l'année 2 : neutre en B2B (le client récupère la TVA), à anticiper côté particuliers."
+  },
+  {
+   "cell": "A30",
+   "f": "Taux d'occupation",
+   "v": "Taux d'occupation"
+  },
+  {
+   "cell": "B30",
+   "f": "Heures facturées du mois le plus chargé rapportées à la capacité (165 h). S'il dépasse 95 %, il n'y a plus de place pour les rattrapages promis dans la charte — réduire les volumes.",
+   "v": "Heures facturées du mois le plus chargé rapportées à la capacité (165 h). S'il dépasse 95 %, il n'y a plus de place pour les rattrapages promis dans la charte — réduire les volumes."
+  },
+  {
+   "cell": "A31",
+   "f": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur",
+   "v": ">> Voir l'onglet DICTIONNAIRE pour toutes les définitions du classeur"
+  }
+ ]
+}
