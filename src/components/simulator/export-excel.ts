@@ -262,7 +262,18 @@ export async function downloadExcel(h: Hypotheses, m: ModelResult) {
   header(wsH, ["Paramètre", "Valeur"]);
   const H = (label: string, v: number | string, fmt?: string, zebra = false) =>
     dataRow(wsH, label, [v], { fmt: fmt ?? "raw", zebra });
-  H("Taux horaire B2B standard", h.hourlyB2B, EUR);
+  H(
+    "Activités actives",
+    [
+      h.enabledB2b && "B2B",
+      h.enabledGlass && "vitrerie",
+      h.enabledAirbnb && "Airbnb",
+      h.enabledPrivate && "particuliers",
+    ]
+      .filter(Boolean)
+      .join(", ") || "aucune",
+  );
+  H("Taux horaire B2B standard", h.hourlyB2B, EUR, true);
   H(
     "Part contrats annuels / remise",
     `${Math.round(h.annualShare * 100)} % / ${(h.annualDiscount * 100).toFixed(1)} %`,

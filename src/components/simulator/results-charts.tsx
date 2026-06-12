@@ -187,10 +187,23 @@ function CaMensuelChart({ h, m }: { h: Hypotheses; m: ModelResult }) {
               <YAxis tick={AXIS} stroke="var(--border)" tickFormatter={fmtK} width={56} />
               <Tooltip content={<ChartTip />} />
               <Legend wrapperStyle={{ fontSize: 11 }} iconType="square" />
-              <Bar dataKey="b2b" name="B2B récurrent" stackId="ca" fill="var(--chart-b2b)" />
-              <Bar dataKey="glass" name="Vitrerie" stackId="ca" fill="var(--chart-glass)" />
-              <Bar dataKey="airbnb" name="Airbnb" stackId="ca" fill="var(--chart-airbnb)" />
-              <Bar dataKey="private" name="Particuliers" stackId="ca" fill="var(--chart-private)" />
+              {h.enabledB2b && (
+                <Bar dataKey="b2b" name="B2B récurrent" stackId="ca" fill="var(--chart-b2b)" />
+              )}
+              {h.enabledGlass && (
+                <Bar dataKey="glass" name="Vitrerie" stackId="ca" fill="var(--chart-glass)" />
+              )}
+              {h.enabledAirbnb && (
+                <Bar dataKey="airbnb" name="Airbnb" stackId="ca" fill="var(--chart-airbnb)" />
+              )}
+              {h.enabledPrivate && (
+                <Bar
+                  dataKey="private"
+                  name="Particuliers"
+                  stackId="ca"
+                  fill="var(--chart-private)"
+                />
+              )}
               <Line
                 type="monotone"
                 dataKey="netGestion"

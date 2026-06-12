@@ -83,6 +83,12 @@ export const hypothesesSchema = z.object({
   cfpRate: num.min(0).max(0.1),
   acre: z.boolean(),
   vfl: z.boolean(),
+  // Interrupteurs d'activité : décocher = exclure le segment de TOUS les calculs,
+  // équivalent à des volumes à zéro dans l'Excel — les saisies restent conservées.
+  enabledB2b: z.boolean(),
+  enabledGlass: z.boolean(),
+  enabledAirbnb: z.boolean(),
+  enabledPrivate: z.boolean(),
   tmi: num.min(0).max(0.6),
   productsRate: num.min(0).max(0.5),
   travelRate: num.min(0).max(0.5),
@@ -177,6 +183,9 @@ export function clampHypotheses(input: unknown): Hypotheses {
   );
   out.acre = typeof src.acre === "boolean" ? src.acre : OFFICIAL.acre;
   out.vfl = typeof src.vfl === "boolean" ? src.vfl : OFFICIAL.vfl;
+  for (const key of ["enabledB2b", "enabledGlass", "enabledAirbnb", "enabledPrivate"] as const) {
+    out[key] = typeof src[key] === "boolean" ? src[key] : true;
+  }
   return out as Hypotheses;
 }
 
@@ -200,6 +209,10 @@ export const OFFICIAL: Hypotheses = {
   cfpRate: 0.003,
   acre: false,
   vfl: true,
+  enabledB2b: true,
+  enabledGlass: true,
+  enabledAirbnb: true,
+  enabledPrivate: true,
   tmi: 0.11,
   productsRate: 0.04,
   travelRate: 0.05,
@@ -362,17 +375,23 @@ function monthlyRows(h: Hypotheses): MonthResult[] {
   const effectiveRate = h.hourlyB2B * (1 - h.annualShare * h.annualDiscount); // 28,995 — jamais arrondi
   const siteMonthly = h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * effectiveRate; // 301,31604
   const rate = globalRate(h);
+  // Activité décochée = volumes neutralisés partout (équivalent Excel : zéros sur 12 mois)
+  const onB2b = h.enabledB2b ? 1 : 0;
+  const onGlass = h.enabledGlass ? 1 : 0;
+  const onAirbnb = h.enabledAirbnb ? 1 : 0;
+  const onPrivate = h.enabledPrivate ? 1 : 0;
   return MONTHS.map((month, i) => {
-    const b2b = excelRound(h.sites[i] * siteMonthly * h.seasonality[i] * (1 - h.unpaidRate));
-    const glass = h.glassJobs[i] * h.glassRate * GLASS_HOURS;
-    const airbnb = h.airbnb[i] * h.airbnbPrice;
-    const privateRevenue = h.privateJobs[i] * h.privateRate * h.privateHours;
+    const b2b =
+      onB2b * excelRound(h.sites[i] * siteMonthly * h.seasonality[i] * (1 - h.unpaidRate));
+    const glass = onGlass * h.glassJobs[i] * h.glassRate * GLASS_HOURS;
+    const airbnb = onAirbnb * h.airbnb[i] * h.airbnbPrice;
+    const privateRevenue = onPrivate * h.privateJobs[i] * h.privateRate * h.privateHours;
     const ca = b2b + glass + airbnb + privateRevenue;
     const hours = excelRound(
-      h.sites[i] * h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * h.seasonality[i] +
-        h.glassJobs[i] * GLASS_HOURS +
-        h.airbnb[i] * AIRBNB_HOURS +
-        h.privateJobs[i] * h.privateHours,
+      onB2b * h.sites[i] * h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * h.seasonality[i] +
+        onGlass * h.glassJobs[i] * GLASS_HOURS +
+        onAirbnb * h.airbnb[i] * AIRBNB_HOURS +
+        onPrivate * h.privateJobs[i] * h.privateHours,
     );
     const netGestion = excelRound(
       ca * (1 - rate - h.productsRate - h.travelRate) - h.fixedMonthly - h.renewalMonthly,
@@ -393,9 +412,24 @@ function monthlyRows(h: Hypotheses): MonthResult[] {
   });
 }
 
-/** Net réel par activité (parité onglet Resultat : chaque poste arrondi sur le total annuel). */
+/** Les activités cochées, dans l'ordre canonique. */
+export function enabledActivities(h: Hypotheses): ("b2b" | "glass" | "airbnb" | "private")[] {
+  return (
+    [
+      ["b2b", h.enabledB2b],
+      ["glass", h.enabledGlass],
+      ["airbnb", h.enabledAirbnb],
+      ["private", h.enabledPrivate],
+    ] as const
+  )
+    .filter(([, on]) => on)
+    .map(([key]) => key);
+}
+
+/** Net réel par activité (parité onglet Resultat : chaque poste arrondi sur le total annuel).
+ *  Seules les activités cochées apparaissent — les vues et exports suivent automatiquement. */
 function activityBreakdown(h: Hypotheses, months: MonthResult[]): ActivityBreakdown[] {
-  const keys = ["b2b", "glass", "airbnb", "private"] as const;
+  const keys = enabledActivities(h);
   return keys.map((key) => {
     const ca = months.reduce((sum, m) => sum + m[key], 0);
     const cotisations = excelRound(ca * (h.acre ? h.acreRate : h.socialRate));
@@ -454,10 +488,12 @@ function buildScenarios(h: Hypotheses, revenue: number): ScenarioResult[] {
     const P = excelRound(plateauPrivate * fPrivate);
     const V = excelRound(glassYear * fGlass);
     const caB2BVit =
-      excelRound(((h.sites[0] + S) / 2) * 12 * R * seasonAvg) +
-      excelRound(V * h.glassRate * GLASS_HOURS);
-    const caAirbnb = plateauAirbnb > 0 ? excelRound((airbnbYear * A) / plateauAirbnb) : 0;
-    const caPrivate = plateauPrivate > 0 ? excelRound((privateYear * P) / plateauPrivate) : 0;
+      (h.enabledB2b ? excelRound(((h.sites[0] + S) / 2) * 12 * R * seasonAvg) : 0) +
+      (h.enabledGlass ? excelRound(V * h.glassRate * GLASS_HOURS) : 0);
+    const caAirbnb =
+      h.enabledAirbnb && plateauAirbnb > 0 ? excelRound((airbnbYear * A) / plateauAirbnb) : 0;
+    const caPrivate =
+      h.enabledPrivate && plateauPrivate > 0 ? excelRound((privateYear * P) / plateauPrivate) : 0;
     const ca = caB2BVit + caAirbnb + caPrivate;
     const net = ca - excelRound(ca * rate) - excelRound(ca * variableRate) - yearlyFixed - h.capex;
     return { name, ca, net };

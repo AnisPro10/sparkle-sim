@@ -237,6 +237,33 @@ describe("cohérences internes", () => {
     expect(eurl.value).toBeLessThanOrEqual(benefice + 1);
   });
 
+  it("activité décochée ⇔ volumes à zéro dans l'Excel (mêmes chiffres partout)", () => {
+    const unchecked = computeModel({ ...OFFICIAL, enabledAirbnb: false, enabledGlass: false });
+    const zeroed = computeModel({
+      ...OFFICIAL,
+      airbnb: OFFICIAL.airbnb.map(() => 0),
+      glassJobs: OFFICIAL.glassJobs.map(() => 0),
+    });
+    expect(unchecked.revenue).toBe(zeroed.revenue);
+    expect(unchecked.realNet).toBe(zeroed.realNet);
+    expect(unchecked.cruiseNet).toBe(zeroed.cruiseNet);
+    expect(unchecked.lowCash).toBe(zeroed.lowCash);
+    expect(unchecked.months.map((m) => m.cash)).toEqual(zeroed.months.map((m) => m.cash));
+    expect(unchecked.months.map((m) => m.hours)).toEqual(zeroed.months.map((m) => m.hours));
+    expect(unchecked.scenarios.map((s) => s.net)).toEqual(zeroed.scenarios.map((s) => s.net));
+    expect(unchecked.projection.map((p) => p.net)).toEqual(zeroed.projection.map((p) => p.net));
+    // Les activités exclues disparaissent de la cascade ; les volumes saisis restent intacts.
+    expect(unchecked.byActivity.map((a) => a.key)).toEqual(["b2b", "private"]);
+    const restored = computeModel({ ...OFFICIAL, enabledAirbnb: true });
+    expect(restored.revenue).toBe(computeModel(OFFICIAL).revenue);
+  });
+
+  it("toutes activités cochées par défaut : chiffres certifiés inchangés", () => {
+    const r = computeModel(OFFICIAL);
+    expect(r.realNet).toBe(22697);
+    expect(r.byActivity).toHaveLength(4);
+  });
+
   it("ACRE : l'activer améliore le net réel et la trésorerie", () => {
     const base = computeModel(OFFICIAL);
     const acre = computeModel({ ...OFFICIAL, acre: true });

@@ -23,6 +23,17 @@ export function HypothesesRecap() {
         <Badge variant="secondary">{h.vfl ? "VFL" : "barème"}</Badge>
         <Badge variant="secondary">Apport {euro(h.contribution)}</Badge>
         <Badge variant="secondary">Objectif {euro(h.target)}/mois</Badge>
+        {(() => {
+          const off = [
+            [!h.enabledB2b, "B2B"],
+            [!h.enabledGlass, "vitrerie"],
+            [!h.enabledAirbnb, "Airbnb"],
+            [!h.enabledPrivate, "particuliers"],
+          ]
+            .filter(([excluded]) => excluded)
+            .map(([, name]) => name);
+          return off.length > 0 ? <Badge variant="warning">sans {off.join(" ni ")}</Badge> : null;
+        })()}
         <Badge variant={result.fundable ? "success" : "destructive"}>
           Point bas {euro(result.lowCash)}
         </Badge>
