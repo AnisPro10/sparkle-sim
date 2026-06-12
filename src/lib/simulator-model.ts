@@ -53,7 +53,7 @@ function monthlyRows(h: Hypotheses, volume = 1, rateDelta = 0) {
     const ca = b2b + glass + airbnb + privateRevenue;
     const levy = (h.acre && i < 10 ? h.acreRate : h.socialRate) + h.cfpRate + (h.vfl ? h.taxRate : h.tmi * .5);
     const net = ca * (1 - levy - h.productsRate - h.travelRate) - h.fixedMonthly - h.renewalMonthly;
-    return { month, b2b, glass, airbnb, private: privateRevenue, ca, hours: b2bHours + glassHours + airbnbHours + privateHours, rate: levy, net, receipts: 0, cash: 0, overloaded: false } satisfies MonthResult;
+    return { month, b2b, glass, airbnb, private: privateRevenue, ca, hours: b2bHours + glassHours + airbnbHours + privateHours, rate: levy, net, receipts: 0, cash: 0, overloaded: false as boolean } satisfies MonthResult;
   });
 }
 
