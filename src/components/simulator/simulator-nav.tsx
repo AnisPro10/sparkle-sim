@@ -8,6 +8,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { euro } from "@/lib/simulator-model";
 import { useSimulator } from "@/components/simulator-provider";
+import { loadActuals, sanitizeActuals, saveActuals } from "./actuals-store";
 import { ThemeToggle } from "./theme-toggle";
 import { downloadExcel } from "./export-excel";
 
@@ -19,10 +20,12 @@ const PAGE_TITLES: Record<string, string> = {
   "/synthese": "Synthèse",
   "/compte-resultat": "Compte de résultat",
   "/tresorerie": "Trésorerie",
+  "/pilotage": "Pilotage réel vs prévu",
   "/scenarios": "Scénarios",
   "/analyse": "Analyse avancée",
   "/projection": "Projection 5 ans",
   "/statuts": "Statuts juridiques",
+  "/rapport": "Rapport de synthèse",
   "/dictionnaire": "Dictionnaire",
 };
 
@@ -47,7 +50,9 @@ function ShareBar() {
 
   const exportJson = () => {
     try {
-      const blob = new Blob([JSON.stringify(hypotheses, null, 2)], {
+      // hypotheses + réalisé du pilotage : la sauvegarde complète de la simulation.
+      const payload = { hypotheses, actuals: loadActuals() };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], {
         type: "application/json",
       });
       const url = URL.createObjectURL(blob);
@@ -71,9 +76,14 @@ function ShareBar() {
     const reader = new FileReader();
     reader.onload = () => {
       try {
-        const data = JSON.parse(String(reader.result));
+        const data = JSON.parse(String(reader.result)) as Record<string, unknown>;
         if (data && typeof data === "object") {
-          loadAll(data);
+          // Nouveau format { hypotheses, actuals } ou ancien format (hypothèses à plat)
+          const hyp = "hypotheses" in data ? data.hypotheses : data;
+          loadAll(hyp);
+          if ("actuals" in data) {
+            saveActuals(sanitizeActuals(data.actuals));
+          }
           toast.success("Simulation importée");
         } else {
           toast.error("Fichier JSON invalide");

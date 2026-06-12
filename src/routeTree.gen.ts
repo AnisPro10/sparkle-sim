@@ -13,7 +13,9 @@ import { Route as TresorerieRouteImport } from './routes/tresorerie'
 import { Route as SyntheseRouteImport } from './routes/synthese'
 import { Route as StatutsRouteImport } from './routes/statuts'
 import { Route as ScenariosRouteImport } from './routes/scenarios'
+import { Route as RapportRouteImport } from './routes/rapport'
 import { Route as ProjectionRouteImport } from './routes/projection'
+import { Route as PilotageRouteImport } from './routes/pilotage'
 import { Route as HypothesesRouteImport } from './routes/hypotheses'
 import { Route as DictionnaireRouteImport } from './routes/dictionnaire'
 import { Route as DemarrageRouteImport } from './routes/demarrage'
@@ -42,9 +44,19 @@ const ScenariosRoute = ScenariosRouteImport.update({
   path: '/scenarios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RapportRoute = RapportRouteImport.update({
+  id: '/rapport',
+  path: '/rapport',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectionRoute = ProjectionRouteImport.update({
   id: '/projection',
   path: '/projection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PilotageRoute = PilotageRouteImport.update({
+  id: '/pilotage',
+  path: '/pilotage',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HypothesesRoute = HypothesesRouteImport.update({
@@ -91,7 +103,9 @@ export interface FileRoutesByFullPath {
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
   '/hypotheses': typeof HypothesesRoute
+  '/pilotage': typeof PilotageRoute
   '/projection': typeof ProjectionRoute
+  '/rapport': typeof RapportRoute
   '/scenarios': typeof ScenariosRoute
   '/statuts': typeof StatutsRoute
   '/synthese': typeof SyntheseRoute
@@ -105,7 +119,9 @@ export interface FileRoutesByTo {
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
   '/hypotheses': typeof HypothesesRoute
+  '/pilotage': typeof PilotageRoute
   '/projection': typeof ProjectionRoute
+  '/rapport': typeof RapportRoute
   '/scenarios': typeof ScenariosRoute
   '/statuts': typeof StatutsRoute
   '/synthese': typeof SyntheseRoute
@@ -120,7 +136,9 @@ export interface FileRoutesById {
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
   '/hypotheses': typeof HypothesesRoute
+  '/pilotage': typeof PilotageRoute
   '/projection': typeof ProjectionRoute
+  '/rapport': typeof RapportRoute
   '/scenarios': typeof ScenariosRoute
   '/statuts': typeof StatutsRoute
   '/synthese': typeof SyntheseRoute
@@ -136,7 +154,9 @@ export interface FileRouteTypes {
     | '/demarrage'
     | '/dictionnaire'
     | '/hypotheses'
+    | '/pilotage'
     | '/projection'
+    | '/rapport'
     | '/scenarios'
     | '/statuts'
     | '/synthese'
@@ -150,7 +170,9 @@ export interface FileRouteTypes {
     | '/demarrage'
     | '/dictionnaire'
     | '/hypotheses'
+    | '/pilotage'
     | '/projection'
+    | '/rapport'
     | '/scenarios'
     | '/statuts'
     | '/synthese'
@@ -164,7 +186,9 @@ export interface FileRouteTypes {
     | '/demarrage'
     | '/dictionnaire'
     | '/hypotheses'
+    | '/pilotage'
     | '/projection'
+    | '/rapport'
     | '/scenarios'
     | '/statuts'
     | '/synthese'
@@ -179,7 +203,9 @@ export interface RootRouteChildren {
   DemarrageRoute: typeof DemarrageRoute
   DictionnaireRoute: typeof DictionnaireRoute
   HypothesesRoute: typeof HypothesesRoute
+  PilotageRoute: typeof PilotageRoute
   ProjectionRoute: typeof ProjectionRoute
+  RapportRoute: typeof RapportRoute
   ScenariosRoute: typeof ScenariosRoute
   StatutsRoute: typeof StatutsRoute
   SyntheseRoute: typeof SyntheseRoute
@@ -216,11 +242,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScenariosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rapport': {
+      id: '/rapport'
+      path: '/rapport'
+      fullPath: '/rapport'
+      preLoaderRoute: typeof RapportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projection': {
       id: '/projection'
       path: '/projection'
       fullPath: '/projection'
       preLoaderRoute: typeof ProjectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pilotage': {
+      id: '/pilotage'
+      path: '/pilotage'
+      fullPath: '/pilotage'
+      preLoaderRoute: typeof PilotageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hypotheses': {
@@ -283,7 +323,9 @@ const rootRouteChildren: RootRouteChildren = {
   DemarrageRoute: DemarrageRoute,
   DictionnaireRoute: DictionnaireRoute,
   HypothesesRoute: HypothesesRoute,
+  PilotageRoute: PilotageRoute,
   ProjectionRoute: ProjectionRoute,
+  RapportRoute: RapportRoute,
   ScenariosRoute: ScenariosRoute,
   StatutsRoute: StatutsRoute,
   SyntheseRoute: SyntheseRoute,

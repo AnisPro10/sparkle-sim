@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import {
   SlidersHorizontal,
   LayoutDashboard,
+  ClipboardList,
+  FileDown,
   FileText,
   FlaskConical,
   LineChart,
@@ -49,6 +51,7 @@ const GROUPS: { label: string; items: Item[] }[] = [
       { to: "/synthese", label: "Synthèse", icon: LayoutDashboard, exact: true },
       { to: "/compte-resultat", label: "Compte de résultat", icon: FileText },
       { to: "/tresorerie", label: "Trésorerie", icon: LineChart },
+      { to: "/pilotage", label: "Pilotage réel", icon: ClipboardList },
     ],
   },
   {
@@ -62,7 +65,10 @@ const GROUPS: { label: string; items: Item[] }[] = [
   },
   {
     label: "Annexes",
-    items: [{ to: "/dictionnaire", label: "Dictionnaire", icon: BookOpenText }],
+    items: [
+      { to: "/rapport", label: "Rapport (PDF)", icon: FileDown },
+      { to: "/dictionnaire", label: "Dictionnaire", icon: BookOpenText },
+    ],
   },
 ];
 

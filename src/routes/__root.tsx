@@ -16,6 +16,7 @@ import { SimulatorProvider } from "@/components/simulator-provider";
 import { SimulatorHeader } from "@/components/simulator/simulator-nav";
 import { AppSidebar } from "@/components/simulator/app-sidebar";
 import { HypothesesRecap } from "@/components/simulator/hypotheses-recap";
+import { WelcomeDialog } from "@/components/simulator/welcome-dialog";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -176,6 +177,7 @@ function SimulatorShell() {
           <Outlet />
         </main>
       </SidebarInset>
+      <WelcomeDialog />
     </SidebarProvider>
   );
 }
