@@ -87,6 +87,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "La propreté qui tient parole." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "L'AZ du Clean" },
+      { name: "description", content: "La propreté qui tient parole." },
+      { name: "twitter:description", content: "La propreté qui tient parole." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/f4219723-20b8-4d4e-8b34-188d78a2ac40" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/f4219723-20b8-4d4e-8b34-188d78a2ac40" },
     ],
     links: [
       {
