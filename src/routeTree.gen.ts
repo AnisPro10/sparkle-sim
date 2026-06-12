@@ -18,6 +18,7 @@ import { Route as HypothesesRouteImport } from './routes/hypotheses'
 import { Route as DictionnaireRouteImport } from './routes/dictionnaire'
 import { Route as DemarrageRouteImport } from './routes/demarrage'
 import { Route as CompteResultatRouteImport } from './routes/compte-resultat'
+import { Route as AnalyseRouteImport } from './routes/analyse'
 import { Route as ActiviteRouteImport } from './routes/activite'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -66,6 +67,11 @@ const CompteResultatRoute = CompteResultatRouteImport.update({
   path: '/compte-resultat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyseRoute = AnalyseRouteImport.update({
+  id: '/analyse',
+  path: '/analyse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActiviteRoute = ActiviteRouteImport.update({
   id: '/activite',
   path: '/activite',
@@ -80,6 +86,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activite': typeof ActiviteRoute
+  '/analyse': typeof AnalyseRoute
   '/compte-resultat': typeof CompteResultatRoute
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activite': typeof ActiviteRoute
+  '/analyse': typeof AnalyseRoute
   '/compte-resultat': typeof CompteResultatRoute
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/activite': typeof ActiviteRoute
+  '/analyse': typeof AnalyseRoute
   '/compte-resultat': typeof CompteResultatRoute
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
@@ -122,6 +131,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/activite'
+    | '/analyse'
     | '/compte-resultat'
     | '/demarrage'
     | '/dictionnaire'
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/activite'
+    | '/analyse'
     | '/compte-resultat'
     | '/demarrage'
     | '/dictionnaire'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/activite'
+    | '/analyse'
     | '/compte-resultat'
     | '/demarrage'
     | '/dictionnaire'
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActiviteRoute: typeof ActiviteRoute
+  AnalyseRoute: typeof AnalyseRoute
   CompteResultatRoute: typeof CompteResultatRoute
   DemarrageRoute: typeof DemarrageRoute
   DictionnaireRoute: typeof DictionnaireRoute
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompteResultatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analyse': {
+      id: '/analyse'
+      path: '/analyse'
+      fullPath: '/analyse'
+      preLoaderRoute: typeof AnalyseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/activite': {
       id: '/activite'
       path: '/activite'
@@ -258,6 +278,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActiviteRoute: ActiviteRoute,
+  AnalyseRoute: AnalyseRoute,
   CompteResultatRoute: CompteResultatRoute,
   DemarrageRoute: DemarrageRoute,
   DictionnaireRoute: DictionnaireRoute,

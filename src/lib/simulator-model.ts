@@ -89,6 +89,12 @@ export const hypothesesSchema = z.object({
   enabledGlass: z.boolean(),
   enabledAirbnb: z.boolean(),
   enabledPrivate: z.boolean(),
+  // Options « réalisme avancé » — désactivées par défaut : à zéro/false, le moteur
+  // reste en parité stricte avec le classeur certifié (hors périmètre Excel sinon).
+  churnRate: num.min(0).max(0.5),
+  inflationPrices: num.min(0).max(0.2),
+  inflationCosts: num.min(0).max(0.2),
+  progressiveTax: z.boolean(),
   tmi: num.min(0).max(0.6),
   productsRate: num.min(0).max(0.5),
   travelRate: num.min(0).max(0.5),
@@ -140,6 +146,9 @@ const FIELD_BOUNDS: Record<string, NumericBounds> = {
   capacity: { min: 1, max: 1000 },
   microCeiling: { min: 1000, max: 500_000 },
   vatCeiling: { min: 1000, max: 500_000 },
+  churnRate: { min: 0, max: 0.5 },
+  inflationPrices: { min: 0, max: 0.2 },
+  inflationCosts: { min: 0, max: 0.2 },
 };
 const MONTH_BOUNDS: Record<string, NumericBounds> = {
   sites: { min: 0, max: 100 },
@@ -186,6 +195,7 @@ export function clampHypotheses(input: unknown): Hypotheses {
   for (const key of ["enabledB2b", "enabledGlass", "enabledAirbnb", "enabledPrivate"] as const) {
     out[key] = typeof src[key] === "boolean" ? src[key] : true;
   }
+  out.progressiveTax = typeof src.progressiveTax === "boolean" ? src.progressiveTax : false;
   return out as Hypotheses;
 }
 
@@ -213,6 +223,10 @@ export const OFFICIAL: Hypotheses = {
   enabledGlass: true,
   enabledAirbnb: true,
   enabledPrivate: true,
+  churnRate: 0,
+  inflationPrices: 0,
+  inflationCosts: 0,
+  progressiveTax: false,
   tmi: 0.11,
   productsRate: 0.04,
   travelRate: 0.05,
@@ -371,6 +385,35 @@ export function globalRate(h: Hypotheses): number {
   return (h.acre ? h.acreRate : h.socialRate) + h.cfpRate + (h.vfl ? h.taxRate : 0);
 }
 
+/** Barème progressif de l'IR 2026 (1 part) — option avancée hors périmètre du classeur. */
+export const IR_BRACKETS_2026 = [
+  { upTo: 11497, rate: 0 },
+  { upTo: 29315, rate: 0.11 },
+  { upTo: 83823, rate: 0.3 },
+  { upTo: 180294, rate: 0.41 },
+  { upTo: Infinity, rate: 0.45 },
+] as const;
+
+export function progressiveIncomeTax(taxableIncome: number): number {
+  let tax = 0;
+  let floor = 0;
+  for (const { upTo, rate } of IR_BRACKETS_2026) {
+    if (taxableIncome <= floor) break;
+    tax += (Math.min(taxableIncome, upTo) - floor) * rate;
+    floor = upTo;
+  }
+  return Math.max(0, tax);
+}
+
+/**
+ * Sites effectifs du mois, attrition déduite (option churn ; 0 = parité classeur).
+ * Le plan saisi représente les acquisitions brutes ; on retire la perte moyenne
+ * cumulée d'un taux annuel réparti linéairement sur l'exercice.
+ */
+function effectiveSites(h: Hypotheses, i: number): number {
+  return h.sites[i] * Math.max(0, 1 - h.churnRate * ((i + 0.5) / 12));
+}
+
 function monthlyRows(h: Hypotheses): MonthResult[] {
   const effectiveRate = h.hourlyB2B * (1 - h.annualShare * h.annualDiscount); // 28,995 — jamais arrondi
   const siteMonthly = h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * effectiveRate; // 301,31604
@@ -381,14 +424,14 @@ function monthlyRows(h: Hypotheses): MonthResult[] {
   const onAirbnb = h.enabledAirbnb ? 1 : 0;
   const onPrivate = h.enabledPrivate ? 1 : 0;
   return MONTHS.map((month, i) => {
-    const b2b =
-      onB2b * excelRound(h.sites[i] * siteMonthly * h.seasonality[i] * (1 - h.unpaidRate));
+    const sites = effectiveSites(h, i);
+    const b2b = onB2b * excelRound(sites * siteMonthly * h.seasonality[i] * (1 - h.unpaidRate));
     const glass = onGlass * h.glassJobs[i] * h.glassRate * GLASS_HOURS;
     const airbnb = onAirbnb * h.airbnb[i] * h.airbnbPrice;
     const privateRevenue = onPrivate * h.privateJobs[i] * h.privateRate * h.privateHours;
     const ca = b2b + glass + airbnb + privateRevenue;
     const hours = excelRound(
-      onB2b * h.sites[i] * h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * h.seasonality[i] +
+      onB2b * sites * h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * h.seasonality[i] +
         onGlass * h.glassJobs[i] * GLASS_HOURS +
         onAirbnb * h.airbnb[i] * AIRBNB_HOURS +
         onPrivate * h.privateJobs[i] * h.privateHours,
@@ -430,10 +473,18 @@ export function enabledActivities(h: Hypotheses): ("b2b" | "glass" | "airbnb" | 
  *  Seules les activités cochées apparaissent — les vues et exports suivent automatiquement. */
 function activityBreakdown(h: Hypotheses, months: MonthResult[]): ActivityBreakdown[] {
   const keys = enabledActivities(h);
+  const totalCa = months.reduce((sum, m) => sum + m.ca, 0);
+  // Option avancée : impôt au barème progressif réel (au lieu de TMI plate) quand
+  // le VFL est désactivé — réparti entre activités au prorata du CA.
+  const progressiveTotal =
+    !h.vfl && h.progressiveTax && totalCa > 0 ? progressiveIncomeTax(0.5 * totalCa) : null;
   return keys.map((key) => {
     const ca = months.reduce((sum, m) => sum + m[key], 0);
     const cotisations = excelRound(ca * (h.acre ? h.acreRate : h.socialRate));
-    const impot = excelRound(ca * (h.vfl ? h.taxRate : 0.5 * h.tmi));
+    const impot =
+      progressiveTotal !== null
+        ? excelRound((progressiveTotal * ca) / totalCa)
+        : excelRound(ca * (h.vfl ? h.taxRate : 0.5 * h.tmi));
     const cfp = excelRound(ca * h.cfpRate);
     const produits = excelRound(ca * h.productsRate);
     const deplacements = excelRound(ca * h.travelRate);
@@ -514,28 +565,31 @@ function buildScenarios(h: Hypotheses, revenue: number): ScenarioResult[] {
   ];
 }
 
-/** Projection 5 ans — parité onglet Projection_5ans (net AVANT matériel initial). */
+/** Projection 5 ans — parité onglet Projection_5ans (net AVANT matériel initial).
+ *  Options avancées : inflation des prix (s'ajoute à la croissance en volume) et
+ *  inflation des charges fixes — à 0, parité stricte avec le classeur. */
 function buildProjection(h: Hypotheses, revenue: number): YearProjection[] {
-  const yearlyFixed = (h.fixedMonthly + h.renewalMonthly) * 12;
   const fullRate = h.socialRate + h.cfpRate + (h.vfl ? h.taxRate : 0);
   const variableRate = h.productsRate + h.travelRate;
-  const netOf = (ca: number, rate: number, cfe: number) =>
-    ca - excelRound(ca * rate) - excelRound(ca * variableRate) - yearlyFixed - cfe;
+  const netOf = (ca: number, rate: number, cfe: number, fixedYear: number) =>
+    ca - excelRound(ca * rate) - excelRound(ca * variableRate) - excelRound(fixedYear) - cfe;
+  const baseFixed = (h.fixedMonthly + h.renewalMonthly) * 12;
   const projection: YearProjection[] = [
     {
       year: "Année 1",
       revenue,
-      net: netOf(revenue, globalRate(h), 0),
+      net: netOf(revenue, globalRate(h), 0, baseFixed),
       vat: revenue > h.vatCeiling,
       micro: revenue > h.microCeiling,
     },
   ];
   h.growth.forEach((g, i) => {
-    const ca = excelRound(projection[i].revenue * (1 + g));
+    const ca = excelRound(projection[i].revenue * (1 + g) * (1 + h.inflationPrices));
+    const fixedYear = baseFixed * (1 + h.inflationCosts) ** (i + 1);
     projection.push({
       year: `Année ${i + 2}`,
       revenue: ca,
-      net: netOf(ca, fullRate, CFE_YEAR2),
+      net: netOf(ca, fullRate, CFE_YEAR2, fixedYear),
       vat: ca > h.vatCeiling,
       micro: ca > h.microCeiling,
     });
@@ -605,6 +659,39 @@ export function computeModel(input: Hypotheses): ModelResult {
     fundable: low.cash >= 0,
     scenarios: buildScenarios(h, revenue),
     projection: buildProjection(h, revenue),
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* Seuils en année civile — précision réglementaire                    */
+/* Le plafond micro et la franchise TVA s'apprécient par année CIVILE, */
+/* au prorata temporis la première année. L'exercice du plan court de  */
+/* septembre 2026 à août 2027 : la 1re année civile = sept-déc 2026,   */
+/* soit 122 jours → seuils × 122/365. Pur affichage : aucune incidence */
+/* sur les calculs du plan (parité classeur préservée).                */
+/* ------------------------------------------------------------------ */
+
+export const CIVIL_2026_RATIO = 122 / 365;
+
+export type CivilYearCheck = {
+  /** CA facturé de septembre à décembre 2026. */
+  revenue2026: number;
+  vatThresholdProrated: number;
+  microThresholdProrated: number;
+  vatExceeded: boolean;
+  microExceeded: boolean;
+};
+
+export function civilYear2026Check(h: Hypotheses, m: ModelResult): CivilYearCheck {
+  const revenue2026 = m.months.slice(0, 4).reduce((s, x) => s + x.ca, 0);
+  const vatThresholdProrated = excelRound(h.vatCeiling * CIVIL_2026_RATIO);
+  const microThresholdProrated = excelRound(h.microCeiling * CIVIL_2026_RATIO);
+  return {
+    revenue2026,
+    vatThresholdProrated,
+    microThresholdProrated,
+    vatExceeded: revenue2026 > vatThresholdProrated,
+    microExceeded: revenue2026 > microThresholdProrated,
   };
 }
 

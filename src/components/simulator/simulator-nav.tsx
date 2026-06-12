@@ -20,6 +20,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/compte-resultat": "Compte de résultat",
   "/tresorerie": "Trésorerie",
   "/scenarios": "Scénarios",
+  "/analyse": "Analyse avancée",
   "/projection": "Projection 5 ans",
   "/statuts": "Statuts juridiques",
   "/dictionnaire": "Dictionnaire",

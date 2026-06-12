@@ -34,6 +34,17 @@ export function HypothesesRecap() {
             .map(([, name]) => name);
           return off.length > 0 ? <Badge variant="warning">sans {off.join(" ni ")}</Badge> : null;
         })()}
+        {(h.churnRate > 0 ||
+          h.inflationPrices > 0 ||
+          h.inflationCosts > 0 ||
+          (h.progressiveTax && !h.vfl)) && (
+          <Badge
+            variant="warning"
+            title="Options de réalisme actives — chiffres hors périmètre du prévisionnel Excel certifié"
+          >
+            mode avancé
+          </Badge>
+        )}
         <Badge variant={result.fundable ? "success" : "destructive"}>
           Point bas {euro(result.lowCash)}
         </Badge>

@@ -295,6 +295,81 @@ export const TERMES: Terme[] = [
     cat: "Stratégie",
     def: "Le passage de la micro vers une EURL/SASU, à préparer un an avant le plafond micro ou dès 70 000 € de CA glissant — quand les charges réelles dépassent l'abattement de 50 %.",
   },
+  // Analyse avancée
+  {
+    mot: "Sensibilité (matrice)",
+    cat: "Stratégie",
+    def: "Test « et si ? » à deux entrées : on fait varier deux leviers à la fois (nombre de sites, taux horaire) et on lit l'effet direct sur le revenu d'un mois plein. La grille de l'onglet Sensibilité du prévisionnel Excel.",
+    exemple:
+      "12 sites × 30 €/h → 3 646 €/mois hors saisonnalité ; repérez la première case ≥ 1 500 € pour connaître le minimum vital.",
+  },
+  {
+    mot: "Tornado",
+    cat: "Stratégie",
+    def: "Classement des leviers par impact : chacun varie de ±10 % pendant que le reste est figé, la longueur de la barre montre de combien le net annuel bouge. Les barres les plus longues = vos vrais leviers de pilotage.",
+    exemple:
+      "Si « taux horaire » domine, 1 € de plus par heure rapporte plus que n'importe quel autre effort.",
+  },
+  {
+    mot: "Objectif inversé (goal seek)",
+    cat: "Stratégie",
+    def: "Le calcul à l'envers : on fixe le revenu mensuel visé et le simulateur résout chaque levier séparément — quel taux horaire, combien de sites ou quelle durée de passage il faudrait.",
+    exemple:
+      "« Je veux 2 000 €/mois en croisière » → le solveur répond en sites, en €/h et en heures par passage.",
+  },
+  {
+    mot: "Monte-Carlo",
+    cat: "Stratégie",
+    def: "Des milliers d'années simulées en tirant chaque levier au sort dans les bornes de l'étude de marché : on lit la DISTRIBUTION des résultats possibles plutôt qu'un chiffre unique. Les tirages sont reproductibles (graine fixe).",
+    exemple:
+      "« 80 % des années simulées donnent un net entre P10 et P90 ; probabilité d'atteindre l'objectif : 9 cas sur 10. »",
+  },
+  {
+    mot: "P10 / P50 / P90",
+    cat: "Finance",
+    def: "Les percentiles d'une simulation Monte-Carlo : 10 % des cas font moins bien que le P10, la moitié moins bien que le P50 (médiane), 90 % moins bien que le P90. Le couloir P10→P90 contient 80 % des cas.",
+  },
+  {
+    mot: "Churn (attrition)",
+    cat: "Stratégie",
+    def: "Part des clients récurrents perdus chaque année (résiliations, déménagements, insatisfaction). Option avancée : le plan saisi devient les acquisitions brutes, le parc effectif est réduit de la perte cumulée.",
+    exemple: "10 %/an sur 12 sites ≈ 1 site à remplacer dans l'année juste pour rester à niveau.",
+  },
+  {
+    mot: "Inflation (indexation)",
+    cat: "Finance",
+    def: "Option avancée de la projection 5 ans : revalorisation annuelle des prix (s'ajoute à la croissance des volumes) et hausse des charges fixes. À 0 %, la projection reste celle du classeur, à prix constants.",
+  },
+  {
+    mot: "Année civile (prorata)",
+    cat: "Fiscalité",
+    def: "Le plafond micro et la franchise TVA s'apprécient par année CIVILE (janvier-décembre), au prorata du temps d'activité la première année — pas sur l'exercice du plan (septembre-août).",
+    exemple:
+      "Lancement au 1er septembre 2026 : seuil TVA 2026 = 37 500 € × 122/365 ≈ 12 534 € pour septembre-décembre.",
+  },
+  {
+    mot: "Barème progressif",
+    cat: "Fiscalité",
+    def: "Les vraies tranches de l'impôt sur le revenu (0 %, 11 %, 30 %…) appliquées à 50 % du CA quand le versement libératoire est désactivé — plus précis que la TMI plate, surtout près d'un changement de tranche.",
+  },
+  {
+    mot: "Trimestre de retraite",
+    cat: "Aides & social",
+    def: "Le CA micro valide des trimestres de retraite par paliers : ≈ 3 250 € pour 1 trimestre, ≈ 13 000 € pour les 4 trimestres de l'année (services BIC, ordres de grandeur).",
+    exemple: "36 573 € de CA en année 1 : les 4 trimestres sont validés.",
+  },
+  {
+    mot: "Atterrissage (re-prévision)",
+    cat: "Stratégie",
+    def: "La projection d'année recalculée en cours de route : les mois écoulés en chiffres RÉELS + les mois restants en prévision = où l'année va vraiment atterrir.",
+    exemple:
+      "Après 3 mois de réel à −10 % du plan, l'atterrissage montre l'écart de fin d'année si rien ne change.",
+  },
+  {
+    mot: "Réel vs prévu",
+    cat: "Stratégie",
+    def: "La boucle de pilotage : saisir chaque mois le CA réellement facturé, le comparer au plan, et agir si l'écart dépasse 15 % (règle de la phase 9 de l'étude).",
+  },
 ];
 
 export const CATEGORIES = [

@@ -3,6 +3,7 @@ import {
   SlidersHorizontal,
   LayoutDashboard,
   FileText,
+  FlaskConical,
   LineChart,
   BarChart3,
   CalendarRange,
@@ -54,6 +55,7 @@ const GROUPS: { label: string; items: Item[] }[] = [
     label: "Analyse",
     items: [
       { to: "/scenarios", label: "Scénarios", icon: BarChart3 },
+      { to: "/analyse", label: "Analyse avancée", icon: FlaskConical },
       { to: "/projection", label: "Projection 5 ans", icon: CalendarRange },
       { to: "/statuts", label: "Statuts juridiques", icon: Landmark },
     ],

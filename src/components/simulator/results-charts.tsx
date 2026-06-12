@@ -30,6 +30,7 @@ import { cn } from "@/lib/utils";
 import {
   CAPACITY_CRITICAL,
   CAPACITY_WARN,
+  civilYear2026Check,
   computeModel,
   euro,
   fmtK,
@@ -383,12 +384,29 @@ export function ResultatWaterfall({ h, m }: { h: Hypotheses; m: ModelResult }) {
 
 export function SyntheseView({ h, m }: { h: Hypotheses; m: ModelResult }) {
   const occupancy = m.maxOccupancy;
+  const civil = civilYear2026Check(h, m);
   return (
     <section className="space-y-5">
       <SectionHead
         title="Tableau de bord"
         desc="Vue d'ensemble : rentabilité, trésorerie, capacité et seuils réglementaires."
       />
+
+      {/* Seuils en année civile : prorata temporis de la 1re année (sept-déc 2026) */}
+      {civil.vatExceeded && (
+        <div
+          role="alert"
+          className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning/10 px-4 py-3 text-sm text-foreground"
+        >
+          <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-warning" />
+          <span>
+            <strong>Franchise de TVA — année civile 2026 :</strong> le CA de septembre à décembre (
+            {euro(civil.revenue2026)}) dépasse le seuil proratisé de{" "}
+            {euro(civil.vatThresholdProrated)} (37 500 € × 122/365 jours) : la TVA serait à facturer
+            dès 2026, pas seulement en année 2.
+          </span>
+        </div>
+      )}
 
       {/* Alertes */}
       {!m.fundable && (

@@ -3,7 +3,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { CFE_YEAR2, euro, percent, type YearProjection } from "@/lib/simulator-model";
+import {
+  CFE_YEAR2,
+  civilYear2026Check,
+  euro,
+  percent,
+  type YearProjection,
+} from "@/lib/simulator-model";
 import { useSimulator } from "@/components/simulator-provider";
 import { SectionHead } from "@/components/simulator/results";
 
@@ -154,6 +160,31 @@ function ProjectionPage() {
             dépassement du seuil TVA dès l'année 2 est anticipé et neutre pour les clients
             professionnels. À affiner avec un expert-comptable.
           </p>
+          {(() => {
+            const civil = civilYear2026Check(h, result);
+            return (
+              <div
+                className={cn(
+                  "mt-3 rounded-lg border px-4 py-3 text-xs leading-relaxed",
+                  civil.vatExceeded
+                    ? "border-warning/50 bg-warning/10 text-foreground"
+                    : "border-border bg-muted/30 text-muted-foreground",
+                )}
+              >
+                <strong className="text-foreground">
+                  Précision réglementaire — seuils en année civile :
+                </strong>{" "}
+                le plafond micro et la franchise TVA s'apprécient par année civile, au prorata la
+                première année. Pour septembre-décembre 2026 (122 jours) : seuil TVA proratisé{" "}
+                {euro(civil.vatThresholdProrated)}, plafond micro proratisé{" "}
+                {euro(civil.microThresholdProrated)}. Votre CA civil 2026 :{" "}
+                <strong className="text-foreground">{euro(civil.revenue2026)}</strong> —{" "}
+                {civil.vatExceeded
+                  ? "seuil TVA dépassé : la TVA serait à facturer dès 2026."
+                  : "sous les deux seuils, aucun déclenchement anticipé."}
+              </div>
+            );
+          })()}
         </CardContent>
       </Card>
     </div>

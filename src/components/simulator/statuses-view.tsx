@@ -10,6 +10,7 @@ import {
   type Hypotheses,
   type ModelResult,
 } from "@/lib/simulator-model";
+import { retirementQuarters } from "@/lib/advanced-analysis";
 import { SectionHead } from "./results";
 import { InfoTerm } from "./info-term";
 
@@ -169,6 +170,20 @@ export function StatusesView({ h, m }: { h: Hypotheses; m: ModelResult }) {
       label: "Impôt",
       term: "Versement fiscal libératoire (VFL)",
       get: (c) => QUALI[c.id].impot(h),
+    },
+    {
+      label: "Trimestres de retraite validés (an 1)",
+      get: (c) =>
+        c.id === "micro" ? (
+          <span className="font-mono font-semibold tabular-nums text-foreground">
+            {retirementQuarters(m.revenue)} / 4
+            <span className="ml-1 font-sans text-[10px] font-normal text-muted-foreground">
+              (CA {euro(m.revenue)})
+            </span>
+          </span>
+        ) : (
+          "selon la rémunération versée"
+        ),
     },
     { label: "Protection sociale & retraite", get: (c) => QUALI[c.id].social },
     { label: "Comptabilité & gestion", get: (c) => QUALI[c.id].compta },

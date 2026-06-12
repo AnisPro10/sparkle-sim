@@ -573,7 +573,56 @@ export function AssumptionsPanel() {
         </Grid>
       </Section>
 
-      {/* 6 · Projection 5 ans */}
+      {/* 6 · Options avancées (hors périmètre du classeur certifié) */}
+      <Section
+        title="Options avancées — réalisme renforcé"
+        desc="À zéro/désactivées par défaut : le simulateur reste alors en parité stricte avec le prévisionnel Excel certifié. Activées, un badge « mode avancé » s'affiche partout."
+      >
+        <Grid>
+          <Field
+            field="churnRate"
+            label="Attrition clients B2B (churn)"
+            step={1}
+            unit="%/an"
+            asPercent
+            info="Part des sites B2B perdus chaque année (résiliations, déménagements). Le plan saisi devient les acquisitions brutes ; le parc effectif est réduit de la perte cumulée. Référence métier : ~10 %/an. À 0 % : parité Excel."
+          />
+          <Field
+            field="inflationPrices"
+            label="Inflation des prix (ans 2-5)"
+            step={0.5}
+            unit="%/an"
+            asPercent
+            info="Revalorisation annuelle de vos tarifs dans la projection 5 ans, qui s'ajoute à la croissance des volumes. À 0 % : parité Excel (croissance en volume seule)."
+          />
+          <Field
+            field="inflationCosts"
+            label="Inflation des charges (ans 2-5)"
+            step={0.5}
+            unit="%/an"
+            asPercent
+            info="Hausse annuelle des charges fixes dans la projection (assurances, logiciel, banque). À 0 % : parité Excel."
+          />
+          <div className="space-y-1">
+            <span className="flex items-center gap-1.5 text-xs font-medium text-foreground/80">
+              Impôt au barème progressif réel
+              <InfoDot text="Quand le versement libératoire est désactivé, calcule l'impôt avec les vraies tranches 2026 (0 %, 11 %, 30 %…) au lieu d'une TMI plate sur 50 % du CA. Plus précis pour les revenus proches d'un changement de tranche. Sans effet si le VFL est actif." />
+            </span>
+            <Segmented<"oui" | "non">
+              label="Barème progressif"
+              cols="grid-cols-2"
+              value={h.progressiveTax ? "oui" : "non"}
+              onChange={(v) => setField("progressiveTax", v === "oui")}
+              options={[
+                { v: "oui", label: "Activé" },
+                { v: "non", label: "Non" },
+              ]}
+            />
+          </div>
+        </Grid>
+      </Section>
+
+      {/* 7 · Projection 5 ans */}
       <Section
         title="Projection 5 ans"
         desc="Croissance du CA année par année — comme l'onglet Projection_5ans du prévisionnel."
