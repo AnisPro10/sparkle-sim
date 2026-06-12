@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -11,6 +12,13 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SimulatorProvider } from "@/components/simulator-provider";
+import { SimulatorHeader } from "@/components/simulator/simulator-nav";
+import { AppSidebar } from "@/components/simulator/app-sidebar";
+import { HypothesesRecap } from "@/components/simulator/hypotheses-recap";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
 
 // Applique le thème sauvegardé AVANT la première peinture (pas de flash clair→sombre).
 const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("az-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})();`;
@@ -22,7 +30,7 @@ function NotFoundComponent() {
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page introuvable</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          La page que vous cherchez n’existe pas ou a été déplacée.
+          La page que vous cherchez n'existe pas ou a été déplacée.
         </p>
         <div className="mt-6">
           <Link
@@ -48,10 +56,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Cette page n’a pas pu se charger
+          Cette page n'a pas pu se charger
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Une erreur est survenue de notre côté. Vous pouvez réessayer ou revenir à l’accueil.
+          Une erreur est survenue de notre côté. Vous pouvez réessayer ou revenir à l'accueil.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -67,7 +75,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Retour à l’accueil
+            Retour à l'accueil
           </a>
         </div>
       </div>
@@ -80,18 +88,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "L'AZ du Clean" },
+      { title: "L'AZ du Clean — Simulateur financier" },
       {
         name: "description",
         content:
-          "Simulateur professionnel de viabilité financière et juridique pour L’AZ du Clean.",
+          "Simulateur professionnel de viabilité financière et juridique pour L'AZ du Clean — nettoyage B2B en Seine-Saint-Denis & Paris.",
       },
       { name: "author", content: "L'AZ du Clean" },
-      { property: "og:title", content: "L'AZ du Clean" },
+      { property: "og:title", content: "L'AZ du Clean — Simulateur financier" },
       { property: "og:description", content: "La propreté qui tient parole." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "L'AZ du Clean" },
+      { name: "twitter:title", content: "L'AZ du Clean — Simulateur financier" },
       { name: "twitter:description", content: "La propreté qui tient parole." },
       {
         property: "og:image",
@@ -105,18 +113,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap",
       },
     ],
-    scripts: [{ children: THEME_SCRIPT }],
+    scripts: [
+      { children: THEME_SCRIPT },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "L'AZ du Clean — Simulateur financier",
+          description:
+            "Simulateur financier et juridique du projet de nettoyage professionnel L'AZ du Clean : prévisionnel, trésorerie, scénarios, statuts.",
+          inLanguage: "fr-FR",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -138,13 +156,40 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function SimulatorShell() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // La landing (/) s'affiche en pleine page, hors chrome du simulateur.
+  if (pathname === "/")
+    return (
+      <main>
+        <Outlet />
+      </main>
+    );
+  const showRecap = pathname !== "/hypotheses";
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="min-w-0">
+        <SimulatorHeader />
+        <main className="max-w-[1500px] w-full mx-auto px-4 sm:px-5 py-6">
+          {showRecap && <HypothesesRecap />}
+          <Outlet />
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SimulatorProvider>
+        <TooltipProvider delayDuration={150}>
+          <SimulatorShell />
+          <Toaster position="bottom-right" />
+        </TooltipProvider>
+      </SimulatorProvider>
     </QueryClientProvider>
   );
 }

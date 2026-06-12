@@ -23,6 +23,8 @@ type SimulatorContextValue = {
     value: number,
   ) => void;
   applyPreset: (preset: Hypotheses) => void;
+  /** Remplace tout l'état (import JSON, scénario) — l'entrée est clampée, jamais de crash. */
+  loadAll: (data: unknown) => void;
   saveScenario: (name: string) => boolean;
   loadScenario: (scenario: SavedScenario) => void;
   deleteScenario: (name: string) => void;
@@ -151,6 +153,11 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
     setHypotheses(preset);
   }, []);
 
+  const loadAll = useCallback((data: unknown) => {
+    setActiveScenario(null);
+    setHypotheses(clampHypotheses(data));
+  }, []);
+
   const saveScenario = useCallback(
     (name: string) => {
       const clean = name.trim().slice(0, SCENARIO_NAME_MAX);
@@ -253,6 +260,7 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
       setField,
       setMonthValue,
       applyPreset,
+      loadAll,
       saveScenario,
       loadScenario,
       deleteScenario,
@@ -267,6 +275,7 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
       setField,
       setMonthValue,
       applyPreset,
+      loadAll,
       saveScenario,
       loadScenario,
       deleteScenario,

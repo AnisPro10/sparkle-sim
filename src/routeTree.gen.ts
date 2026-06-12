@@ -9,8 +9,68 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TresorerieRouteImport } from './routes/tresorerie'
+import { Route as SyntheseRouteImport } from './routes/synthese'
+import { Route as StatutsRouteImport } from './routes/statuts'
+import { Route as ScenariosRouteImport } from './routes/scenarios'
+import { Route as ProjectionRouteImport } from './routes/projection'
+import { Route as HypothesesRouteImport } from './routes/hypotheses'
+import { Route as DictionnaireRouteImport } from './routes/dictionnaire'
+import { Route as DemarrageRouteImport } from './routes/demarrage'
+import { Route as CompteResultatRouteImport } from './routes/compte-resultat'
+import { Route as ActiviteRouteImport } from './routes/activite'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TresorerieRoute = TresorerieRouteImport.update({
+  id: '/tresorerie',
+  path: '/tresorerie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SyntheseRoute = SyntheseRouteImport.update({
+  id: '/synthese',
+  path: '/synthese',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatutsRoute = StatutsRouteImport.update({
+  id: '/statuts',
+  path: '/statuts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScenariosRoute = ScenariosRouteImport.update({
+  id: '/scenarios',
+  path: '/scenarios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectionRoute = ProjectionRouteImport.update({
+  id: '/projection',
+  path: '/projection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HypothesesRoute = HypothesesRouteImport.update({
+  id: '/hypotheses',
+  path: '/hypotheses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DictionnaireRoute = DictionnaireRouteImport.update({
+  id: '/dictionnaire',
+  path: '/dictionnaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemarrageRoute = DemarrageRouteImport.update({
+  id: '/demarrage',
+  path: '/demarrage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompteResultatRoute = CompteResultatRouteImport.update({
+  id: '/compte-resultat',
+  path: '/compte-resultat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActiviteRoute = ActiviteRouteImport.update({
+  id: '/activite',
+  path: '/activite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +79,172 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activite': typeof ActiviteRoute
+  '/compte-resultat': typeof CompteResultatRoute
+  '/demarrage': typeof DemarrageRoute
+  '/dictionnaire': typeof DictionnaireRoute
+  '/hypotheses': typeof HypothesesRoute
+  '/projection': typeof ProjectionRoute
+  '/scenarios': typeof ScenariosRoute
+  '/statuts': typeof StatutsRoute
+  '/synthese': typeof SyntheseRoute
+  '/tresorerie': typeof TresorerieRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activite': typeof ActiviteRoute
+  '/compte-resultat': typeof CompteResultatRoute
+  '/demarrage': typeof DemarrageRoute
+  '/dictionnaire': typeof DictionnaireRoute
+  '/hypotheses': typeof HypothesesRoute
+  '/projection': typeof ProjectionRoute
+  '/scenarios': typeof ScenariosRoute
+  '/statuts': typeof StatutsRoute
+  '/synthese': typeof SyntheseRoute
+  '/tresorerie': typeof TresorerieRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activite': typeof ActiviteRoute
+  '/compte-resultat': typeof CompteResultatRoute
+  '/demarrage': typeof DemarrageRoute
+  '/dictionnaire': typeof DictionnaireRoute
+  '/hypotheses': typeof HypothesesRoute
+  '/projection': typeof ProjectionRoute
+  '/scenarios': typeof ScenariosRoute
+  '/statuts': typeof StatutsRoute
+  '/synthese': typeof SyntheseRoute
+  '/tresorerie': typeof TresorerieRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/activite'
+    | '/compte-resultat'
+    | '/demarrage'
+    | '/dictionnaire'
+    | '/hypotheses'
+    | '/projection'
+    | '/scenarios'
+    | '/statuts'
+    | '/synthese'
+    | '/tresorerie'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/activite'
+    | '/compte-resultat'
+    | '/demarrage'
+    | '/dictionnaire'
+    | '/hypotheses'
+    | '/projection'
+    | '/scenarios'
+    | '/statuts'
+    | '/synthese'
+    | '/tresorerie'
+  id:
+    | '__root__'
+    | '/'
+    | '/activite'
+    | '/compte-resultat'
+    | '/demarrage'
+    | '/dictionnaire'
+    | '/hypotheses'
+    | '/projection'
+    | '/scenarios'
+    | '/statuts'
+    | '/synthese'
+    | '/tresorerie'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActiviteRoute: typeof ActiviteRoute
+  CompteResultatRoute: typeof CompteResultatRoute
+  DemarrageRoute: typeof DemarrageRoute
+  DictionnaireRoute: typeof DictionnaireRoute
+  HypothesesRoute: typeof HypothesesRoute
+  ProjectionRoute: typeof ProjectionRoute
+  ScenariosRoute: typeof ScenariosRoute
+  StatutsRoute: typeof StatutsRoute
+  SyntheseRoute: typeof SyntheseRoute
+  TresorerieRoute: typeof TresorerieRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tresorerie': {
+      id: '/tresorerie'
+      path: '/tresorerie'
+      fullPath: '/tresorerie'
+      preLoaderRoute: typeof TresorerieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/synthese': {
+      id: '/synthese'
+      path: '/synthese'
+      fullPath: '/synthese'
+      preLoaderRoute: typeof SyntheseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/statuts': {
+      id: '/statuts'
+      path: '/statuts'
+      fullPath: '/statuts'
+      preLoaderRoute: typeof StatutsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scenarios': {
+      id: '/scenarios'
+      path: '/scenarios'
+      fullPath: '/scenarios'
+      preLoaderRoute: typeof ScenariosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projection': {
+      id: '/projection'
+      path: '/projection'
+      fullPath: '/projection'
+      preLoaderRoute: typeof ProjectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hypotheses': {
+      id: '/hypotheses'
+      path: '/hypotheses'
+      fullPath: '/hypotheses'
+      preLoaderRoute: typeof HypothesesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dictionnaire': {
+      id: '/dictionnaire'
+      path: '/dictionnaire'
+      fullPath: '/dictionnaire'
+      preLoaderRoute: typeof DictionnaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demarrage': {
+      id: '/demarrage'
+      path: '/demarrage'
+      fullPath: '/demarrage'
+      preLoaderRoute: typeof DemarrageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compte-resultat': {
+      id: '/compte-resultat'
+      path: '/compte-resultat'
+      fullPath: '/compte-resultat'
+      preLoaderRoute: typeof CompteResultatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activite': {
+      id: '/activite'
+      path: '/activite'
+      fullPath: '/activite'
+      preLoaderRoute: typeof ActiviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +257,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActiviteRoute: ActiviteRoute,
+  CompteResultatRoute: CompteResultatRoute,
+  DemarrageRoute: DemarrageRoute,
+  DictionnaireRoute: DictionnaireRoute,
+  HypothesesRoute: HypothesesRoute,
+  ProjectionRoute: ProjectionRoute,
+  ScenariosRoute: ScenariosRoute,
+  StatutsRoute: StatutsRoute,
+  SyntheseRoute: SyntheseRoute,
+  TresorerieRoute: TresorerieRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

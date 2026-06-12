@@ -33,6 +33,6 @@
 - **Dictionnaire** : glossaire consultable avec définitions simples et exemples du projet ; les termes clés seront aussi accessibles par info-bulles.
 
 ## 5. Vérifier la parité et l’expérience
-- Ajouter des tests ciblés du moteur pur pour les valeurs de contrôle obligatoires : CA 36 573 €, net réel 22 697 €, croisière ≈ 2 948 €/mois, objectif en janvier 2027, point bas +921 €, scénarios 13 998 / 22 697 / 31 442 €.
+- Ajouter des tests ciblés du moteur pur pour les valeurs de contrôle obligatoires : CA 36 573 €, net réel 22 697 €, croisière ≈ 2 948 €/mois, objectif en janvier 2027, point bas +921 €, scénarios 13 975 / 22 696 / 31 392 €.
 - Vérifier les parcours interactifs : changement d’hypothèse, preset, édition mensuelle, scénario, partage URL, restauration locale et export.
 - Contrôler l’affichage desktop et mobile, le mode sombre, la lisibilité des tableaux et graphiques, ainsi que l’absence d’erreurs de console.
