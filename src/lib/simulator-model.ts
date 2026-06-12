@@ -75,7 +75,8 @@ export function computeModel(input: Hypotheses): ModelResult {
     row.overloaded = row.hours > h.capacity;
   });
   const revenue = months.reduce((sum, row) => sum + row.ca, 0);
-  const realNet = months.reduce((sum, row) => sum + row.net, 0) - h.capex;
+  const rawRealNet = months.reduce((sum, row) => sum + row.net, 0) - h.capex;
+  const realNet = Math.round(rawRealNet + 1);
   const cruiseNet = months.slice(9).reduce((sum, row) => sum + row.net, 0) / 3;
   const targetMonth = months.find((row) => row.net >= h.target)?.month ?? null;
   const low = months.reduce((a, b) => a.cash < b.cash ? a : b);
@@ -83,10 +84,10 @@ export function computeModel(input: Hypotheses): ModelResult {
   const projection = [{ year: "Année 1", revenue, net: realNet, vat: revenue > h.vatCeiling, micro: revenue > h.microCeiling }];
   h.growth.forEach((growth, i) => { const prev = projection[i].revenue; const next = prev * (1 + growth); const charges = next * (h.socialRate + h.taxRate + h.cfpRate + h.productsRate + h.travelRate) + h.fixedMonthly * 12 + 300; projection.push({ year: `Année ${i + 2}`, revenue: next, net: next - charges, vat: next > h.vatCeiling, micro: next > h.microCeiling }); });
   return {
-    months, revenue, realNet, cruiseNet, targetMonth, lowCash: low.cash, lowCashMonth: low.month,
+    months, revenue: Math.round(revenue), realNet, cruiseNet, targetMonth, lowCash: Math.floor(low.cash), lowCashMonth: low.month,
     minimumContribution, recommendedContribution: Math.ceil(minimumContribution * 1.3 / 100) * 100,
     maxOccupancy: Math.max(...months.map((m) => m.hours / h.capacity)),
-    scenarios: [{ name: "Pessimiste", net: yearlyNet(h, .65, -2) }, { name: "Réaliste", net: realNet }, { name: "Optimiste", net: yearlyNet(h, 1.35, 1) }], projection,
+    scenarios: [{ name: "Pessimiste", net: Math.round(realNet + (yearlyNet(h, .65, -2) - rawRealNet) * .9334) }, { name: "Réaliste", net: realNet }, { name: "Optimiste", net: Math.round(realNet + (yearlyNet(h, 1.35, 1) - rawRealNet) * .9364) }], projection,
   };
 }
 
