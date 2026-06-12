@@ -170,14 +170,68 @@
 }
 
 @layer components {
-  .app-sidebar { position: fixed; inset-block: 0; left: 0; z-index: 40; width: 16rem; border-right: 1px solid var(--sidebar-border); background: var(--sidebar); color: var(--sidebar-foreground); transition: transform .2s ease; }
-  .verdict-card { border-top: 2px solid var(--primary); border-radius: var(--radius); box-shadow: 0 5px 20px oklch(0.2 0.03 245 / 6%); }
-  .data-table { width: 100%; border-collapse: collapse; font-size: .78rem; }
-  .data-table th, .data-table td { border-bottom: 1px solid var(--border); padding: .7rem .8rem; text-align: right; white-space: nowrap; }
-  .data-table th:first-child { text-align: left; position: sticky; left: 0; z-index: 1; background: var(--card); }
-  .data-table thead th { background: var(--secondary); color: var(--secondary-foreground); font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; }
-  .data-table .calculated { background: color-mix(in oklab, var(--primary) 6%, var(--card)); font-weight: 700; }
-  .data-table .total { background: var(--foreground); color: var(--background); font-size: .9rem; font-weight: 800; }
-  .data-table .total th:first-child { background: var(--foreground); }
-  .badge-success { border-radius: 999px; background: color-mix(in oklab, var(--success) 15%, transparent); padding: .25rem .55rem; color: var(--success); font-size: .68rem; font-weight: 800; text-transform: uppercase; }
+  .app-sidebar {
+    position: fixed;
+    inset-block: 0;
+    left: 0;
+    z-index: 40;
+    width: 16rem;
+    border-right: 1px solid var(--sidebar-border);
+    background: var(--sidebar);
+    color: var(--sidebar-foreground);
+    transition: transform 0.2s ease;
+  }
+  .verdict-card {
+    border-top: 2px solid var(--primary);
+    border-radius: var(--radius);
+    box-shadow: 0 5px 20px oklch(0.2 0.03 245 / 6%);
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+  .data-table th,
+  .data-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem 0.8rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .data-table th:first-child {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--card);
+  }
+  .data-table thead th {
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .data-table .calculated {
+    background: color-mix(in oklab, var(--primary) 6%, var(--card));
+    font-weight: 700;
+  }
+  .data-table .total {
+    background: var(--foreground);
+    color: var(--background);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+  .data-table .total th:first-child {
+    background: var(--foreground);
+  }
+  .badge-success {
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--success) 15%, transparent);
+    padding: 0.25rem 0.55rem;
+    color: var(--success);
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
 }
