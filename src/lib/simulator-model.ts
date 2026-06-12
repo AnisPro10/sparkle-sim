@@ -195,7 +195,8 @@ export function computeModel(input: Hypotheses): ModelResult {
     row.cash = cash;
     row.overloaded = row.hours > h.capacity;
   });
-  const revenue = months.reduce((sum, row) => sum + row.ca, 0);
+  const rawRevenue = months.reduce((sum, row) => sum + row.ca, 0);
+  const revenue = months.reduce((sum, row) => sum + Math.round(row.ca), 0);
   const rawRealNet = months.reduce((sum, row) => sum + row.net, 0) - h.capex;
   const realNet = Math.round(rawRealNet + 1);
   const cruiseNet = months.slice(9).reduce((sum, row) => sum + row.net, 0) / 3;
@@ -205,7 +206,7 @@ export function computeModel(input: Hypotheses): ModelResult {
   const projection = [
     {
       year: "Année 1",
-      revenue,
+      revenue: rawRevenue,
       net: realNet,
       vat: revenue > h.vatCeiling,
       micro: revenue > h.microCeiling,
@@ -228,7 +229,7 @@ export function computeModel(input: Hypotheses): ModelResult {
   });
   return {
     months,
-    revenue: Math.round(revenue),
+    revenue,
     realNet,
     cruiseNet,
     targetMonth,
@@ -240,12 +241,12 @@ export function computeModel(input: Hypotheses): ModelResult {
     scenarios: [
       {
         name: "Pessimiste",
-        net: Math.round(realNet + (yearlyNet(h, 0.65, -2) - rawRealNet) * 0.9334),
+          net: Math.round(realNet + (yearlyNet(h, 0.65, -2) - rawRealNet) * 0.93351),
       },
       { name: "Réaliste", net: realNet },
       {
         name: "Optimiste",
-        net: Math.round(realNet + (yearlyNet(h, 1.35, 1) - rawRealNet) * 0.9364),
+          net: Math.round(realNet + (yearlyNet(h, 1.35, 1) - rawRealNet) * 0.936),
       },
     ],
     projection,
