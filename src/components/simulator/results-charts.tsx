@@ -38,7 +38,6 @@ import {
   type Hypotheses,
   type ModelResult,
   OFFICIAL,
-  FIELD_REALISTIC,
   activePresetId,
 } from "@/lib/simulator-model";
 import { Kpi, SectionHead } from "./results";
@@ -640,169 +639,313 @@ export function TresorerieView({ h, m }: { h: Hypotheses; m: ModelResult }) {
 }
 
 // ============================================================================
-// Scénarios : barres pessimiste/réaliste/optimiste + comparateur de préréglages
+// Scénarios : votre simulation comparée aux bornes du marché (étude certifiée)
 // ============================================================================
-function ScenariosBarChart({ m }: { m: ModelResult }) {
-  const colors = ["var(--warning)", "var(--chart-b2b)", "var(--success)"];
-  return (
-    <Card>
-      <CardContent className="p-5">
-        <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
-          Net annuel par scénario
-        </div>
-        <div
-          className="h-72"
-          role="img"
-          aria-label={`Nets annuels : ${m.scenarios.map((s) => `${s.name} ${euro(s.net)}`).join(", ")}`}
-        >
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={m.scenarios} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid stroke="var(--border)" strokeDasharray="2 4" vertical={false} />
-              <XAxis dataKey="name" tick={AXIS} stroke="var(--border)" />
-              <YAxis tick={AXIS} stroke="var(--border)" tickFormatter={fmtK} width={52} />
-              <Tooltip content={<ChartTip />} cursor={{ fill: "var(--muted)" }} />
-              <ReferenceLine y={0} stroke="var(--border)" />
-              <Bar dataKey="net" name="Net annuel" radius={[6, 6, 0, 0]}>
-                {m.scenarios.map((_, i) => (
-                  <Cell key={i} fill={colors[i]} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="mt-3 grid gap-2 sm:grid-cols-3">
-          {m.scenarios.map((s, i) => (
-            <div key={s.name} className="rounded-md border px-3 py-2 text-xs">
-              <p className="font-bold" style={{ color: colors[i] }}>
-                {s.name}
-              </p>
-              <p className="mt-1 text-muted-foreground">CA {euro(s.ca)}</p>
-              <p className="font-mono font-bold tabular-nums">{euro(s.net)} nets</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-3 text-[11px] text-muted-foreground leading-snug">
-          Sites −35 %/+35 %, Airbnb et particuliers −40 %/+25 %, vitrerie −40 %/+40 %, prix ±5 % —
-          les formules de l'onglet Scénarios du prévisionnel. Le réaliste est recalculé par arrondi
-          global (±1 € vs le net détaillé).
-        </p>
-      </CardContent>
-    </Card>
-  );
-}
 
-function MultiTip({
-  active,
-  payload,
-  label,
-}: {
-  active?: boolean;
-  payload?: { value: number; name: string; color: string }[];
-  label?: string;
-}) {
-  if (!active || !payload?.length) return null;
+// Bornes FIXES issues de l'étude de marché : les formules de l'onglet Scénarios
+// appliquées au préréglage officiel (8 sites/prix −5 %/volumes −40 % en pessimiste ;
+// 16 sites/prix +5 %/volumes +25 à +40 % en optimiste). Elles ne bougent pas avec
+// vos saisies : ce sont les murs du couloir, votre scénario se place entre les deux.
+const MARKET = computeModel(OFFICIAL).scenarios;
+const MARKET_PESS = MARKET[0];
+const MARKET_OPT = MARKET[2];
+
+function PositionGauge({ net }: { net: number }) {
+  const span = MARKET_OPT.net - MARKET_PESS.net;
+  const pos = span > 0 ? Math.min(1, Math.max(0, (net - MARKET_PESS.net) / span)) : 0;
   return (
-    <div className="rounded-lg border border-border bg-popover px-3 py-2 shadow-md min-w-[180px]">
-      <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-medium mb-1">
-        {label}
+    <div className="mt-4">
+      <div className="mb-1 flex justify-between text-[11px] text-muted-foreground">
+        <span>
+          Pessimiste · <span className="font-mono tabular-nums">{euro(MARKET_PESS.net)}</span>
+        </span>
+        <span>
+          Optimiste · <span className="font-mono tabular-nums">{euro(MARKET_OPT.net)}</span>
+        </span>
       </div>
-      {payload.map((p) => (
-        <div key={p.name} className="flex items-center justify-between gap-3 text-xs">
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-2 w-2 rounded-sm" style={{ background: p.color }} />
-            {p.name}
-          </span>
-          <span className="font-mono tabular-nums font-semibold">{euro(p.value)}</span>
-        </div>
-      ))}
+      <div
+        className="relative h-3 rounded-full"
+        role="img"
+        aria-label={`Votre net annuel ${euro(net)} se situe à ${Math.round(pos * 100)} % du couloir pessimiste-optimiste du marché`}
+        style={{
+          background: "linear-gradient(90deg, var(--warning), var(--chart-b2b), var(--success))",
+          opacity: 0.9,
+        }}
+      >
+        <span
+          className="absolute top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-background bg-foreground shadow-md"
+          style={{ left: `${pos * 100}%` }}
+          aria-hidden="true"
+        />
+      </div>
+      <p className="mt-2 text-center text-xs font-medium">
+        Votre scénario : <span className="font-mono tabular-nums">{euro(net)}</span> —{" "}
+        {Math.round(pos * 100)} % du couloir du marché
+      </p>
     </div>
   );
 }
 
-function PresetsCompareChart({ h }: { h: Hypotheses }) {
-  // Recalcul pur (lecture seule) : mêmes volumes sous chaque préréglage de charges.
-  const officiel = computeModel({
-    ...OFFICIAL,
-    sites: h.sites,
-    airbnb: h.airbnb,
-    glassJobs: h.glassJobs,
-    privateJobs: h.privateJobs,
-    seasonality: h.seasonality,
-  });
-  const realiste = computeModel({
-    ...FIELD_REALISTIC,
-    sites: h.sites,
-    airbnb: h.airbnb,
-    glassJobs: h.glassJobs,
-    privateJobs: h.privateJobs,
-    seasonality: h.seasonality,
-  });
-  const perso = computeModel(h);
+export function ScenariosView({ h, m }: { h: Hypotheses; m: ModelResult }) {
   const preset = activePresetId(h);
-  const data = [
+  const cols = [
     {
-      metric: "Net réel",
-      Officiel: officiel.realNet,
-      Réaliste: realiste.realNet,
-      Personnalisé: perso.realNet,
+      key: "pess",
+      name: "Pessimiste (marché)",
+      sub: "borne basse de l'étude",
+      ca: MARKET_PESS.ca,
+      net: MARKET_PESS.net,
+      user: false,
+      color: "var(--warning)",
     },
     {
-      metric: "Net de croisière",
-      Officiel: officiel.cruiseNet,
-      Réaliste: realiste.cruiseNet,
-      Personnalisé: perso.cruiseNet,
+      key: "user",
+      name: "Votre scénario",
+      sub:
+        preset === "officiel"
+          ? "préréglage officiel"
+          : preset === "realiste"
+            ? "réaliste terrain"
+            : "saisies personnalisées",
+      ca: m.revenue,
+      net: m.realNet,
+      user: true,
+      color: "var(--chart-b2b)",
     },
     {
-      metric: "Point bas tréso.",
-      Officiel: officiel.lowCash,
-      Réaliste: realiste.lowCash,
-      Personnalisé: perso.lowCash,
+      key: "opt",
+      name: "Optimiste (marché)",
+      sub: "borne haute de l'étude",
+      ca: MARKET_OPT.ca,
+      net: MARKET_OPT.net,
+      user: false,
+      color: "var(--success)",
     },
   ];
+  type Col = (typeof cols)[number];
+  const rows: { label: string; get: (c: Col) => string; strong?: boolean }[] = [
+    { label: "Chiffre d'affaires année 1", get: (c) => euro(c.ca) },
+    { label: "Net réel année 1", get: (c) => euro(c.net), strong: true },
+    { label: "Net mensuel moyen", get: (c) => euro(Math.round(c.net / 12)) },
+    { label: "Net de croisière (juin-août)", get: (c) => (c.user ? euro(m.cruiseNet) : "—") },
+    { label: "Point bas de trésorerie", get: (c) => (c.user ? euro(m.lowCash) : "—") },
+    {
+      label: "Occupation au pic",
+      get: (c) => (c.user ? `${percent(m.maxOccupancy)} (${m.peakHours} h)` : "—"),
+    },
+  ];
+  return (
+    <section>
+      <SectionHead
+        title="Votre scénario face au marché"
+        desc="Les bornes pessimiste et optimiste sont fixées par l'étude de marché certifiée ; votre simulation (hypothèses + plan d'activité + activités cochées) se positionne entre les deux."
+      />
+      <div className="grid gap-5 xl:grid-cols-[1fr_.85fr]">
+        <Card>
+          <CardContent className="p-5">
+            <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+              Comparaison chiffrée
+            </div>
+            <div className="overflow-x-auto -mx-1 px-1">
+              <table className="w-full min-w-[520px] border-collapse text-sm">
+                <caption className="sr-only">
+                  Votre scénario comparé aux bornes pessimiste et optimiste du marché
+                </caption>
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      className="text-left font-medium text-muted-foreground text-xs uppercase tracking-wider py-2 pr-3 align-bottom"
+                    >
+                      Indicateur
+                    </th>
+                    {cols.map((c) => (
+                      <th
+                        key={c.key}
+                        scope="col"
+                        className={cn(
+                          "text-right py-2 px-3 align-bottom",
+                          c.user && "bg-primary/5 rounded-t-md",
+                        )}
+                      >
+                        <span className="block font-display text-sm font-semibold">{c.name}</span>
+                        <span className="block text-[10px] font-normal text-muted-foreground">
+                          {c.sub}
+                        </span>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((r) => (
+                    <tr key={r.label} className="border-t border-border/60">
+                      <th
+                        scope="row"
+                        className={cn(
+                          "text-left font-normal py-2 pr-3",
+                          r.strong ? "text-foreground font-semibold" : "text-muted-foreground",
+                        )}
+                      >
+                        {r.label}
+                      </th>
+                      {cols.map((c) => (
+                        <td
+                          key={c.key}
+                          className={cn(
+                            "text-right py-2 px-3 font-mono tabular-nums",
+                            c.user && "bg-primary/5",
+                            r.strong ? "font-bold" : "font-medium",
+                          )}
+                        >
+                          {r.get(c)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <PositionGauge net={m.realNet} />
+            <p className="mt-3 text-[11px] text-muted-foreground leading-snug">
+              Croisière, point bas et occupation n'existent en détail mensuel que pour votre
+              scénario — les bornes du marché sont les agrégats annuels de l'onglet Scénarios du
+              prévisionnel (pessimiste : 8 sites fin d'année, prix −5 %, Airbnb/particuliers −40 %,
+              vitrerie −40 % ; optimiste : 16 sites, prix +5 %, volumes +25 à +40 %).
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-5">
+            <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+              Net annuel — votre position
+            </div>
+            <div
+              className="h-80"
+              role="img"
+              aria-label={`Nets annuels : ${cols.map((c) => `${c.name} ${euro(c.net)}`).join(", ")}`}
+            >
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={cols} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+                  <CartesianGrid stroke="var(--border)" strokeDasharray="2 4" vertical={false} />
+                  <XAxis dataKey="name" tick={{ ...AXIS, fontSize: 10 }} stroke="var(--border)" />
+                  <YAxis tick={AXIS} stroke="var(--border)" tickFormatter={fmtK} width={52} />
+                  <Tooltip content={<ChartTip />} cursor={{ fill: "var(--muted)" }} />
+                  <ReferenceLine y={0} stroke="var(--border)" />
+                  <Bar dataKey="net" name="Net annuel" radius={[6, 6, 0, 0]}>
+                    {cols.map((c) => (
+                      <Cell
+                        key={c.key}
+                        fill={c.color}
+                        stroke={c.user ? "var(--foreground)" : undefined}
+                        strokeWidth={c.user ? 2 : 0}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <p className="mt-3 text-[11px] text-muted-foreground leading-snug">
+              La barre encadrée est votre simulation courante. Si vos saisies sont le préréglage
+              officiel, elle tombe sur le « réaliste » du classeur certifié (±1 € d'arrondi).
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
+// Projection 5 ans — CA en barres, net en ligne, seuils TVA et micro tracés
+// ============================================================================
+export function ProjectionChart({ h, m }: { h: Hypotheses; m: ModelResult }) {
   return (
     <Card>
       <CardContent className="p-5">
         <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
-          Officiel · Réaliste · Personnalisé
+          Chiffre d'affaires et net sur 5 ans
         </div>
-        <div className="h-72" role="img" aria-label="Comparaison des préréglages de charges">
+        <div
+          className="h-96"
+          role="img"
+          aria-label={`Projection : CA de ${euro(m.projection[0]?.revenue ?? 0)} à ${euro(m.projection[4]?.revenue ?? 0)}, seuil TVA ${euro(h.vatCeiling)}, plafond micro ${euro(h.microCeiling)}.`}
+        >
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+            <ComposedChart data={m.projection} margin={{ top: 12, right: 12, left: 0, bottom: 0 }}>
               <CartesianGrid stroke="var(--border)" strokeDasharray="2 4" vertical={false} />
-              <XAxis dataKey="metric" tick={AXIS} stroke="var(--border)" />
-              <YAxis tick={AXIS} stroke="var(--border)" tickFormatter={fmtK} width={52} />
-              <Tooltip content={<MultiTip />} cursor={{ fill: "var(--muted)" }} />
-              <ReferenceLine y={0} stroke="var(--border)" />
+              <XAxis dataKey="year" tick={AXIS} stroke="var(--border)" />
+              <YAxis
+                tick={AXIS}
+                stroke="var(--border)"
+                tickFormatter={fmtK}
+                width={56}
+                // Étend l'échelle pour que le plafond micro reste toujours visible
+                domain={[0, (dataMax: number) => Math.max(dataMax * 1.08, h.microCeiling * 1.06)]}
+              />
+              <Tooltip content={<ChartTip />} cursor={{ fill: "var(--muted)" }} />
               <Legend wrapperStyle={{ fontSize: 11 }} iconType="square" />
-              <Bar dataKey="Officiel" fill="var(--chart-b2b)" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Réaliste" fill="var(--chart-glass)" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Personnalisé" fill="var(--chart-airbnb)" radius={[4, 4, 0, 0]} />
-            </BarChart>
+              <Bar
+                dataKey="revenue"
+                name="Chiffre d'affaires"
+                fill="var(--chart-b2b)"
+                radius={[6, 6, 0, 0]}
+                maxBarSize={72}
+              />
+              <Line
+                type="monotone"
+                dataKey="net"
+                name="Net (avant matériel)"
+                stroke="var(--chart-net)"
+                strokeWidth={3}
+                dot={{ r: 4, fill: "var(--chart-net)" }}
+              />
+              <ReferenceLine
+                y={h.vatCeiling}
+                stroke="var(--gold)"
+                strokeWidth={1.5}
+                strokeDasharray="7 5"
+                label={{
+                  value: `Franchise TVA ${fmtK(h.vatCeiling)}`,
+                  position: "insideBottomLeft",
+                  fontSize: 10,
+                  fill: "var(--gold)",
+                }}
+              />
+              <ReferenceLine
+                y={h.microCeiling}
+                stroke="var(--destructive)"
+                strokeWidth={1.5}
+                strokeDasharray="7 5"
+                label={{
+                  value: `Plafond micro ${fmtK(h.microCeiling)}`,
+                  position: "insideTopLeft",
+                  fontSize: 10,
+                  fill: "var(--destructive)",
+                }}
+              />
+            </ComposedChart>
           </ResponsiveContainer>
         </div>
-        <p className="mt-3 text-[11px] text-muted-foreground">
-          Les volumes mensuels saisis sont conservés ; seules les charges changent.{" "}
-          {preset
-            ? `Vos hypothèses correspondent au préréglage ${preset === "officiel" ? "officiel" : "réaliste"}.`
-            : "Vos hypothèses diffèrent des préréglages : la colonne « Personnalisé » reflète vos saisies."}
-        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {m.projection.map((p) => (
+            <span
+              key={p.year}
+              className={cn(
+                "rounded-md border px-2.5 py-1 text-[11px]",
+                p.micro
+                  ? "border-destructive/40 text-destructive"
+                  : p.vat
+                    ? "border-gold/50 text-foreground"
+                    : "border-border text-muted-foreground",
+              )}
+            >
+              <b>{p.year}</b> · {p.vat ? "TVA à facturer" : "franchise TVA"}
+              {p.micro && " · sortie micro"}
+            </span>
+          ))}
+        </div>
       </CardContent>
     </Card>
-  );
-}
-
-export function ScenariosView({ h, m }: { h: Hypotheses; m: ModelResult }) {
-  return (
-    <section>
-      <SectionHead
-        title="Scénarios"
-        desc="Sensibilité aux volumes et aux prix, et comparaison des jeux de charges."
-      />
-      <div className="grid gap-5 xl:grid-cols-2">
-        <ScenariosBarChart m={m} />
-        <PresetsCompareChart h={h} />
-      </div>
-    </section>
   );
 }
 

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -5,6 +6,10 @@ import { cn } from "@/lib/utils";
 import { CFE_YEAR2, euro, percent, type YearProjection } from "@/lib/simulator-model";
 import { useSimulator } from "@/components/simulator-provider";
 import { SectionHead } from "@/components/simulator/results";
+
+const ProjectionChart = lazy(() =>
+  import("@/components/simulator/results-charts").then((m) => ({ default: m.ProjectionChart })),
+);
 
 export const Route = createFileRoute("/projection")({
   head: () => ({
@@ -32,7 +37,6 @@ type RowDef = {
 function ProjectionPage() {
   const { hypotheses: h, result } = useSimulator();
   const years = result.projection;
-  const maxAbs = Math.max(1, ...years.map((y) => Math.abs(y.net)));
 
   const ROWS: RowDef[] = [
     { label: "Chiffre d'affaires", get: (y) => euro(y.revenue) },
@@ -71,42 +75,10 @@ function ProjectionPage() {
         </Link>
       </div>
 
-      {/* Barres de net par année (CSS, sans dépendance graphique) */}
-      <Card>
-        <CardContent className="p-5">
-          <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-4">
-            Net par année
-          </div>
-          <div className="flex items-end gap-4 h-44" role="img" aria-label="Net annuel sur 5 ans">
-            {years.map((y) => {
-              const hgt = (Math.abs(y.net) / maxAbs) * 100;
-              const pos = y.net >= 0;
-              return (
-                <div key={y.year} className="flex-1 flex flex-col items-center justify-end h-full">
-                  <span
-                    className={cn(
-                      "mb-1 text-[11px] font-mono font-semibold tabular-nums",
-                      pos ? "text-success" : "text-destructive",
-                    )}
-                  >
-                    {euro(y.net)}
-                  </span>
-                  <div
-                    className="w-full max-w-[64px] flex items-end justify-center"
-                    style={{ height: `${Math.max(4, hgt)}%` }}
-                  >
-                    <div
-                      className={cn("w-full rounded-t-md", pos ? "bg-success" : "bg-destructive")}
-                      style={{ height: "100%" }}
-                    />
-                  </div>
-                  <span className="mt-2 text-xs font-medium text-muted-foreground">{y.year}</span>
-                </div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Graphique CA + net + seuils (recharts en lazy, comme la Synthèse) */}
+      <Suspense fallback={<div className="h-96 animate-pulse rounded-lg bg-muted/40" />}>
+        <ProjectionChart h={h} m={result} />
+      </Suspense>
 
       {/* Tableau détaillé */}
       <Card>
