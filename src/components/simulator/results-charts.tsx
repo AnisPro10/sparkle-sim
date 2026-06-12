@@ -204,13 +204,14 @@ function CaMensuelChart({ h, m }: { h: Hypotheses; m: ModelResult }) {
                   fill="var(--chart-private)"
                 />
               )}
+              {/* Rouge vif demandé : le vert se confondait avec les barres empilées */}
               <Line
                 type="monotone"
                 dataKey="netGestion"
                 name="Net de gestion"
-                stroke="var(--chart-net)"
-                strokeWidth={2.5}
-                dot={{ r: 2.5 }}
+                stroke="var(--destructive)"
+                strokeWidth={3}
+                dot={{ r: 3, fill: "var(--destructive)" }}
               />
               <ReferenceLine
                 y={h.target}
