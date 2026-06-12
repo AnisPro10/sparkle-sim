@@ -77,14 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "L'AZ du Clean" },
+      { name: "description", content: "Simulateur professionnel de viabilité financière pour L’AZ du Clean." },
+      { name: "author", content: "L'AZ du Clean" },
+      { property: "og:title", content: "L'AZ du Clean" },
+      { property: "og:description", content: "La propreté qui tient parole." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
