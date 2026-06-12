@@ -195,6 +195,120 @@
   }
 }
 
+/* Landing : révélations au chargement + motifs de marque (étincelles, vagues) */
+@keyframes az-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes az-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes az-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(8deg);
+  }
+}
+@keyframes az-drift {
+  0% {
+    transform: translateX(-3%);
+  }
+  100% {
+    transform: translateX(3%);
+  }
+}
+@keyframes az-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes az-dash {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+@keyframes az-shine {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+.az-reveal {
+  opacity: 0;
+  animation: az-fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.az-reveal-soft {
+  opacity: 0;
+  animation: az-fade 1.2s ease forwards;
+}
+.az-float {
+  animation: az-float 7s ease-in-out infinite;
+}
+.az-drift {
+  animation: az-drift 16s ease-in-out infinite alternate;
+}
+.az-grow {
+  transform-origin: bottom;
+  transform: scaleY(0);
+  animation: az-grow 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.az-dash {
+  stroke-dasharray: 16 24;
+  animation: az-dash 7s linear infinite;
+}
+.az-shine {
+  animation: az-shine 4.5s ease-in-out infinite;
+}
+/* Grain léger pour la profondeur (data-URI, aucune requête réseau) */
+.az-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) {
+  .az-reveal,
+  .az-reveal-soft {
+    opacity: 1;
+    animation: none;
+  }
+  .az-grow {
+    transform: none;
+    animation: none;
+  }
+  .az-float,
+  .az-drift,
+  .az-dash,
+  .az-shine {
+    animation: none;
+  }
+}
+
 /* Impression / export PDF : rendu compact, homogène, sans navigation.
    On force le thème clair et on évite les coupures de cartes, tableaux et graphiques. */
 @media print {

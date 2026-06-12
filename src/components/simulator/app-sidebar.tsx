@@ -15,6 +15,7 @@ import {
   CalendarDays,
   Sparkles,
 } from "lucide-react";
+import { BrandMark } from "@/components/brand/logo";
 import {
   Sidebar,
   SidebarContent,
@@ -81,12 +82,7 @@ export function AppSidebar() {
           aria-label="Retour à l'accueil"
           className="flex items-center gap-2 rounded-md px-2 py-2 text-sidebar-foreground transition-colors hover:bg-sidebar-accent/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
         >
-          <span
-            className="grid h-8 w-8 shrink-0 place-items-center rounded-md font-display text-sm font-black text-sidebar-accent-foreground shadow-sm"
-            style={{ background: "var(--gradient-primary)" }}
-          >
-            AZ
-          </span>
+          <BrandMark size={32} className="shrink-0 drop-shadow-sm" />
           <span className="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
             <span className="text-[10px] uppercase tracking-[0.18em] text-sidebar-primary">
               Simulateur
