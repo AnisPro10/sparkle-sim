@@ -1,0 +1,45 @@
+{
+  "hypotheses_simulateur": {
+    "hourlyB2B": 32,
+    "annualShare": 0.4,
+    "acre": true,
+    "fixedMonthly": 95,
+    "contribution": 1500,
+    "airbnbPrice": 80,
+    "growth": [
+      0.25,
+      0.2,
+      0.1,
+      0.1
+    ]
+  },
+  "excel": {
+    "ca_annee1": 38590.0,
+    "net_reel": 25870.0,
+    "net_mensuel_moyen": 2156.0,
+    "croisiere": 3356.0,
+    "point_bas": 424.0,
+    "apport_minimal": 1100.0,
+    "apport_recommande": 1500.0,
+    "scenario_pessimiste_ca": 25027.0,
+    "scenario_realiste_ca": 38590.0,
+    "scenario_optimiste_ca": 52241.0,
+    "scenario_pessimiste_net": 15955.0,
+    "scenario_realiste_net": 25869.0,
+    "scenario_optimiste_net": 35848.0,
+    "projection_ca": [
+      38590.0,
+      48238.0,
+      57886.0,
+      63675.0,
+      70043.0
+    ],
+    "projection_net": [
+      27069.0,
+      31266.0,
+      37806.0,
+      41731.0,
+      46049.0
+    ]
+  }
+}
