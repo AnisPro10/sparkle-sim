@@ -1,5 +1,5 @@
 import type { Hypotheses, ModelResult } from "@/lib/simulator-model";
-import { legalStatuses, MONTHS, percent } from "@/lib/simulator-model";
+import { CHAMBER_RATE, legalStatuses, MONTHS, percent } from "@/lib/simulator-model";
 
 // Export d'un vrai classeur Excel (.xlsx) mis en forme : feuilles séparées, titres,
 // en-têtes colorés, formats € / %, largeurs de colonnes, négatifs en rouge.
@@ -141,7 +141,7 @@ export async function buildWorkbook(
   A("Chiffre d'affaires", (a) => a.ca, { strong: true });
   A("− Cotisations sociales", (a) => -a.cotisations, { zebra: true });
   A("− Impôt", (a) => -a.impot);
-  A("− Formation (CFP)", (a) => -a.cfp, { zebra: true });
+  A("− Formation (CFP) + taxe chambre (CMA)", (a) => -a.cfp, { zebra: true });
   A("− Produits & déplacements", (a) => -(a.produits + a.deplacements), { zebra: true });
   A("Contribution", (a) => a.contribution, { strong: true });
   section(wsR, 6, "Du total au net réel");
@@ -302,6 +302,7 @@ export async function buildWorkbook(
     h.vfl ? `oui (${percent(h.taxRate)})` : `non — barème TMI ${percent(h.tmi)}`,
   );
   H("CFP", percent(h.cfpRate), undefined, true);
+  H("Taxe chambre des métiers (CMA)", percent(CHAMBER_RATE));
   H(
     "Produits / déplacements / impayés",
     `${percent(h.productsRate)} / ${percent(h.travelRate)} / ${percent(h.unpaidRate)}`,

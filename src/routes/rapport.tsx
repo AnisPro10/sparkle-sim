@@ -242,9 +242,8 @@ function RapportPage() {
           <p className="mt-4 text-[10px] leading-relaxed text-muted-foreground">
             Document de simulation à visée indicative, généré par le simulateur L'AZ du Clean.
             Hypothèses fiscales et sociales 2026 (cotisations micro-BIC 21,2 %, VFL 1,7 %, CFP
-            artisan 0,3 %, plafond 83 600 €, franchise TVA 37 500 €) — hors taxe pour frais de
-            chambre CMA (0,48 % du CA, ≈ 176 €/an, comme dans le prévisionnel certifié). À valider
-            avec un expert-comptable.
+            artisan 0,3 %, taxe chambre CMA 0,48 % — soit 23,68 % tout compris —, plafond 83 600 €,
+            franchise TVA 37 500 €). À valider avec un expert-comptable.
           </p>
         </CardContent>
       </Card>

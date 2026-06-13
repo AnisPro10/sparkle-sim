@@ -16,8 +16,8 @@ describe("matrice de sensibilité — parité onglet Sensibilite", () => {
     expect(m.rows.map((r) => r.sites)).toEqual([6, 9, 12, 15, 18]);
   });
 
-  it("case réaliste 12 sites × 30 €/h = 3 646 € (croisière hors saisonnalité du classeur)", () => {
-    expect(fullMonthNet(OFFICIAL, 12, 30)).toBe(3646);
+  it("case réaliste 12 sites × 30 €/h = 3 620 € (croisière hors saisonnalité, taux 23,68 %)", () => {
+    expect(fullMonthNet(OFFICIAL, 12, 30)).toBe(3620);
   });
 
   it("la matrice croît avec les sites et le taux", () => {
@@ -30,9 +30,9 @@ describe("matrice de sensibilité — parité onglet Sensibilite", () => {
 describe("options avancées neutres = parité certifiée intacte", () => {
   it("churn 0, inflation 0, barème off : chiffres certifiés inchangés", () => {
     const r = computeModel(OFFICIAL);
-    expect(r.realNet).toBe(22697);
+    expect(r.realNet).toBe(22521);
     expect(r.projection.map((p) => p.revenue)).toEqual([36573, 47545, 57054, 62759, 69035]);
-    expect(r.projection.map((p) => p.net)).toEqual([23896, 31036, 37482, 41351, 45606]);
+    expect(r.projection.map((p) => p.net)).toEqual([23721, 30807, 37209, 41050, 45275]);
   });
 
   it("churn actif : le net baisse, les heures aussi", () => {
@@ -53,7 +53,7 @@ describe("options avancées neutres = parité certifiée intacte", () => {
 
   it("barème progressif : ne change rien en VFL ; en barème, l'IR diffère de la TMI plate", () => {
     const vfl = computeModel({ ...OFFICIAL, progressiveTax: true });
-    expect(vfl.realNet).toBe(22697); // VFL actif → option sans effet
+    expect(vfl.realNet).toBe(22521); // VFL actif → option sans effet
     const flat = computeModel({ ...OFFICIAL, vfl: false });
     const progressive = computeModel({ ...OFFICIAL, vfl: false, progressiveTax: true });
     // base imposable 18 286 € : tranche 0 jusqu'à 11 600 € → IR progressif < TMI plate
@@ -71,7 +71,7 @@ describe("options avancées neutres = parité certifiée intacte", () => {
 describe("tornado", () => {
   it("classé par amplitude décroissante, base = net certifié", () => {
     const t = tornado(OFFICIAL);
-    expect(t.base).toBe(22697);
+    expect(t.base).toBe(22521);
     for (let i = 1; i < t.items.length; i++) {
       expect(t.items[i - 1].span).toBeGreaterThanOrEqual(t.items[i].span);
     }
@@ -120,8 +120,8 @@ describe("Monte-Carlo", () => {
 
   it("le couloir Monte-Carlo encadre le net certifié", () => {
     const mc = monteCarlo(OFFICIAL, 1000, 7);
-    expect(mc.p10).toBeLessThan(22697);
-    expect(mc.p90).toBeGreaterThan(22697);
+    expect(mc.p10).toBeLessThan(22521);
+    expect(mc.p90).toBeGreaterThan(22521);
   });
 });
 

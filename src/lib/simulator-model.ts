@@ -25,12 +25,14 @@ import { z } from "zod";
  *   que produirait le classeur.
  * - excelRound n'est garanti conforme à ROUND Excel que pour n = 0 (seul usage du moteur).
  *
- * Approximations héritées du classeur certifié (audit juridique du 13/06/2026) :
- * - Taxe pour frais de chambre CMA (0,48 % du CA artisanal, ≈ 176 €/an au plan officiel)
- *   absente du taux global 23,2 % — comme dans la cellule B27 du classeur.
+ * Taux global (correction audit du 13/06/2026) : inclut la taxe pour frais de chambre
+ * de métiers (CMA) de 0,48 % du CA — le taux artisan tout compris est donc 23,68 %
+ * (et non 23,2 %). Les classeurs Excel et tous les livrables sont alignés sur ce taux.
+ *
+ * Approximation assumée (parité des deux plateformes, documentée) :
  * - ACRE appliquée sur les 12 mois de l'exercice, alors que l'exonération légale s'arrête
  *   à la fin du 3e trimestre civil suivant le début d'activité (30/06/2027 pour un
- *   démarrage en sept. 2026) : juil.-août 2027 devraient repasser au taux plein.
+ *   démarrage en sept. 2026). Sans effet sur les chiffres certifiés (preset ACRE = non).
  */
 
 export const MONTHS = [
@@ -54,6 +56,9 @@ export const AIRBNB_HOURS = 2.5; // heures par rotation Airbnb
 export const CFE_YEAR2 = 300; // CFE estimée dès l'année 2 (exonérée l'année de création)
 export const CAPACITY_WARN = 0.85; // > 85 % trois mois → nouveaux contrats 32-34 €/h
 export const CAPACITY_CRITICAL = 0.9; // > 90 % durable → préparer embauche + société
+// Taxe pour frais de chambre de métiers (TFC CMA) : 0,48 % du CA pour un artisan
+// (nettoyage 81.21Z) en prestations de services, exonérée si CA ≤ 5 000 €. Hors Alsace-Moselle.
+export const CHAMBER_RATE = 0.0048;
 
 /** ROUND Excel : arrondi à n décimales, 0,5 s'éloignant de zéro (y compris négatifs).
  *  Le « + 0 » final neutralise le −0 de IEEE 754 (sinon Intl afficherait « -0 € »). */
@@ -332,6 +337,7 @@ export type ActivityBreakdown = {
   ca: number;
   cotisations: number;
   impot: number;
+  /** CFP + taxe pour frais de chambre CMA, regroupées (parité ligne unique du classeur). */
   cfp: number;
   produits: number;
   deplacements: number;
@@ -388,9 +394,10 @@ const ACTIVITY_LABELS = {
   private: "Particuliers",
 } as const;
 
-/** Taux global de prélèvement appliqué au CA (parité B27 du classeur). */
+/** Taux global de prélèvement appliqué au CA : cotisations (ou ACRE) + CFP + taxe
+ *  pour frais de chambre CMA + VFL le cas échéant. Au préréglage officiel = 23,68 %. */
 export function globalRate(h: Hypotheses): number {
-  return (h.acre ? h.acreRate : h.socialRate) + h.cfpRate + (h.vfl ? h.taxRate : 0);
+  return (h.acre ? h.acreRate : h.socialRate) + h.cfpRate + CHAMBER_RATE + (h.vfl ? h.taxRate : 0);
 }
 
 /** Barème progressif de l'IR 2026 sur les revenus 2025 (1 part) — option avancée hors
@@ -495,7 +502,9 @@ function activityBreakdown(h: Hypotheses, months: MonthResult[]): ActivityBreakd
       progressiveTotal !== null
         ? excelRound((progressiveTotal * ca) / totalCa)
         : excelRound(ca * (h.vfl ? h.taxRate : 0.5 * h.tmi));
-    const cfp = excelRound(ca * h.cfpRate);
+    // CFP et taxe chambre CMA regroupées en un seul poste arrondi (parité ligne unique
+    // du classeur : la cellule CFP du Previsionnel vaut cfpRate + CHAMBER_RATE).
+    const cfp = excelRound(ca * (h.cfpRate + CHAMBER_RATE));
     const produits = excelRound(ca * h.productsRate);
     const deplacements = excelRound(ca * h.travelRate);
     return {
@@ -583,7 +592,7 @@ function buildScenarios(h: Hypotheses, revenue: number): ScenarioResult[] {
  *  Options avancées : inflation des prix (s'ajoute à la croissance en volume) et
  *  inflation des charges fixes — à 0, parité stricte avec le classeur. */
 function buildProjection(h: Hypotheses, revenue: number): YearProjection[] {
-  const fullRate = h.socialRate + h.cfpRate + (h.vfl ? h.taxRate : 0);
+  const fullRate = h.socialRate + h.cfpRate + CHAMBER_RATE + (h.vfl ? h.taxRate : 0);
   const variableRate = h.productsRate + h.travelRate;
   const netOf = (ca: number, rate: number, cfe: number, fixedYear: number) =>
     ca - excelRound(ca * rate) - excelRound(ca * variableRate) - excelRound(fixedYear) - cfe;
@@ -754,7 +763,12 @@ export function legalStatuses(h: Hypotheses, revenue: number): LegalStatus[] {
   const benefice = revenue * (1 - variableRate) - fixedYear - CFE_YEAR2;
 
   const micro = (cotisRate: number, impot: number) =>
-    revenue - revenue * cotisRate - revenue * h.cfpRate - impot - chargesMicro;
+    revenue -
+    revenue * cotisRate -
+    revenue * h.cfpRate -
+    revenue * CHAMBER_RATE -
+    impot -
+    chargesMicro;
   const microVfl = micro(h.socialRate, revenue * h.taxRate);
   const microAcre = micro(h.acreRate, revenue * h.taxRate);
   const microBareme = micro(h.socialRate, revenue * LEGAL.abattementMicro * h.tmi);
@@ -802,7 +816,7 @@ export function legalStatuses(h: Hypotheses, revenue: number): LegalStatus[] {
       name: "Micro + versement libératoire",
       value: microVfl,
       monthly: excelRound(microVfl / 12),
-      note: `Simple et lisible : ${percent(h.socialRate + h.cfpRate + h.taxRate)} du CA encaissé (hors taxe frais de chambre CMA 0,48 %), zéro comptabilité d'engagement.`,
+      note: `Simple et lisible : ${percent(h.socialRate + h.cfpRate + CHAMBER_RATE + h.taxRate)} du CA encaissé (cotisations + CFP + taxe chambre CMA + impôt), zéro comptabilité d'engagement.`,
     },
     {
       id: "micro-bareme",

@@ -50,17 +50,17 @@ describe("parité prévisionnel — preset Officiel", () => {
 
   it("nets de gestion mensuels (série certifiée)", () => {
     expect(r.months.map((m) => m.netGestion)).toEqual([
-      353, 774, 1100, 1396, 1776, 2031, 2286, 2541, 2796, 3051, 3133, 2660,
+      350, 768, 1092, 1385, 1763, 2016, 2269, 2523, 2776, 3029, 3110, 2641,
     ]);
   });
 
-  it("NET RÉEL année 1 = 22 697 € (arrondis par activité et par poste)", () => {
-    expect(r.realNet).toBe(22697);
-    expect(r.byActivity.map((a) => a.contribution)).toEqual([14772, 781, 4119, 5125]);
+  it("NET RÉEL année 1 = 22 521 € (taux 23,68 % avec taxe chambre CMA, arrondis par poste)", () => {
+    expect(r.realNet).toBe(22521);
+    expect(r.byActivity.map((a) => a.contribution)).toEqual([14667, 775, 4090, 5089]);
   });
 
-  it("net de croisière = 2 948 €/mois (juin-août, avec saisonnalité)", () => {
-    expect(r.cruiseNet).toBe(2948);
+  it("net de croisière = 2 927 €/mois (juin-août, avec saisonnalité)", () => {
+    expect(r.cruiseNet).toBe(2927);
   });
 
   it("objectif 1 500 € atteint en janvier 2027 (5e mois), 8 mois sur 12", () => {
@@ -69,11 +69,11 @@ describe("parité prévisionnel — preset Officiel", () => {
     expect(r.monthsAboveTarget).toBe(8);
   });
 
-  it("trésorerie : série certifiée, point bas +921 € en septembre", () => {
+  it("trésorerie : série certifiée, point bas +920 € en septembre", () => {
     expect(r.months.map((m) => m.cash)).toEqual([
-      921, 1413, 2282, 3539, 4941, 6740, 8795, 11105, 13670, 16490, 19645, 22840,
+      920, 1408, 2270, 3517, 4909, 6695, 8735, 11028, 13574, 16373, 19506, 22679,
     ]);
-    expect(r.lowCash).toBe(921);
+    expect(r.lowCash).toBe(920);
     expect(r.lowCashMonth).toBe("Sept. 2026");
     expect(r.fundable).toBe(true);
   });
@@ -92,15 +92,15 @@ describe("parité prévisionnel — preset Officiel", () => {
     expect(r.maxOccupancy).toBeCloseTo(161 / 165, 10);
   });
 
-  it("scénarios = formules du classeur certifié (taux 23,2 %), sans facteur de calage", () => {
+  it("scénarios = formules du classeur certifié (taux 23,68 %), sans facteur de calage", () => {
     const [pess, real, opt] = r.scenarios;
     expect(pess.ca).toBe(23709);
-    expect(pess.net).toBe(13975);
+    expect(pess.net).toBe(13861);
     expect(real.ca).toBe(36573);
-    // Scenarios!C19 : arrondi global → 22 696, à 1 € du NET RÉEL détaillé (comme le classeur).
-    expect(real.net).toBe(22696);
+    // Scenarios!C19 : arrondi global → 22 521, aligné au NET RÉEL détaillé (comme le classeur).
+    expect(real.net).toBe(22521);
     expect(opt.ca).toBe(49399);
-    expect(opt.net).toBe(31392);
+    expect(opt.net).toBe(31155);
   });
 
   it("plateau de sites des scénarios = sites du dernier mois (Plan_Activite!M6), pas le max", () => {
@@ -118,7 +118,7 @@ describe("parité prévisionnel — preset Officiel", () => {
 
   it("projection 5 ans : CA et nets certifiés (net avant matériel initial)", () => {
     expect(r.projection.map((p) => p.revenue)).toEqual([36573, 47545, 57054, 62759, 69035]);
-    expect(r.projection.map((p) => p.net)).toEqual([23896, 31036, 37482, 41351, 45606]);
+    expect(r.projection.map((p) => p.net)).toEqual([23721, 30807, 37209, 41050, 45275]);
     expect(r.projection.map((p) => p.vat)).toEqual([false, true, true, true, true]);
     expect(r.projection.every((p) => !p.micro)).toBe(true);
   });
@@ -133,9 +133,9 @@ describe("parité statuts juridiques — CA 36 573", () => {
   };
 
   it("6 variantes aux valeurs du classeur juridique", () => {
-    expect(value("micro-acre")).toBe(25835);
-    expect(value("micro-vfl")).toBe(23896);
-    expect(value("micro-bareme")).toBe(22507);
+    expect(value("micro-acre")).toBe(25659);
+    expect(value("micro-vfl")).toBe(23721);
+    expect(value("micro-bareme")).toBe(22331);
     expect(value("eurl")).toBe(20172);
     expect(value("ei")).toBe(19416);
     expect(value("sasu")).toBe(18707);
@@ -264,7 +264,7 @@ describe("cohérences internes", () => {
 
   it("toutes activités cochées par défaut : chiffres certifiés inchangés", () => {
     const r = computeModel(OFFICIAL);
-    expect(r.realNet).toBe(22697);
+    expect(r.realNet).toBe(22521);
     expect(r.byActivity).toHaveLength(4);
   });
 

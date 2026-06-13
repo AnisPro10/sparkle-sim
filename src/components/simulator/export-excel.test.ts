@@ -42,7 +42,7 @@ describe("export Excel — structure et chiffres certifiés", () => {
     const wb = await buildWorkbook(OFFICIAL, m);
     const ws = wb.getWorksheet("Synthèse")!;
     expect(lastValueOf(ws, "Chiffre d'affaires année 1")).toBe(36573);
-    expect(lastValueOf(ws, "Net réel année 1")).toBe(22697);
+    expect(lastValueOf(ws, "Net réel année 1")).toBe(22521);
     expect(lastValueOf(ws, "Point bas de trésorerie")).toBe(m.lowCash);
   });
 
@@ -95,6 +95,6 @@ describe("export Excel — structure et chiffres certifiés", () => {
     const ExcelJS = mod.default ?? mod;
     const reloaded = new ExcelJS.Workbook();
     await reloaded.xlsx.load(buf);
-    expect(lastValueOf(reloaded.getWorksheet("Synthèse")!, "Net réel année 1")).toBe(22697);
+    expect(lastValueOf(reloaded.getWorksheet("Synthèse")!, "Net réel année 1")).toBe(22521);
   });
 });

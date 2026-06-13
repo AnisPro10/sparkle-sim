@@ -5,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import {
   CAPACITY_CRITICAL,
+  CHAMBER_RATE,
   euro,
   percent,
   safePercent,
@@ -166,7 +167,7 @@ export function CompteResultatView({ h, m }: { h: Hypotheses; m: ModelResult }) 
               indent
             />
             <Row
-              label="− Formation (CFP)"
+              label="− Formation (CFP) + taxe chambre (CMA)"
               term="CFP"
               value={euro(-m.byActivity.reduce((s, a) => s + a.cfp, 0))}
               indent
@@ -279,7 +280,8 @@ export function CompteResultatView({ h, m }: { h: Hypotheses; m: ModelResult }) 
       <p className="mt-5 text-xs text-muted-foreground leading-relaxed">
         Modèle micro-entreprise 2026 en parité avec le prévisionnel certifié (audit du 12/06/2026) :
         cotisations {percent(h.socialRate)} du CA encaissé
-        {h.acre ? ` (ACRE ${percent(h.acreRate)})` : ""}, CFP {percent(h.cfpRate)},{" "}
+        {h.acre ? ` (ACRE ${percent(h.acreRate)})` : ""}, CFP {percent(h.cfpRate)}, taxe chambre CMA{" "}
+        {percent(CHAMBER_RATE)},{" "}
         {h.vfl
           ? `versement libératoire ${percent(h.taxRate)}`
           : `impôt au barème (TMI ${percent(h.tmi)} sur 50 % du CA)`}

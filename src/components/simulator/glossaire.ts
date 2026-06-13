@@ -64,7 +64,7 @@ export const TERMES: Terme[] = [
     mot: "Point bas de trésorerie",
     cat: "Finance",
     def: "Le moment de l'année où le compte est au plus bas. C'est lui qui dimensionne l'apport nécessaire, pas le total annuel.",
-    exemple: "Plan officiel : +921 € en septembre 2026 (premier mois, rien d'encaissé en B2B).",
+    exemple: "Plan officiel : +920 € en septembre 2026 (premier mois, rien d'encaissé en B2B).",
   },
   {
     mot: "BFR",
@@ -90,7 +90,7 @@ export const TERMES: Terme[] = [
     cat: "Fiscalité",
     def: "Régime simplifié : les cotisations sont un pourcentage du CA encaissé. Pas de CA = pas de charges sociales. Pas de TVA sous le seuil de franchise.",
     exemple:
-      "21,2 % de cotisations + 0,3 % de formation + 1,7 % d'impôt = 23,2 % du CA — hors taxe pour frais de chambre CMA (0,48 % du CA, ≈ 176 €/an ici, exonérée si CA ≤ 5 000 €).",
+      "21,2 % cotisations + 0,3 % formation + 0,48 % taxe chambre des métiers (CMA) + 1,7 % impôt = 23,68 % du CA, tout compris (artisan, exonération CMA si CA ≤ 5 000 €).",
   },
   {
     mot: "Versement fiscal libératoire (VFL)",
