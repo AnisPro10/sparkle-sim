@@ -1,5 +1,11 @@
 import type { Hypotheses, ModelResult } from "@/lib/simulator-model";
-import { CHAMBER_RATE, legalStatuses, MONTHS, percent } from "@/lib/simulator-model";
+import {
+  CHAMBER_RATE,
+  legalStatuses,
+  MONTHS,
+  percent,
+  synthesisIndicators,
+} from "@/lib/simulator-model";
 
 // Export d'un vrai classeur Excel (.xlsx) mis en forme : feuilles séparées, titres,
 // en-têtes colorés, formats € / %, largeurs de colonnes, négatifs en rouge.
@@ -111,6 +117,26 @@ export async function buildWorkbook(
     "Plafond micro / seuil TVA",
     [`${h.microCeiling.toLocaleString("fr-FR")} € / ${h.vatCeiling.toLocaleString("fr-FR")} €`],
     { fmt: "raw", zebra: true },
+  );
+
+  // Indicateurs d'activité (dérivés du plan, lecture seule)
+  const ind = synthesisIndicators(h, m);
+  section(wsS, 2, "Indicateurs d'activité");
+  header(wsS, ["Indicateur", "Valeur"]);
+  dataRow(wsS, "Interventions / mois (moy.)", [Math.round(ind.sessionsPerMonth)], { fmt: INT });
+  dataRow(wsS, "Interventions / an", [Math.round(ind.sessionsYear)], { fmt: INT, zebra: true });
+  dataRow(wsS, "Heures facturées / mois (moy.)", [Math.round(ind.hoursPerMonth)], { fmt: INT });
+  dataRow(wsS, "Heures facturées / an", [Math.round(ind.hoursYear)], { fmt: INT, zebra: true });
+  dataRow(wsS, "Durée moyenne / intervention (h)", [ind.avgSessionHours], { fmt: "0.0" });
+  dataRow(wsS, "Panier moyen / intervention", [Math.round(ind.avgTicket)], { zebra: true });
+  dataRow(wsS, "CA moyen / mois", [Math.round(ind.caPerMonth)]);
+  dataRow(wsS, "Occupation moyenne", [percent(ind.avgOccupancy)], { fmt: "raw", zebra: true });
+  dataRow(wsS, "Marge nette / heure (€)", [ind.netPerHour], { fmt: "0.00" });
+  dataRow(wsS, "Clients B2B fin d'année", [ind.b2bClientsEnd], { fmt: INT, zebra: true });
+  section(wsS, 2, "Mix d'activité (part du CA)");
+  header(wsS, ["Segment", "Part"]);
+  ind.caMix.forEach((s, i) =>
+    dataRow(wsS, s.label, [percent(s.share)], { fmt: "raw", zebra: i % 2 === 0 }),
   );
 
   // ---- Feuille 2 : Compte de résultat par activité ----

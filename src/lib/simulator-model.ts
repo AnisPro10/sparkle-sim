@@ -970,6 +970,92 @@ export function civilYear2026Check(h: Hypotheses, m: ModelResult): CivilYearChec
 }
 
 /* ------------------------------------------------------------------ */
+/* Indicateurs d'activité (KPI de Synthèse) — purement DÉRIVÉS pour    */
+/* l'affichage : n'entrent dans aucun calcul, aucun impact parité.     */
+/* ------------------------------------------------------------------ */
+
+/** Nombre total d'interventions/prestations sur l'année (passages B2B + interventions
+ *  vitrerie + rotations Airbnb + prestations particuliers), selon le mode actif. */
+export function annualSessions(h: Hypotheses): number {
+  let total = 0;
+  for (let i = 0; i < 12; i++) {
+    if (h.enabledB2b) {
+      let passes = 0;
+      if (h.b2bContractsEnabled && h.b2bContracts.length > 0) {
+        for (const c of h.b2bContracts)
+          if (i >= c.startMonth) passes += c.sites * c.visitsPerWeek * WEEKS_PER_MONTH;
+      } else {
+        passes = h.sites[i] * h.visitsPerWeek * WEEKS_PER_MONTH;
+      }
+      total += passes * h.seasonality[i]; // les passages baissent avec la saisonnalité
+    }
+    if (h.enabledGlass) {
+      if (h.glassContractsEnabled && h.glassContracts.length > 0) {
+        for (const c of h.glassContracts) if (i >= c.startMonth) total += c.perMonth;
+      } else total += h.glassJobs[i];
+    }
+    if (h.enabledAirbnb) {
+      if (h.airbnbContractsEnabled && h.airbnbContracts.length > 0) {
+        for (const c of h.airbnbContracts) if (i >= c.startMonth) total += c.perMonth;
+      } else total += h.airbnb[i];
+    }
+    if (h.enabledPrivate) {
+      if (h.privateContractsEnabled && h.privateContracts.length > 0) {
+        for (const c of h.privateContracts) if (i >= c.startMonth) total += c.perMonth;
+      } else total += h.privateJobs[i];
+    }
+  }
+  return total;
+}
+
+/** Sites/clients B2B actifs en fin d'année (mois 12). */
+export function b2bClientsEnd(h: Hypotheses): number {
+  if (!h.enabledB2b) return 0;
+  if (h.b2bContractsEnabled && h.b2bContracts.length > 0) {
+    return h.b2bContracts.filter((c) => c.startMonth <= 11).reduce((s, c) => s + c.sites, 0);
+  }
+  return Math.round(h.sites[11]);
+}
+
+export type SynthesisIndicators = {
+  sessionsYear: number;
+  sessionsPerMonth: number;
+  hoursYear: number;
+  hoursPerMonth: number;
+  avgSessionHours: number; // durée moyenne d'une intervention
+  avgTicket: number; // panier moyen par intervention (€)
+  caPerMonth: number;
+  avgOccupancy: number; // heures moyennes / capacité
+  netPerHour: number; // marge nette par heure facturée
+  b2bClientsEnd: number;
+  caMix: { key: string; label: string; ca: number; share: number }[];
+};
+
+/** Indicateurs d'activité de la Synthèse — dérivés du plan réel. */
+export function synthesisIndicators(h: Hypotheses, m: ModelResult): SynthesisIndicators {
+  const sessionsYear = annualSessions(h);
+  const hoursYear = m.totalHours;
+  return {
+    sessionsYear,
+    sessionsPerMonth: sessionsYear / 12,
+    hoursYear,
+    hoursPerMonth: hoursYear / 12,
+    avgSessionHours: safeRatio(hoursYear, sessionsYear),
+    avgTicket: safeRatio(m.revenue, sessionsYear),
+    caPerMonth: m.revenue / 12,
+    avgOccupancy: safeRatio(hoursYear / 12, h.capacity),
+    netPerHour: safeRatio(m.realNet, hoursYear),
+    b2bClientsEnd: b2bClientsEnd(h),
+    caMix: m.byActivity.map((a) => ({
+      key: a.key,
+      label: a.label,
+      ca: a.ca,
+      share: safeRatio(a.ca, m.revenue),
+    })),
+  };
+}
+
+/* ------------------------------------------------------------------ */
 /* Comparateur de statuts juridiques                                   */
 /* Parité stricte Simulation_Juridique_ProClean.xlsx (6 variantes).    */
 /* ------------------------------------------------------------------ */

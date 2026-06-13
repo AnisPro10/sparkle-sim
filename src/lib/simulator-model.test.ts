@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  annualSessions,
+  b2bClientsEnd,
   civilYear2026Check,
   clampHypotheses,
   computeModel,
@@ -8,6 +10,7 @@ import {
   legalStatuses,
   OFFICIAL,
   roundUp100,
+  synthesisIndicators,
 } from "./simulator-model";
 
 /**
@@ -388,6 +391,34 @@ describe("scénarios en mode détaillé : basés sur le plan réel", () => {
   it("mode moyenne (officiel) : scénarios certifiés inchangés", () => {
     const s = computeModel(OFFICIAL).scenarios;
     expect(s.map((x) => x.net)).toEqual([13861, 22521, 31155]);
+  });
+});
+
+describe("indicateurs d'activité (KPI dérivés, sans impact calcul)", () => {
+  it("annualSessions somme les passages ; b2bClientsEnd = sites de fin d'année", () => {
+    const h = clampHypotheses({
+      ...OFFICIAL,
+      enabledGlass: false,
+      enabledAirbnb: false,
+      enabledPrivate: false,
+      seasonality: Array(12).fill(1),
+      b2bContractsEnabled: true,
+      b2bContracts: [
+        { label: "A", visitsPerWeek: 2, hoursPerVisit: 1, rate: 30, sites: 5, startMonth: 0 },
+      ],
+    });
+    expect(annualSessions(h)).toBeCloseTo(5 * 2 * 4.33 * 12, 5);
+    expect(b2bClientsEnd(h)).toBe(5);
+  });
+
+  it("mix d'activité : parts cohérentes (somme ≈ 100 %) au preset officiel", () => {
+    const m = computeModel(OFFICIAL);
+    const k = synthesisIndicators(OFFICIAL, m);
+    const sum = k.caMix.reduce((s, x) => s + x.share, 0);
+    expect(sum).toBeGreaterThan(0.99);
+    expect(sum).toBeLessThan(1.01);
+    expect(k.b2bClientsEnd).toBe(12);
+    expect(k.caPerMonth).toBeCloseTo(36573 / 12, 5);
   });
 });
 

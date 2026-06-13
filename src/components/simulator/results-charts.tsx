@@ -35,6 +35,7 @@ import {
   euro,
   fmtK,
   percent,
+  synthesisIndicators,
   type Hypotheses,
   type ModelResult,
   OFFICIAL,
@@ -332,6 +333,94 @@ export function ResultatWaterfall({ h, m }: { h: Hypotheses; m: ModelResult }) {
   );
 }
 
+const nf0 = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
+const nf1 = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 1 });
+
+function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
+  return (
+    <div className="rounded-lg border border-border bg-card p-3">
+      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
+      <div className="mt-1 font-mono text-lg font-semibold tabular-nums text-foreground">
+        {value}
+      </div>
+      {sub && <div className="text-[11px] text-muted-foreground">{sub}</div>}
+    </div>
+  );
+}
+
+/** Indicateurs d'activité — moyennes de prestations, heures, paniers, mix, occupation.
+ *  Purement dérivés (aucun impact sur les calculs). */
+function ActivityIndicators({ h, m }: { h: Hypotheses; m: ModelResult }) {
+  const k = synthesisIndicators(h, m);
+  const mixColors: Record<string, string> = {
+    b2b: "var(--chart-b2b)",
+    glass: "var(--chart-glass)",
+    airbnb: "var(--chart-airbnb)",
+    private: "var(--chart-private)",
+  };
+  return (
+    <Card>
+      <CardContent className="p-5">
+        <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-primary">
+          Indicateurs d'activité
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          <Stat
+            label="Interventions / mois"
+            value={nf0.format(Math.round(k.sessionsPerMonth))}
+            sub={`${nf0.format(Math.round(k.sessionsYear))} / an`}
+          />
+          <Stat
+            label="Heures facturées / mois"
+            value={`${nf0.format(Math.round(k.hoursPerMonth))} h`}
+            sub={`${nf0.format(Math.round(k.hoursYear))} h / an`}
+          />
+          <Stat label="Durée moy. / intervention" value={`${nf1.format(k.avgSessionHours)} h`} />
+          <Stat label="Panier moyen / intervention" value={euro(Math.round(k.avgTicket))} />
+          <Stat label="CA moyen / mois" value={euro(Math.round(k.caPerMonth))} />
+          <Stat
+            label="Occupation moyenne"
+            value={percent(k.avgOccupancy)}
+            sub={`pic ${percent(m.maxOccupancy)}`}
+          />
+          <Stat label="Marge nette / heure" value={`${nf1.format(k.netPerHour)} €/h`} />
+          <Stat label="Clients B2B fin d'année" value={nf0.format(k.b2bClientsEnd)} />
+        </div>
+        {k.caMix.length > 0 && (
+          <div className="mt-4">
+            <div className="mb-1.5 text-[11px] font-medium text-muted-foreground">
+              Mix d'activité (part du CA)
+            </div>
+            <div className="flex h-3 overflow-hidden rounded-full">
+              {k.caMix.map((s) => (
+                <div
+                  key={s.key}
+                  style={{
+                    width: `${s.share * 100}%`,
+                    background: mixColors[s.key] ?? "var(--muted)",
+                  }}
+                  title={`${s.label} : ${percent(s.share)}`}
+                />
+              ))}
+            </div>
+            <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
+              {k.caMix.map((s) => (
+                <span key={s.key} className="flex items-center gap-1.5">
+                  <span
+                    className="inline-block h-2 w-2 rounded-sm"
+                    style={{ background: mixColors[s.key] ?? "var(--muted)" }}
+                  />
+                  {s.label} {percent(s.share)}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 export function SyntheseView({ h, m }: { h: Hypotheses; m: ModelResult }) {
   const occupancy = m.maxOccupancy;
   const civil = civilYear2026Check(h, m);
@@ -448,6 +537,9 @@ export function SyntheseView({ h, m }: { h: Hypotheses; m: ModelResult }) {
           />
         </div>
       </div>
+
+      {/* Indicateurs d'activité (lecture seule, dérivés du Plan d'activité) */}
+      <ActivityIndicators h={h} m={m} />
 
       {/* Graphes — la courbe de trésorerie et la cascade CA→net vivent dans leurs
           rubriques dédiées (Trésorerie, Compte de résultat) : pas de doublon ici. */}
