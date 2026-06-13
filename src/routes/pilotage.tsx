@@ -103,7 +103,12 @@ function PilotagePage() {
   const filled = rows.filter((r) => r.actualCa !== undefined);
   // Atterrissage : mois saisis en RÉEL + mois restants en PRÉVU.
   const landingCa = rows.reduce((s, r) => s + (r.actualCa ?? r.plannedCa), 0);
-  const landingNet = rows.reduce((s, r) => s + (r.actualNet ?? r.plannedNet), 0) - h.capex;
+  // Sans aucun réel saisi, l'atterrissage = le plan certifié exact (évite un écart
+  // d'arrondi de 1 € entre le cumul mensuel et le net réel annuel du moteur).
+  const landingNet =
+    filled.length === 0
+      ? result.realNet
+      : rows.reduce((s, r) => s + (r.actualNet ?? r.plannedNet), 0) - h.capex;
   const alerts = filled.filter((r) => r.alert);
 
   return (

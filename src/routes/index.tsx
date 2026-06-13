@@ -491,7 +491,7 @@ function LandingPage() {
         <footer className="flex flex-wrap items-center justify-between gap-3 py-10 text-xs text-muted-foreground">
           <BrandLockup size={30} withTagline={false} />
           <span>
-            Prévisionnel indicatif 2026 · Seine-Saint-Denis & Paris · moteur vérifié par 47 tests de
+            Prévisionnel indicatif 2026 · Seine-Saint-Denis & Paris · moteur vérifié par 83 tests de
             parité
           </span>
         </footer>
