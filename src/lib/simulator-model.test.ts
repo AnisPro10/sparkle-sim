@@ -322,6 +322,53 @@ describe("portefeuille de contrats B2B (mode avancé)", () => {
   });
 });
 
+describe("contrats détaillés vitrerie / Airbnb / particuliers", () => {
+  const base = {
+    ...OFFICIAL,
+    enabledB2b: false,
+    enabledGlass: false,
+    enabledAirbnb: false,
+    enabledPrivate: false,
+    seasonality: Array(12).fill(1),
+    unpaidRate: 0,
+  };
+
+  it("vitrerie horaire : CA = interventions × heures × taux", () => {
+    const r = computeModel({
+      ...base,
+      enabledGlass: true,
+      glassContractsEnabled: true,
+      glassContracts: [
+        { label: "B", perMonth: 2, hoursEach: 1.5, rate: 35, startMonth: 0 },
+      ],
+    });
+    expect(r.months[0].glass).toBe(105); // 2 × 1,5 × 35
+    expect(r.months[0].hours).toBe(3); // 2 × 1,5
+  });
+
+  it("Airbnb au forfait/rotation : CA = rotations × prix (pas à l'heure)", () => {
+    const r = computeModel({
+      ...base,
+      enabledAirbnb: true,
+      airbnbContractsEnabled: true,
+      airbnbContracts: [{ label: "Studio", perMonth: 8, hoursEach: 2, price: 55, startMonth: 0 }],
+    });
+    expect(r.months[0].airbnb).toBe(440); // 8 × 55 forfait
+    expect(r.months[0].hours).toBe(16); // 8 × 2 (capacité)
+  });
+
+  it("particuliers horaire : CA = prestations × heures × taux ; mois de début respecté", () => {
+    const r = computeModel({
+      ...base,
+      enabledPrivate: true,
+      privateContractsEnabled: true,
+      privateContracts: [{ label: "Mme X", perMonth: 4, hoursEach: 3, rate: 28, startMonth: 2 }],
+    });
+    expect(r.months[1].private).toBe(0); // avant le mois de début
+    expect(r.months[2].private).toBe(336); // 4 × 3 × 28
+  });
+});
+
 describe("année civile 2026 — alerte réglementaire TVA/micro", () => {
   // Valeurs littérales : elles figent à la fois la tranche de mois (sept.-déc. 2026,
   // soit months[0..3]) ET le prorata 122/365 — un recalcul dans le test serait circulaire.

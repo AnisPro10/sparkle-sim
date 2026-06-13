@@ -141,10 +141,44 @@ export const hypothesesSchema = z.object({
       startMonth: num.min(0).max(11),
     }),
   ),
+  // Vitrerie & particuliers : facturés à l'heure (taux €/h). Airbnb : au forfait/rotation
+  // (standard du marché). Chaque contrat a un volume MENSUEL et un mois de début.
+  glassContractsEnabled: z.boolean(),
+  glassContracts: z.array(
+    z.object({
+      label: z.string(),
+      perMonth: num.min(0).max(1000),
+      hoursEach: num.min(0).max(24),
+      rate: num.min(0).max(500),
+      startMonth: num.min(0).max(11),
+    }),
+  ),
+  airbnbContractsEnabled: z.boolean(),
+  airbnbContracts: z.array(
+    z.object({
+      label: z.string(),
+      perMonth: num.min(0).max(1000),
+      hoursEach: num.min(0).max(24),
+      price: num.min(0).max(2000),
+      startMonth: num.min(0).max(11),
+    }),
+  ),
+  privateContractsEnabled: z.boolean(),
+  privateContracts: z.array(
+    z.object({
+      label: z.string(),
+      perMonth: num.min(0).max(1000),
+      hoursEach: num.min(0).max(24),
+      rate: num.min(0).max(500),
+      startMonth: num.min(0).max(11),
+    }),
+  ),
 });
 
 export type Hypotheses = z.infer<typeof hypothesesSchema>;
 export type B2bContract = Hypotheses["b2bContracts"][number];
+export type HourlyContract = Hypotheses["glassContracts"][number]; // vitrerie & particuliers
+export type AirbnbContract = Hypotheses["airbnbContracts"][number];
 
 type NumericBounds = { min: number; max: number };
 const FIELD_BOUNDS: Record<string, NumericBounds> = {
@@ -239,6 +273,39 @@ export function clampHypotheses(input: unknown): Hypotheses {
         };
       })
     : [];
+  const clampHourly = (arr: unknown, defRate: number) =>
+    Array.isArray(arr)
+      ? (arr as unknown[]).slice(0, 50).map((c) => {
+          const o = (typeof c === "object" && c ? c : {}) as Record<string, unknown>;
+          return {
+            label: typeof o.label === "string" ? o.label.slice(0, 80) : "",
+            perMonth: clampNum(o.perMonth, { min: 0, max: 1000 }, 1),
+            hoursEach: clampNum(o.hoursEach, { min: 0, max: 24 }, 2),
+            rate: clampNum(o.rate, { min: 0, max: 500 }, defRate),
+            startMonth: Math.round(clampNum(o.startMonth, { min: 0, max: 11 }, 0)),
+          };
+        })
+      : [];
+  out.glassContractsEnabled =
+    typeof src.glassContractsEnabled === "boolean" ? src.glassContractsEnabled : false;
+  out.glassContracts = clampHourly(src.glassContracts, 32);
+  out.privateContractsEnabled =
+    typeof src.privateContractsEnabled === "boolean" ? src.privateContractsEnabled : false;
+  out.privateContracts = clampHourly(src.privateContracts, 30);
+  out.airbnbContractsEnabled =
+    typeof src.airbnbContractsEnabled === "boolean" ? src.airbnbContractsEnabled : false;
+  out.airbnbContracts = Array.isArray(src.airbnbContracts)
+    ? (src.airbnbContracts as unknown[]).slice(0, 50).map((c) => {
+        const o = (typeof c === "object" && c ? c : {}) as Record<string, unknown>;
+        return {
+          label: typeof o.label === "string" ? o.label.slice(0, 80) : "",
+          perMonth: clampNum(o.perMonth, { min: 0, max: 1000 }, 1),
+          hoursEach: clampNum(o.hoursEach, { min: 0, max: 24 }, 2.5),
+          price: clampNum(o.price, { min: 0, max: 2000 }, 75),
+          startMonth: Math.round(clampNum(o.startMonth, { min: 0, max: 11 }, 0)),
+        };
+      })
+    : [];
   return out as Hypotheses;
 }
 
@@ -291,6 +358,12 @@ export const OFFICIAL: Hypotheses = {
   growth: [0.3, 0.2, 0.1, 0.1],
   b2bContractsEnabled: false,
   b2bContracts: [],
+  glassContractsEnabled: false,
+  glassContracts: [],
+  airbnbContractsEnabled: false,
+  airbnbContracts: [],
+  privateContractsEnabled: false,
+  privateContracts: [],
 };
 
 // Preset « Réaliste terrain » = colonne réaliste du Comparatif_Realiste de l'Excel
@@ -490,6 +563,59 @@ function b2bMonthlyBase(h: Hypotheses, i: number): { revenue: number; hours: num
   };
 }
 
+/** Vitrerie : contrats horaires (CA = interventions × heures × taux) ou volume moyen. */
+function glassMonthlyBase(h: Hypotheses, i: number): { revenue: number; hours: number } {
+  if (h.glassContractsEnabled && h.glassContracts.length > 0) {
+    let revenue = 0;
+    let hours = 0;
+    for (const c of h.glassContracts) {
+      if (i < c.startMonth) continue;
+      const hh = c.perMonth * c.hoursEach;
+      hours += hh;
+      revenue += hh * c.rate;
+    }
+    return { revenue, hours };
+  }
+  return {
+    revenue: h.glassJobs[i] * h.glassRate * GLASS_HOURS,
+    hours: h.glassJobs[i] * GLASS_HOURS,
+  };
+}
+
+/** Airbnb : contrats au forfait/rotation (CA = rotations × prix) ou volume moyen. */
+function airbnbMonthlyBase(h: Hypotheses, i: number): { revenue: number; hours: number } {
+  if (h.airbnbContractsEnabled && h.airbnbContracts.length > 0) {
+    let revenue = 0;
+    let hours = 0;
+    for (const c of h.airbnbContracts) {
+      if (i < c.startMonth) continue;
+      hours += c.perMonth * c.hoursEach;
+      revenue += c.perMonth * c.price;
+    }
+    return { revenue, hours };
+  }
+  return { revenue: h.airbnb[i] * h.airbnbPrice, hours: h.airbnb[i] * AIRBNB_HOURS };
+}
+
+/** Particuliers : contrats horaires (CA = prestations × heures × taux) ou volume moyen. */
+function privateMonthlyBase(h: Hypotheses, i: number): { revenue: number; hours: number } {
+  if (h.privateContractsEnabled && h.privateContracts.length > 0) {
+    let revenue = 0;
+    let hours = 0;
+    for (const c of h.privateContracts) {
+      if (i < c.startMonth) continue;
+      const hh = c.perMonth * c.hoursEach;
+      hours += hh;
+      revenue += hh * c.rate;
+    }
+    return { revenue, hours };
+  }
+  return {
+    revenue: h.privateJobs[i] * h.privateRate * h.privateHours,
+    hours: h.privateJobs[i] * h.privateHours,
+  };
+}
+
 function monthlyRows(h: Hypotheses): MonthResult[] {
   const rate = globalRate(h);
   // Activité décochée = volumes neutralisés partout (équivalent Excel : zéros sur 12 mois)
@@ -498,17 +624,20 @@ function monthlyRows(h: Hypotheses): MonthResult[] {
   const onAirbnb = h.enabledAirbnb ? 1 : 0;
   const onPrivate = h.enabledPrivate ? 1 : 0;
   return MONTHS.map((month, i) => {
-    const base = b2bMonthlyBase(h, i);
-    const b2b = onB2b * excelRound(base.revenue * h.seasonality[i] * (1 - h.unpaidRate));
-    const glass = onGlass * h.glassJobs[i] * h.glassRate * GLASS_HOURS;
-    const airbnb = onAirbnb * h.airbnb[i] * h.airbnbPrice;
-    const privateRevenue = onPrivate * h.privateJobs[i] * h.privateRate * h.privateHours;
+    const b2bB = b2bMonthlyBase(h, i);
+    const glassB = glassMonthlyBase(h, i);
+    const airbnbB = airbnbMonthlyBase(h, i);
+    const privateB = privateMonthlyBase(h, i);
+    const b2b = onB2b * excelRound(b2bB.revenue * h.seasonality[i] * (1 - h.unpaidRate));
+    const glass = onGlass * glassB.revenue;
+    const airbnb = onAirbnb * airbnbB.revenue;
+    const privateRevenue = onPrivate * privateB.revenue;
     const ca = b2b + glass + airbnb + privateRevenue;
     const hours = excelRound(
-      onB2b * base.hours * h.seasonality[i] +
-        onGlass * h.glassJobs[i] * GLASS_HOURS +
-        onAirbnb * h.airbnb[i] * AIRBNB_HOURS +
-        onPrivate * h.privateJobs[i] * h.privateHours,
+      onB2b * b2bB.hours * h.seasonality[i] +
+        onGlass * glassB.hours +
+        onAirbnb * airbnbB.hours +
+        onPrivate * privateB.hours,
     );
     const netGestion = excelRound(
       ca * (1 - rate - h.productsRate - h.travelRate) - h.fixedMonthly - h.renewalMonthly,
