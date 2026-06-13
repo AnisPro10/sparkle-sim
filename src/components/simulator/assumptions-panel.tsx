@@ -1,4 +1,5 @@
-import { RotateCcw } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -124,6 +125,7 @@ const Grid = ({ children }: { children: React.ReactNode }) => (
 export function AssumptionsPanel() {
   const { hypotheses: h, setField, applyPreset } = useSimulator();
   const preset = activePresetId(h);
+  const [showAvgRates, setShowAvgRates] = useState(false);
 
   return (
     <div className="space-y-5">
@@ -221,80 +223,97 @@ export function AssumptionsPanel() {
         </div>
       </Section>
 
-      {/* 2 · Tarifs & durées */}
-      <Section
-        title="Tarifs & durées"
-        desc="Le cœur commercial : taux horaires, contrats annuels, durée des prestations."
-      >
-        <Grid>
-          <Field
-            field="hourlyB2B"
-            label="Taux B2B standard"
-            step={1}
-            unit="€/h"
-            info="Tarif horaire de référence des contrats B2B mensuels. Les contrats annuels bénéficient de la remise ci-contre. Levier n°1 de la marge."
+      {/* 2 · Tarifs & durées — repliés : référence du calcul moyen (préréglage officiel) */}
+      <div className="rounded-lg border border-dashed border-border">
+        <button
+          type="button"
+          onClick={() => setShowAvgRates((v) => !v)}
+          aria-expanded={showAvgRates}
+          className="flex w-full items-center justify-between px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground"
+        >
+          <span>Paramètres du calcul moyen (avancé) — tarifs &amp; durées de référence</span>
+          <ChevronDown
+            className={cn("h-4 w-4 transition-transform", showAvgRates && "rotate-180")}
           />
-          <Field
-            field="annualShare"
-            label="Part contrats annuels"
-            step={5}
-            unit="%"
-            asPercent
-            info="Part des clients ayant signé le contrat annuel à tacite reconduction (remisé). Plus elle monte, plus le CA est sécurisé mais remisé."
-          />
-          <Field
-            field="annualDiscount"
-            label="Remise annuelle"
-            step={0.1}
-            unit="%"
-            asPercent
-            hint="6,7 % ≈ 28 €/h au lieu de 30."
-            info="Remise consentie sur les contrats annuels. Elle coûte ≈ 240 €/an par contrat mais coûte moins cher que perdre le client."
-          />
-          <Field
-            field="visitsPerWeek"
-            label="Passages / semaine"
-            step={1}
-            unit="passages"
-            info="Fréquence d'entretien d'un site B2B type. 2 passages/semaine est le standard des petits bureaux."
-          />
-          <Field
-            field="hoursPerVisit"
-            label="Heures / passage"
-            step={0.1}
-            unit="h"
-            info="Durée moyenne d'un passage sur un site type (< 200 m²). Pilote le CA par site ET les heures consommées sur la capacité."
-          />
-          <Field
-            field="glassRate"
-            label="Vitrerie"
-            step={1}
-            unit="€/h"
-            info="Tarif horaire des interventions vitrerie (2 h par intervention). Activité d'appoint à bonne marge."
-          />
-          <Field
-            field="airbnbPrice"
-            label="Rotation Airbnb"
-            step={5}
-            unit="€/rotation"
-            info="Prix d'un ménage complet entre deux locataires (2,5 h). Payé comptant — excellent pour la trésorerie."
-          />
-          <Field
-            field="privateRate"
-            label="Particuliers"
-            step={1}
-            unit="€/h"
-            info="Tarif horaire des ménages chez les particuliers (3 h par prestation). Sans crédit d'impôt (B2B > 30 % du CA) — assumé plein tarif."
-          />
-          <Field
-            field="privateHours"
-            label="Heures / prestation particulier"
-            step={0.5}
-            unit="h"
-            info="Durée moyenne d'une prestation chez un particulier."
-          />
-        </Grid>
-      </Section>
+        </button>
+        {showAvgRates && (
+          <div className="px-1 pb-1">
+            <Section
+              title="Tarifs & durées (référence du prévisionnel moyen)"
+              desc="Ces tarifs « moyens » pilotent le Préréglage officiel, les Scénarios et la Sensibilité en mode moyenne. En plan réel détaillé, les tarifs se saisissent par client dans le Plan d'activité — inutile d'y toucher ici."
+            >
+              <Grid>
+                <Field
+                  field="hourlyB2B"
+                  label="Taux B2B standard"
+                  step={1}
+                  unit="€/h"
+                  info="Tarif horaire de référence des contrats B2B mensuels. Les contrats annuels bénéficient de la remise ci-contre. Levier n°1 de la marge."
+                />
+                <Field
+                  field="annualShare"
+                  label="Part contrats annuels"
+                  step={5}
+                  unit="%"
+                  asPercent
+                  info="Part des clients ayant signé le contrat annuel à tacite reconduction (remisé). Plus elle monte, plus le CA est sécurisé mais remisé."
+                />
+                <Field
+                  field="annualDiscount"
+                  label="Remise annuelle"
+                  step={0.1}
+                  unit="%"
+                  asPercent
+                  hint="6,7 % ≈ 28 €/h au lieu de 30."
+                  info="Remise consentie sur les contrats annuels. Elle coûte ≈ 240 €/an par contrat mais coûte moins cher que perdre le client."
+                />
+                <Field
+                  field="visitsPerWeek"
+                  label="Passages / semaine"
+                  step={1}
+                  unit="passages"
+                  info="Fréquence d'entretien d'un site B2B type. 2 passages/semaine est le standard des petits bureaux."
+                />
+                <Field
+                  field="hoursPerVisit"
+                  label="Heures / passage"
+                  step={0.1}
+                  unit="h"
+                  info="Durée moyenne d'un passage sur un site type (< 200 m²). Pilote le CA par site ET les heures consommées sur la capacité."
+                />
+                <Field
+                  field="glassRate"
+                  label="Vitrerie"
+                  step={1}
+                  unit="€/h"
+                  info="Tarif horaire des interventions vitrerie (2 h par intervention). Activité d'appoint à bonne marge."
+                />
+                <Field
+                  field="airbnbPrice"
+                  label="Rotation Airbnb"
+                  step={5}
+                  unit="€/rotation"
+                  info="Prix d'un ménage complet entre deux locataires (2,5 h). Payé comptant — excellent pour la trésorerie."
+                />
+                <Field
+                  field="privateRate"
+                  label="Particuliers"
+                  step={1}
+                  unit="€/h"
+                  info="Tarif horaire des ménages chez les particuliers (3 h par prestation). Sans crédit d'impôt (B2B > 30 % du CA) — assumé plein tarif."
+                />
+                <Field
+                  field="privateHours"
+                  label="Heures / prestation particulier"
+                  step={0.5}
+                  unit="h"
+                  info="Durée moyenne d'une prestation chez un particulier."
+                />
+              </Grid>
+            </Section>
+          </div>
+        )}
+      </div>
 
       {/* 3 · Prélèvements micro */}
       <Section

@@ -30,6 +30,7 @@ export const Route = createFileRoute("/analyse")({
 function MatrixCard() {
   const { hypotheses: h } = useSimulator();
   const m = useMemo(() => sensitivityMatrix(h), [h]);
+  const detail = m.mode === "detail";
   const all = m.rows.flatMap((r) => r.cells);
   const min = Math.min(...all);
   const max = Math.max(...all);
@@ -37,33 +38,45 @@ function MatrixCard() {
     const t = max > min ? (v - min) / (max - min) : 0.5;
     return `color-mix(in oklab, var(--success) ${Math.round(t * 28)}%, var(--card))`;
   };
+  const goal = detail ? h.target * 12 : h.target; // net annuel vs mensuel
   return (
     <Card>
       <CardContent className="p-5">
         <div className="mb-1 flex items-center gap-2">
           <Grid3X3 className="h-4 w-4 text-primary" />
           <h3 className="font-display text-base font-semibold">
-            Sensibilité — sites × taux horaire
+            {detail
+              ? "Sensibilité — ± volume × ± prix (plan réel)"
+              : "Sensibilité — sites × taux horaire"}
           </h3>
-          <InfoDot text="Chaque case = le net d'un mois PLEIN (hors creux d'août) si vous avez N sites au taux T, appoints Airbnb/particuliers au plateau inclus. La même grille que l'onglet Sensibilité du prévisionnel Excel. Repérez la première case ≥ votre objectif : c'est le nombre de sites minimal pour en vivre." />
+          <InfoDot
+            text={
+              detail
+                ? "Mode plan réel : chaque case = le NET RÉEL ANNUEL si vous faisiez ± X % de volume (lignes) et ± Y % sur les tarifs (colonnes), appliqués à VOTRE plan d'activité. La case centrale (100 % × 100 %) = votre plan actuel."
+                : "Chaque case = le net d'un mois PLEIN (hors creux d'août) pour N sites au taux T. Grille identique à l'onglet Sensibilité du prévisionnel Excel (préréglage officiel)."
+            }
+          />
         </div>
         <p className="mb-3 text-xs text-muted-foreground">
-          Net mensuel d'un mois plein — la case encadrée est votre couple actuel ({m.current.sites}{" "}
-          sites × {m.current.rate} €/h).
+          {detail
+            ? "Net réel annuel selon des variations de volume et de prix appliquées à votre plan réel — la case encadrée (100 % × 100 %) est votre plan actuel."
+            : `Net mensuel d'un mois plein — la case encadrée est votre couple actuel (${m.current.sites} sites × ${m.current.rate} €/h).`}
         </p>
         <div className="overflow-x-auto -mx-1 px-1">
           <table className="w-full min-w-[460px] border-collapse text-sm">
             <caption className="sr-only">
-              Net mensuel en croisière selon le nombre de sites et le taux horaire
+              {detail
+                ? "Net réel annuel selon variation de volume et de prix"
+                : "Net mensuel en croisière selon le nombre de sites et le taux horaire"}
             </caption>
             <thead>
               <tr className="text-xs text-muted-foreground">
                 <th scope="col" className="py-1.5 pr-2 text-left font-medium">
-                  Sites ↓ / Taux →
+                  {detail ? "Volume ↓ / Prix →" : "Sites ↓ / Taux →"}
                 </th>
                 {m.rates.map((r) => (
                   <th key={r} scope="col" className="py-1.5 px-2 text-right font-semibold">
-                    {r} €/h
+                    {r} {m.colUnit}
                   </th>
                 ))}
               </tr>
@@ -72,12 +85,12 @@ function MatrixCard() {
               {m.rows.map((row) => (
                 <tr key={row.sites} className="border-t border-border/60">
                   <th scope="row" className="py-1.5 pr-2 text-left font-semibold">
-                    {row.sites} sites
+                    {row.sites} {m.rowUnit}
                   </th>
                   {row.cells.map((v, j) => {
                     const isCurrent =
                       row.sites === m.current.sites && m.rates[j] === m.current.rate;
-                    const aboveGoal = v >= h.target;
+                    const aboveGoal = v >= goal;
                     return (
                       <td
                         key={j}
@@ -98,8 +111,9 @@ function MatrixCard() {
           </table>
         </div>
         <p className="mt-3 text-[11px] text-muted-foreground leading-snug">
-          Cases en gras : objectif de {euro(h.target)}/mois atteint. Au préréglage officiel, cette
-          grille est identique à l'onglet Sensibilité du classeur certifié (case 12 × 30 : 3 646 €).
+          {detail
+            ? `Cases en gras : objectif annuel de ${euro(goal)} atteint (${euro(h.target)}/mois). Grille calculée sur votre plan d'activité réel.`
+            : `Cases en gras : objectif de ${euro(h.target)}/mois atteint. Au préréglage officiel, cette grille est identique à l'onglet Sensibilité du classeur certifié (case 12 × 30 : 3 620 €).`}
         </p>
       </CardContent>
     </Card>

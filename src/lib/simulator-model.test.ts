@@ -338,9 +338,7 @@ describe("contrats détaillés vitrerie / Airbnb / particuliers", () => {
       ...base,
       enabledGlass: true,
       glassContractsEnabled: true,
-      glassContracts: [
-        { label: "B", perMonth: 2, hoursEach: 1.5, rate: 35, startMonth: 0 },
-      ],
+      glassContracts: [{ label: "B", perMonth: 2, hoursEach: 1.5, rate: 35, startMonth: 0 }],
     });
     expect(r.months[0].glass).toBe(105); // 2 × 1,5 × 35
     expect(r.months[0].hours).toBe(3); // 2 × 1,5
@@ -366,6 +364,30 @@ describe("contrats détaillés vitrerie / Airbnb / particuliers", () => {
     });
     expect(r.months[1].private).toBe(0); // avant le mois de début
     expect(r.months[2].private).toBe(336); // 4 × 3 × 28
+  });
+});
+
+describe("scénarios en mode détaillé : basés sur le plan réel", () => {
+  it("réaliste = CA du plan réel ; pessimiste < réaliste < optimiste", () => {
+    const r = computeModel({
+      ...OFFICIAL,
+      enabledGlass: false,
+      enabledAirbnb: false,
+      enabledPrivate: false,
+      b2bContractsEnabled: true,
+      b2bContracts: [
+        { label: "A", visitsPerWeek: 5, hoursPerVisit: 1, rate: 30, sites: 4, startMonth: 0 },
+      ],
+    });
+    const [p, real, o] = r.scenarios;
+    expect(real.ca).toBe(r.revenue); // la colonne réaliste = le CA du Plan d'activité
+    expect(p.ca).toBeLessThan(real.ca);
+    expect(o.ca).toBeGreaterThan(real.ca);
+  });
+
+  it("mode moyenne (officiel) : scénarios certifiés inchangés", () => {
+    const s = computeModel(OFFICIAL).scenarios;
+    expect(s.map((x) => x.net)).toEqual([13861, 22521, 31155]);
   });
 });
 

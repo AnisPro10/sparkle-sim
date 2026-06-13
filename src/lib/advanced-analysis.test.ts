@@ -25,6 +25,21 @@ describe("matrice de sensibilité — parité onglet Sensibilite", () => {
     expect(m.rows[0].cells[0]).toBeLessThan(m.rows[4].cells[4]);
     expect(m.rows[2].cells[0]).toBeLessThan(m.rows[2].cells[4]);
   });
+
+  it("mode détaillé : axes en %, centre = net réel du plan", () => {
+    const h = {
+      ...OFFICIAL,
+      b2bContractsEnabled: true,
+      b2bContracts: [
+        { label: "A", visitsPerWeek: 2, hoursPerVisit: 1, rate: 30, sites: 5, startMonth: 0 },
+      ],
+    };
+    const m = sensitivityMatrix(h);
+    expect(m.mode).toBe("detail");
+    expect(m.rates).toEqual([90, 95, 100, 105, 110]);
+    expect(m.rows.map((r) => r.sites)).toEqual([80, 90, 100, 110, 120]);
+    expect(m.rows[2].cells[2]).toBe(computeModel(h).realNet); // 100 % × 100 % = plan actuel
+  });
 });
 
 describe("options avancées neutres = parité certifiée intacte", () => {

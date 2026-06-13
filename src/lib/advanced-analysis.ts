@@ -4,6 +4,8 @@ import {
   excelRound,
   GLASS_HOURS,
   globalRate,
+  inDetailMode,
+  scalePlan,
   WEEKS_PER_MONTH,
   type Hypotheses,
 } from "./simulator-model";
@@ -47,14 +49,37 @@ export function fullMonthNet(h: Hypotheses, sites: number, hourlyRate: number): 
 }
 
 export type SensitivityMatrix = {
-  rates: number[];
-  rows: { sites: number; cells: number[] }[];
+  /** "average" = grille certifiée sites × €/h (site moyen) ; "detail" = ± volume × ± prix
+   *  sur le plan réel (net annuel). */
+  mode: "average" | "detail";
+  rates: number[]; // average : €/h ; detail : prix en % (90-110)
+  rows: { sites: number; cells: number[] }[]; // average : sites ; detail : volume en %
   current: { sites: number; rate: number };
+  colUnit: string; // "€/h" ou "%"
+  rowUnit: string; // "sites" ou "%"
+  cellKind: "monthly" | "annualNet";
 };
 
-/** Matrice sites × taux centrée sur les valeurs courantes — au préréglage officiel,
- *  elle reproduit exactement la grille du classeur (6-18 sites × 26-34 €/h). */
+/** Matrice de sensibilité. Mode moyenne (préréglage officiel) : grille sites × taux du
+ *  classeur (case 12 × 30 = 3 620 €). Mode détaillé : ± volume × ± prix appliqués au PLAN
+ *  RÉEL, chaque case = net réel annuel → cohérent avec le Plan d'activité. */
 export function sensitivityMatrix(h: Hypotheses): SensitivityMatrix {
+  if (inDetailMode(h)) {
+    const volAxis = [80, 90, 100, 110, 120];
+    const priceAxis = [90, 95, 100, 105, 110];
+    return {
+      mode: "detail",
+      rates: priceAxis,
+      rows: volAxis.map((vol) => ({
+        sites: vol,
+        cells: priceAxis.map((price) => computeModel(scalePlan(h, vol / 100, price / 100)).realNet),
+      })),
+      current: { sites: 100, rate: 100 },
+      colUnit: "%",
+      rowUnit: "%",
+      cellKind: "annualNet",
+    };
+  }
   const s = Math.max(2, Math.round(h.sites[11]));
   const sitesAxis = [
     Math.max(1, Math.round(s * 0.5)),
@@ -66,12 +91,16 @@ export function sensitivityMatrix(h: Hypotheses): SensitivityMatrix {
   const r = h.hourlyB2B;
   const ratesAxis = [r - 4, r - 2, r, r + 2, r + 4];
   return {
+    mode: "average",
     rates: ratesAxis,
     rows: sitesAxis.map((sites) => ({
       sites,
       cells: ratesAxis.map((rate) => fullMonthNet(h, sites, rate)),
     })),
     current: { sites: s, rate: r },
+    colUnit: "€/h",
+    rowUnit: "sites",
+    cellKind: "monthly",
   };
 }
 

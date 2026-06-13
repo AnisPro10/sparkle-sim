@@ -672,6 +672,59 @@ export function enabledActivities(h: Hypotheses): ("b2b" | "glass" | "airbnb" | 
     .map(([key]) => key);
 }
 
+/** Vrai dès qu'au moins un segment est piloté en plan détaillé (contrats activés).
+ *  Sert à rebaser Scénarios et Sensibilité sur le plan RÉEL plutôt que sur le site moyen. */
+export function inDetailMode(h: Hypotheses): boolean {
+  return (
+    h.b2bContractsEnabled ||
+    h.glassContractsEnabled ||
+    h.airbnbContractsEnabled ||
+    h.privateContractsEnabled
+  );
+}
+
+/** Copie des hypothèses avec volumes × volF et prix × priceF (contrats ET moyennes).
+ *  Sert aux variantes pessimiste/optimiste et à la sensibilité en mode détaillé. */
+export function scalePlan(h: Hypotheses, volF: number, priceF: number): Hypotheses {
+  const sc = (arr: number[]) => arr.map((v) => v * volF);
+  return {
+    ...h,
+    sites: sc(h.sites),
+    glassJobs: sc(h.glassJobs),
+    airbnb: sc(h.airbnb),
+    privateJobs: sc(h.privateJobs),
+    hourlyB2B: h.hourlyB2B * priceF,
+    glassRate: h.glassRate * priceF,
+    airbnbPrice: h.airbnbPrice * priceF,
+    privateRate: h.privateRate * priceF,
+    b2bContracts: h.b2bContracts.map((c) => ({
+      ...c,
+      sites: c.sites * volF,
+      rate: c.rate * priceF,
+    })),
+    glassContracts: h.glassContracts.map((c) => ({
+      ...c,
+      perMonth: c.perMonth * volF,
+      rate: c.rate * priceF,
+    })),
+    airbnbContracts: h.airbnbContracts.map((c) => ({
+      ...c,
+      perMonth: c.perMonth * volF,
+      price: c.price * priceF,
+    })),
+    privateContracts: h.privateContracts.map((c) => ({
+      ...c,
+      perMonth: c.perMonth * volF,
+      rate: c.rate * priceF,
+    })),
+  };
+}
+
+/** CA annuel du plan (somme des CA mensuels) — utilisé pour rebaser les scénarios. */
+export function planAnnualRevenue(h: Hypotheses): number {
+  return monthlyRows(h).reduce((s, m) => s + m.ca, 0);
+}
+
 /** Net réel par activité (parité onglet Resultat : chaque poste arrondi sur le total annuel).
  *  Seules les activités cochées apparaissent — les vues et exports suivent automatiquement. */
 function activityBreakdown(h: Hypotheses, months: MonthResult[]): ActivityBreakdown[] {
@@ -760,12 +813,24 @@ function buildScenarios(h: Hypotheses, revenue: number): ScenarioResult[] {
   };
 
   // Formule Scenarios!C19 : net réaliste recalculé par arrondi global sur le CA du plan.
-  const realisticNet =
-    revenue -
-    excelRound(revenue * rate) -
-    excelRound(revenue * variableRate) -
-    yearlyFixed -
-    h.capex;
+  const netOfCa = (ca: number) =>
+    ca - excelRound(ca * rate) - excelRound(ca * variableRate) - yearlyFixed - h.capex;
+  const realisticNet = netOfCa(revenue);
+
+  // Mode détaillé : pessimiste/optimiste = le PLAN RÉEL mis à l'échelle (volume ±35 %,
+  // prix ±5 %) → le CA des scénarios est cohérent avec le Plan d'activité. Mode moyenne :
+  // formules certifiées de l'onglet Scenarios (parité Excel + tests).
+  if (inDetailMode(h)) {
+    const scaled = (volF: number, priceF: number): { ca: number; net: number } => {
+      const ca = planAnnualRevenue(scalePlan(h, volF, priceF));
+      return { ca, net: netOfCa(ca) };
+    };
+    return [
+      { name: "Pessimiste", ...scaled(0.65, 0.95) },
+      { name: "Réaliste", ca: revenue, net: realisticNet },
+      { name: "Optimiste", ...scaled(1.35, 1.05) },
+    ];
+  }
 
   return [
     variant("Pessimiste", 0.65, 0.95, 0.6, 0.6, 0.6),
