@@ -1,8 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   useRouterState,
   HeadContent,
@@ -84,7 +83,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -102,6 +101,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "L'AZ du Clean — Simulateur financier" },
       { name: "twitter:description", content: "La propreté qui tient parole." },
+      // L'image est aussi sauvegardée dans public/og-image.png (le bucket Lovable peut
+      // être purgé sans préavis) : dès que le domaine de production est connu, remplacer
+      // ces deux URLs par https://<domaine>/og-image.png (les crawlers exigent un absolu).
       {
         property: "og:image",
         content:
@@ -184,15 +186,12 @@ function SimulatorShell() {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
   return (
-    <QueryClientProvider client={queryClient}>
-      <SimulatorProvider>
-        <TooltipProvider delayDuration={150}>
-          <SimulatorShell />
-          <Toaster position="bottom-right" />
-        </TooltipProvider>
-      </SimulatorProvider>
-    </QueryClientProvider>
+    <SimulatorProvider>
+      <TooltipProvider delayDuration={150}>
+        <SimulatorShell />
+        <Toaster position="bottom-right" />
+      </TooltipProvider>
+    </SimulatorProvider>
   );
 }

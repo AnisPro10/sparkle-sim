@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { computeModel, euro, percent } from "@/lib/simulator-model";
 import { ScenarioManager } from "@/components/simulator/scenario-manager";
-import { InfoDot } from "@/components/simulator/assumptions-panel";
+import { InfoDot } from "@/components/simulator/form-fields";
 import { useSimulator } from "@/components/simulator-provider";
 
 const ScenariosView = lazy(() =>

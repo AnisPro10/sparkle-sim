@@ -24,6 +24,13 @@ import { z } from "zod";
  * - Scénarios avec plateau Airbnb/particuliers nul : composante à 0 au lieu du #DIV/0!
  *   que produirait le classeur.
  * - excelRound n'est garanti conforme à ROUND Excel que pour n = 0 (seul usage du moteur).
+ *
+ * Approximations héritées du classeur certifié (audit juridique du 13/06/2026) :
+ * - Taxe pour frais de chambre CMA (0,48 % du CA artisanal, ≈ 176 €/an au plan officiel)
+ *   absente du taux global 23,2 % — comme dans la cellule B27 du classeur.
+ * - ACRE appliquée sur les 12 mois de l'exercice, alors que l'exonération légale s'arrête
+ *   à la fin du 3e trimestre civil suivant le début d'activité (30/06/2027 pour un
+ *   démarrage en sept. 2026) : juil.-août 2027 devraient repasser au taux plein.
  */
 
 export const MONTHS = [
@@ -48,10 +55,11 @@ export const CFE_YEAR2 = 300; // CFE estimée dès l'année 2 (exonérée l'ann�
 export const CAPACITY_WARN = 0.85; // > 85 % trois mois → nouveaux contrats 32-34 €/h
 export const CAPACITY_CRITICAL = 0.9; // > 90 % durable → préparer embauche + société
 
-/** ROUND Excel : arrondi à n décimales, 0,5 s'éloignant de zéro (y compris négatifs). */
+/** ROUND Excel : arrondi à n décimales, 0,5 s'éloignant de zéro (y compris négatifs).
+ *  Le « + 0 » final neutralise le −0 de IEEE 754 (sinon Intl afficherait « -0 € »). */
 export const excelRound = (x: number, n = 0): number => {
   const m = 10 ** n;
-  return (Math.sign(x) * Math.round(Math.abs(x) * m + Number.EPSILON)) / m;
+  return (Math.sign(x) * Math.round(Math.abs(x) * m + Number.EPSILON)) / m + 0;
 };
 
 /** ROUNDUP(x, −2) Excel : plafond à la centaine, en s'éloignant de zéro. */
@@ -385,12 +393,14 @@ export function globalRate(h: Hypotheses): number {
   return (h.acre ? h.acreRate : h.socialRate) + h.cfpRate + (h.vfl ? h.taxRate : 0);
 }
 
-/** Barème progressif de l'IR 2026 (1 part) — option avancée hors périmètre du classeur. */
+/** Barème progressif de l'IR 2026 sur les revenus 2025 (1 part) — option avancée hors
+ *  périmètre du classeur. Tranches de la loi de finances n° 2026-103 du 19/02/2026
+ *  (indexation +0,9 % du barème 2025). */
 export const IR_BRACKETS_2026 = [
-  { upTo: 11497, rate: 0 },
-  { upTo: 29315, rate: 0.11 },
-  { upTo: 83823, rate: 0.3 },
-  { upTo: 180294, rate: 0.41 },
+  { upTo: 11600, rate: 0 },
+  { upTo: 29579, rate: 0.11 },
+  { upTo: 84577, rate: 0.3 },
+  { upTo: 181917, rate: 0.41 },
   { upTo: Infinity, rate: 0.45 },
 ] as const;
 
@@ -505,7 +515,8 @@ function activityBreakdown(h: Hypotheses, months: MonthResult[]): ActivityBreakd
 /**
  * Scénarios pessimiste / réaliste / optimiste — formules exactes de l'onglet Scenarios.
  * Parité : le « Réaliste » applique la formule C19 (arrondi global sur le CA total) et peut
- * donc différer de ±1 € du NET RÉEL détaillé par activité — l'écart existe aussi dans le
+ * donc différer de quelques euros du NET RÉEL détaillé par activité (±1 € aux presets
+ * certifiés, jusqu'à ~4 € observés sur hypothèses extrêmes) — l'écart existe aussi dans le
  * classeur (C19 = 22 696 vs Resultat!F18 = 22 697). Sans VFL, les trois scénarios
  * s'entendent avant impôt au barème (comme le classeur). Le plateau de sites est celui du
  * DERNIER mois (Plan_Activite!M6), pas le maximum. Plateau Airbnb/particuliers nul →
@@ -515,7 +526,10 @@ function buildScenarios(h: Hypotheses, revenue: number): ScenarioResult[] {
   const effectiveRate = h.hourlyB2B * (1 - h.annualShare * h.annualDiscount);
   const siteMonthly = h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * effectiveRate;
   const seasonAvg = h.seasonality.reduce((a, b) => a + b, 0) / 12;
-  const plateauSites = h.sites[11]; // sites « en fin d'année » (Plan_Activite!M6)
+  // Sites « en fin d'année » (Plan_Activite!M6), attrition churn déduite comme dans
+  // effectiveSites — à churnRate = 0 (parité classeur), facteurs strictement neutres.
+  const plateauSites = h.sites[11] * Math.max(0, 1 - h.churnRate * (11.5 / 12));
+  const sites0 = h.sites[0] * Math.max(0, 1 - h.churnRate * (0.5 / 12));
   const plateauAirbnb = Math.max(...h.airbnb);
   const plateauPrivate = Math.max(...h.privateJobs);
   const glassYear = h.glassJobs.reduce((a, b) => a + b, 0);
@@ -539,7 +553,7 @@ function buildScenarios(h: Hypotheses, revenue: number): ScenarioResult[] {
     const P = excelRound(plateauPrivate * fPrivate);
     const V = excelRound(glassYear * fGlass);
     const caB2BVit =
-      (h.enabledB2b ? excelRound(((h.sites[0] + S) / 2) * 12 * R * seasonAvg) : 0) +
+      (h.enabledB2b ? excelRound(((sites0 + S) / 2) * 12 * R * seasonAvg) : 0) +
       (h.enabledGlass ? excelRound(V * h.glassRate * GLASS_HOURS) : 0);
     const caAirbnb =
       h.enabledAirbnb && plateauAirbnb > 0 ? excelRound((airbnbYear * A) / plateauAirbnb) : 0;
@@ -781,14 +795,14 @@ export function legalStatuses(h: Hypotheses, revenue: number): LegalStatus[] {
       name: "Micro + ACRE (QPV) + VFL",
       value: microAcre,
       monthly: excelRound(microAcre / 12),
-      note: `Cotisations réduites à ${percent(h.acreRate)} la première année — sous réserve d'une adresse en QPV (à vérifier sur sig.ville.gouv.fr).`,
+      note: `Cotisations réduites à ${percent(h.acreRate)} la première année — sous conditions : demandeur d'emploi, RSA, moins de 26 ans, moins de 30 ans non indemnisable, ou adresse en QPV/ZFRR (à vérifier sur sig.ville.gouv.fr).`,
     },
     {
       id: "micro-vfl",
       name: "Micro + versement libératoire",
       value: microVfl,
       monthly: excelRound(microVfl / 12),
-      note: `Simple et lisible : ${percent(h.socialRate + h.cfpRate + h.taxRate)} du CA encaissé, zéro comptabilité d'engagement.`,
+      note: `Simple et lisible : ${percent(h.socialRate + h.cfpRate + h.taxRate)} du CA encaissé (hors taxe frais de chambre CMA 0,48 %), zéro comptabilité d'engagement.`,
     },
     {
       id: "micro-bareme",

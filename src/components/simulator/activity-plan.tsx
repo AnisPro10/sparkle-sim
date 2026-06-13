@@ -135,6 +135,11 @@ export function ActivityPlan() {
                               setMonthValue(key, i, Math.min(b.max, Math.max(b.min, parsed)));
                             }
                           }}
+                          onBlur={(e) => {
+                            // Cellule laissée vide : resynchroniser l'affichage avec le
+                            // modèle (qui a gardé l'ancienne valeur, voir onChange).
+                            if (e.target.value.trim() === "") e.target.value = String(v);
+                          }}
                           className="h-9 w-full min-w-16 rounded-md border border-input bg-background text-center font-mono text-sm font-medium tabular-nums outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         />
                       </td>

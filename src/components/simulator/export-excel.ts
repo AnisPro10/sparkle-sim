@@ -66,8 +66,12 @@ function dataRow(ws: AnyWS, label: string, values: (number | string)[], opts: Ro
   });
 }
 
-export async function downloadExcel(h: Hypotheses, m: ModelResult) {
-  if (typeof window === "undefined") return;
+/** Construit le classeur complet (7 feuilles) — séparé du téléchargement DOM pour
+ *  être testable sous vitest/node (les valeurs exportées sont verrouillées par test). */
+export async function buildWorkbook(
+  h: Hypotheses,
+  m: ModelResult,
+): Promise<import("exceljs").Workbook> {
   const mod = (await import("exceljs")) as typeof import("exceljs") & {
     default?: typeof import("exceljs");
   };
@@ -75,7 +79,9 @@ export async function downloadExcel(h: Hypotheses, m: ModelResult) {
   const wb = new ExcelJS.Workbook();
   wb.creator = "Simulateur L'AZ du Clean";
 
-  const stamp = `micro-entreprise · ${h.acre ? "ACRE 15,9 %" : "taux plein 21,2 %"} · ${h.vfl ? "versement libératoire" : "impôt au barème"} · capacité ${h.capacity} h/mois`;
+  // Taux dynamiques : socialRate/acreRate sont éditables dans les hypothèses — un
+  // libellé en dur mentirait dès que l'utilisateur les modifie.
+  const stamp = `micro-entreprise · ${h.acre ? `ACRE ${percent(h.acreRate)}` : `taux plein ${percent(h.socialRate)}`} · ${h.vfl ? "versement libératoire" : "impôt au barème"} · capacité ${h.capacity} h/mois`;
 
   // ---- Feuille 1 : Synthèse ----
   const wsS = wb.addWorksheet("Synthèse", { views: [{ showGridLines: false }] });
@@ -316,6 +322,12 @@ export async function downloadExcel(h: Hypotheses, m: ModelResult) {
   );
   H("Croissance années 2-5", h.growth.map((g) => `${Math.round(g * 100)} %`).join(" / "));
 
+  return wb;
+}
+
+export async function downloadExcel(h: Hypotheses, m: ModelResult) {
+  if (typeof window === "undefined") return;
+  const wb = await buildWorkbook(h, m);
   const buf = await wb.xlsx.writeBuffer();
   const blob = new Blob([buf], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

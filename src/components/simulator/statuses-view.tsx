@@ -43,7 +43,7 @@ const QUALI: Record<
       h.vfl
         ? "Versement libératoire : 1,7 % du CA, payé au fil de l'eau"
         : `Barème sur 50 % du CA (abattement micro-BIC), TMI ${percent(h.tmi)}`,
-    social: "Couverture indépendant ; ≈ 13 000 € de CA valident 4 trimestres de retraite",
+    social: "Couverture indépendant ; ≈ 14 250 € de CA valident 4 trimestres de retraite",
     compta: "Livre des recettes + déclarations URSSAF — gérable seul, sans comptable",
     plafond: "83 600 € de CA services ; franchise TVA jusqu'à 37 500 €",
     dividendes: "Sans objet — tout le net est disponible immédiatement",

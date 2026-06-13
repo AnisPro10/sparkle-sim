@@ -35,59 +35,17 @@ import {
   euro,
   fmtK,
   percent,
-  safeRatio,
   type Hypotheses,
   type ModelResult,
   OFFICIAL,
   activePresetId,
 } from "@/lib/simulator-model";
 import { Kpi, SectionHead } from "./results";
+import { AXIS, ChartTip, chargesAggregates, presetLabel } from "./charts/charts-common";
 
 // recharts (~115 kB gzip) vit dans ce module à part : chargé en lazy uniquement
-// par les pages /synthese, /tresorerie et /scenarios.
-
-const AXIS = { fill: "var(--muted-foreground)", fontSize: 11 } as const;
-
-function ChartTip({
-  active,
-  payload,
-  label,
-}: {
-  active?: boolean;
-  payload?: { value?: number | string; name?: string; color?: string }[];
-  label?: string;
-}) {
-  if (!active || !payload?.length) return null;
-  return (
-    <div className="rounded-lg border border-border bg-popover px-3 py-2 shadow-md min-w-[160px]">
-      {label && (
-        <div className="text-[11px] uppercase tracking-wider text-muted-foreground font-medium mb-1">
-          {label}
-        </div>
-      )}
-      {payload.map((p, i) => {
-        const n = Number(p.value);
-        if (!Number.isFinite(n)) return null;
-        return (
-          <div key={i} className="flex items-center justify-between gap-3 text-xs">
-            <span className="flex items-center gap-1.5">
-              <span className="inline-block h-2 w-2 rounded-sm" style={{ background: p.color }} />
-              {p.name}
-            </span>
-            <span
-              className={cn(
-                "font-mono tabular-nums font-semibold",
-                n >= 0 ? "text-foreground" : "text-destructive",
-              )}
-            >
-              {euro(n)}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+// par les pages /synthese, /tresorerie et /scenarios. Les primitives partagées
+// (ChartTip, AXIS, helpers) vivent dans ./charts/charts-common.
 
 // ============================================================================
 // Synthèse — tableau de bord (alertes + hero + KPI + graphes)
@@ -119,11 +77,7 @@ function HeroNet({ h, m }: { h: Hypotheses; m: ModelResult }) {
             </div>
             <div className="mt-2 text-xs text-white/80">
               après matériel initial · micro-entreprise ·{" "}
-              {preset === "officiel"
-                ? "préréglage officiel"
-                : preset === "realiste"
-                  ? "réaliste terrain"
-                  : "hypothèses personnalisées"}
+              {presetLabel(preset, "hypothèses personnalisées")}
             </div>
           </div>
           <span
@@ -233,9 +187,7 @@ function CaMensuelChart({ h, m }: { h: Hypotheses; m: ModelResult }) {
 }
 
 function ChargesDonut({ h, m }: { h: Hypotheses; m: ModelResult }) {
-  const cotis = m.byActivity.reduce((s, a) => s + a.cotisations, 0);
-  const impots = m.byActivity.reduce((s, a) => s + a.impot + a.cfp, 0);
-  const variables = m.byActivity.reduce((s, a) => s + a.produits + a.deplacements, 0);
+  const { cotis, impots, variables } = chargesAggregates(m);
   const data = [
     { name: "Cotisations sociales", value: cotis },
     { name: "Impôt + formation", value: impots },
@@ -300,9 +252,7 @@ export function ResultatWaterfall({ h, m }: { h: Hypotheses; m: ModelResult }) {
     running += delta;
     steps.push({ label, base: start, value: Math.abs(delta), signed: delta, isTotal: false });
   };
-  const cotis = m.byActivity.reduce((s, a) => s + a.cotisations, 0);
-  const impots = m.byActivity.reduce((s, a) => s + a.impot + a.cfp, 0);
-  const variables = m.byActivity.reduce((s, a) => s + a.produits + a.deplacements, 0);
+  const { cotis, impots, variables } = chargesAggregates(m);
   push("CA", m.revenue);
   push("− Cotisations", -cotis);
   push("− Impôt & CFP", -impots);
@@ -719,12 +669,7 @@ export function ScenariosView({ h, m }: { h: Hypotheses; m: ModelResult }) {
     {
       key: "user",
       name: "Votre scénario",
-      sub:
-        preset === "officiel"
-          ? "préréglage officiel"
-          : preset === "realiste"
-            ? "réaliste terrain"
-            : "saisies personnalisées",
+      sub: presetLabel(preset, "saisies personnalisées"),
       ca: m.revenue,
       net: m.realNet,
       user: true,
@@ -966,6 +911,3 @@ export function ProjectionChart({ h, m }: { h: Hypotheses; m: ModelResult }) {
     </Card>
   );
 }
-
-// Ratio protégé réexporté pour les pages
-export { safeRatio };

@@ -74,12 +74,21 @@ function ShareBar() {
     e.target.value = "";
     if (!file) return;
     const reader = new FileReader();
+    reader.onerror = () => toast.error("Lecture du fichier impossible");
     reader.onload = () => {
       try {
         const data = JSON.parse(String(reader.result)) as Record<string, unknown>;
         if (data && typeof data === "object") {
           // Nouveau format { hypotheses, actuals } ou ancien format (hypothèses à plat)
           const hyp = "hypotheses" in data ? data.hypotheses : data;
+          // Garde-fou : un JSON quelconque (ex. package.json) passerait clampHypotheses
+          // et réinitialiserait tout aux défauts en affichant « importé » à tort.
+          const looksValid =
+            hyp && typeof hyp === "object" && ("hourlyB2B" in hyp || "sites" in hyp);
+          if (!looksValid) {
+            toast.error("Ce fichier n'est pas une simulation L'AZ du Clean");
+            return;
+          }
           loadAll(hyp);
           if ("actuals" in data) {
             saveActuals(sanitizeActuals(data.actuals));
@@ -194,12 +203,15 @@ export function SimulatorHeader() {
           <Badge variant="outline" className="hidden md:inline-flex">
             {h.acre ? "ACRE" : "Taux plein"} · {h.vfl ? "VFL" : "Barème"}
           </Badge>
-          <Badge
-            variant={result.realNet > 0 ? "success" : "destructive"}
-            className="font-mono tabular-nums"
-          >
-            {euro(result.realNet)}
-          </Badge>
+          {/* aria-live : annonce le net recalculé aux lecteurs d'écran après chaque saisie */}
+          <span aria-live="polite" aria-atomic="true">
+            <Badge
+              variant={result.realNet > 0 ? "success" : "destructive"}
+              className="font-mono tabular-nums"
+            >
+              {euro(result.realNet)}
+            </Badge>
+          </span>
           <Badge
             variant={result.fundable ? "success" : "destructive"}
             className="hidden md:inline-flex"

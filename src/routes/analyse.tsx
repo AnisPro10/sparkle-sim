@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { euro, percent } from "@/lib/simulator-model";
 import { goalSeek, monteCarlo, sensitivityMatrix, tornado } from "@/lib/advanced-analysis";
 import { useSimulator } from "@/components/simulator-provider";
-import { NumberField, InfoDot } from "@/components/simulator/assumptions-panel";
+import { NumberField, InfoDot } from "@/components/simulator/form-fields";
 import { SectionHead } from "@/components/simulator/results";
 import { InfoTerm } from "@/components/simulator/info-term";
 

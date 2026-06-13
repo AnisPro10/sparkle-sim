@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { CAPACITY_CRITICAL, euro, percent } from "@/lib/simulator-model";
+import { FORMALITY_BUDGET, FORMALITY_TOTAL } from "@/lib/startup-budget";
 import { useSimulator } from "@/components/simulator-provider";
 import { ScenarioManager } from "@/components/simulator/scenario-manager";
 import { SectionHead } from "@/components/simulator/results";
@@ -30,16 +31,6 @@ export const Route = createFileRoute("/demarrage")({
   }),
   component: DemarragePage,
 });
-
-// Budget formalités certifié (phase 8 de l'étude, audit du 12/06/2026).
-const FORMALITY_BUDGET = [
-  { label: "Taxe de première délivrance du titre de séjour (depuis le 01/05/2026)", amount: 350 },
-  { label: "Immatriculation INPI — guichet unique, micro 81.21Z", amount: 0 },
-  { label: "RC pro (~180 €/an) + avenant véhicule usage pro (~150 €/an)", amount: 330 },
-  { label: "Impression plaquettes ×250 + cartes de visite ×250", amount: 65 },
-  { label: "Recommandés, photos d'identité, divers", amount: 40 },
-] as const;
-const FORMALITY_TOTAL = FORMALITY_BUDGET.reduce((s, p) => s + p.amount, 0); // 785 €
 
 const STEPS = [
   "Lire la date d'expiration du titre étudiant (cale tout le calendrier)",

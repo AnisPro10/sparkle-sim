@@ -90,7 +90,7 @@ export const TERMES: Terme[] = [
     cat: "Fiscalité",
     def: "Régime simplifié : les cotisations sont un pourcentage du CA encaissé. Pas de CA = pas de charges sociales. Pas de TVA sous le seuil de franchise.",
     exemple:
-      "21,2 % de cotisations + 0,3 % de formation + 1,7 % d'impôt = 23,2 % du CA, tout compris.",
+      "21,2 % de cotisations + 0,3 % de formation + 1,7 % d'impôt = 23,2 % du CA — hors taxe pour frais de chambre CMA (0,48 % du CA, ≈ 176 €/an ici, exonérée si CA ≤ 5 000 €).",
   },
   {
     mot: "Versement fiscal libératoire (VFL)",
@@ -193,9 +193,9 @@ export const TERMES: Terme[] = [
   {
     mot: "ACRE",
     cat: "Aides & social",
-    def: "Réduction des cotisations sociales la première année : 15,9 % au lieu de 21,2 % pour une création après le 01/07/2026 — réservée aux adresses en quartier prioritaire (QPV).",
+    def: "Réduction des cotisations sociales : 15,9 % au lieu de 21,2 % pour une création après le 01/07/2026 — sous conditions : demandeur d'emploi, RSA, moins de 26 ans, moins de 30 ans non indemnisable, ou adresse en QPV/ZFRR. L'exonération s'arrête à la fin du 3e trimestre civil suivant le début d'activité (30/06/2027 pour un démarrage en sept. 2026) ; le simulateur l'applique sur les 12 mois, comme le classeur certifié.",
     exemple:
-      "Économie ≈ 1 500 € sur l'année 1. À vérifier : l'adresse sur sig.ville.gouv.fr, demande sous 60 jours après l'immatriculation.",
+      "Économie ≈ 1 500 € sur l'année 1. À vérifier : l'éligibilité (sig.ville.gouv.fr pour le QPV), demande sous 60 jours après l'immatriculation.",
   },
   {
     mot: "QPV",
@@ -215,7 +215,7 @@ export const TERMES: Terme[] = [
   {
     mot: "Retraite du micro-entrepreneur",
     cat: "Aides & social",
-    def: "Les cotisations micro valident des trimestres : ≈ 13 000 € de CA de services valident 4 trimestres dans l'année.",
+    def: "Les cotisations micro valident des trimestres : ≈ 14 250 € de CA de services valident 4 trimestres dans l'année (barème 2026).",
     exemple: "Avec 36 573 € de CA, l'année 1 valide ses 4 trimestres.",
   },
   // Métier propreté
@@ -355,7 +355,7 @@ export const TERMES: Terme[] = [
   {
     mot: "Trimestre de retraite",
     cat: "Aides & social",
-    def: "Le CA micro valide des trimestres de retraite par paliers : ≈ 3 250 € pour 1 trimestre, ≈ 13 000 € pour les 4 trimestres de l'année (services BIC, ordres de grandeur).",
+    def: "Le CA micro valide des trimestres de retraite par paliers : ≈ 3 550 € pour 1 trimestre, ≈ 14 250 € pour les 4 trimestres de l'année (services BIC, barème 2026 : 150 SMIC horaire de revenu par trimestre).",
     exemple: "36 573 € de CA en année 1 : les 4 trimestres sont validés.",
   },
   {

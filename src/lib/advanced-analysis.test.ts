@@ -7,7 +7,7 @@ import {
   sensitivityMatrix,
   tornado,
 } from "./advanced-analysis";
-import { computeModel, OFFICIAL } from "./simulator-model";
+import { computeModel, OFFICIAL, progressiveIncomeTax } from "./simulator-model";
 
 describe("matrice de sensibilité — parité onglet Sensibilite", () => {
   it("au préréglage officiel, la grille reproduit celle du classeur (axes 6-18 × 26-34)", () => {
@@ -56,8 +56,15 @@ describe("options avancées neutres = parité certifiée intacte", () => {
     expect(vfl.realNet).toBe(22697); // VFL actif → option sans effet
     const flat = computeModel({ ...OFFICIAL, vfl: false });
     const progressive = computeModel({ ...OFFICIAL, vfl: false, progressiveTax: true });
-    // base imposable 18 286 € : tranche 0 jusqu'à 11 497 € → IR progressif < TMI plate
+    // base imposable 18 286 € : tranche 0 jusqu'à 11 600 € → IR progressif < TMI plate
     expect(progressive.realNet).toBeGreaterThan(flat.realNet);
+  });
+
+  it("barème IR 2026 verrouillé : impôt exact sur la base du preset officiel", () => {
+    // 50 % × 36 573 = 18 286,5 € imposables : (18 286,5 − 11 600) × 11 % = 735,515 €
+    expect(progressiveIncomeTax(18286.5)).toBeCloseTo(735.515, 3);
+    expect(progressiveIncomeTax(11600)).toBe(0);
+    expect(progressiveIncomeTax(0)).toBe(0);
   });
 });
 
@@ -119,10 +126,11 @@ describe("Monte-Carlo", () => {
 });
 
 describe("droits sociaux", () => {
-  it("trimestres de retraite selon le CA", () => {
+  it("trimestres de retraite selon le CA (barème 2026 : 3 564 € de CA par trimestre)", () => {
     expect(retirementQuarters(36573)).toBe(4);
-    expect(retirementQuarters(13000)).toBe(4);
-    expect(retirementQuarters(9750)).toBe(3);
+    expect(retirementQuarters(14256)).toBe(4);
+    expect(retirementQuarters(14255)).toBe(3);
+    expect(retirementQuarters(10692)).toBe(3);
     expect(retirementQuarters(5000)).toBe(1);
     expect(retirementQuarters(0)).toBe(0);
   });

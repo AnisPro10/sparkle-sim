@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  civilYear2026Check,
   clampHypotheses,
   computeModel,
   excelRound,
@@ -22,6 +23,9 @@ describe("arrondis Excel", () => {
     expect(excelRound(2.4)).toBe(2);
     expect(excelRound(1084.74)).toBe(1085);
     expect(excelRound(301.31604 * 12 * 0.65)).toBe(2350);
+    // Jamais de −0 IEEE 754 (Intl afficherait « -0 € »)
+    expect(Object.is(excelRound(-0.3), -0)).toBe(false);
+    expect(excelRound(-0.3)).toBe(0);
   });
   it("roundUp100 : plafond à la centaine", () => {
     expect(roundUp100(1079)).toBe(1100);
@@ -269,5 +273,24 @@ describe("cohérences internes", () => {
     const acre = computeModel({ ...OFFICIAL, acre: true });
     expect(acre.realNet).toBeGreaterThan(base.realNet);
     expect(acre.lowCash).toBeGreaterThanOrEqual(base.lowCash);
+  });
+});
+
+describe("année civile 2026 — alerte réglementaire TVA/micro", () => {
+  // Valeurs littérales : elles figent à la fois la tranche de mois (sept.-déc. 2026,
+  // soit months[0..3]) ET le prorata 122/365 — un recalcul dans le test serait circulaire.
+  it("au preset officiel : prorata exact, aucun seuil dépassé", () => {
+    const civil = civilYear2026Check(OFFICIAL, computeModel(OFFICIAL));
+    expect(civil.revenue2026).toBe(5785);
+    expect(civil.vatThresholdProrated).toBe(12534); // 37 500 × 122/365
+    expect(civil.microThresholdProrated).toBe(27943); // 83 600 × 122/365
+    expect(civil.vatExceeded).toBe(false);
+    expect(civil.microExceeded).toBe(false);
+  });
+
+  it("seuil TVA abaissé → dépassement détecté", () => {
+    const h = { ...OFFICIAL, vatCeiling: 10_000 };
+    const civil = civilYear2026Check(h, computeModel(h));
+    expect(civil.vatExceeded).toBe(true); // seuil proratisé 3 342 < 5 785 de CA sept.-déc.
   });
 });

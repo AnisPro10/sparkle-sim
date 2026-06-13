@@ -13,7 +13,7 @@ import {
   type Actuals,
   type MonthActuals,
 } from "@/components/simulator/actuals-store";
-import { InfoDot } from "@/components/simulator/assumptions-panel";
+import { InfoDot } from "@/components/simulator/form-fields";
 import { SectionHead } from "@/components/simulator/results";
 import { InfoTerm } from "@/components/simulator/info-term";
 
@@ -60,7 +60,9 @@ function PilotagePage() {
       } else {
         const n = Number(raw.replace(",", "."));
         if (!Number.isFinite(n) || n < 0) return old;
-        next[monthIdx][key] = n;
+        // Même plafond que sanitizeActuals à la relecture : sinon une saisie extrême
+        // afficherait « ∞ » jusqu'au rechargement puis retomberait silencieusement.
+        next[monthIdx][key] = Math.min(n, key === "hours" ? 1_000 : 100_000);
       }
       saveActuals(next);
       return next;
@@ -118,7 +120,7 @@ function PilotagePage() {
         >
           <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-warning" />
           <span>
-            Écart de CA supérieur à 15 % sur{" "}
+            Écart de CA supérieur à {Math.round(ALERT_THRESHOLD * 100)} % sur{" "}
             <strong>{alerts.map((a) => a.month).join(", ")}</strong> — règle de pilotage de l'étude
             : écrire la cause et le remède (revue mensuelle d'une heure), puis ajuster la
             prospection ou les hypothèses.
@@ -241,7 +243,9 @@ function PilotagePage() {
             <h3 className="font-display text-base font-semibold">
               <InfoTerm term="Réel vs prévu">Écarts au plan</InfoTerm>
             </h3>
-            <InfoDot text="CA réel comparé au CA prévu du même mois. Vert : au-dessus du plan. Orange/rouge : en dessous ; au-delà de 15 % d'écart (dans un sens comme dans l'autre), la ligne s'allume — c'est le seuil d'action de l'étude." />
+            <InfoDot
+              text={`CA réel comparé au CA prévu du même mois. Vert : au-dessus du plan. Orange/rouge : en dessous ; au-delà de ${Math.round(ALERT_THRESHOLD * 100)} % d'écart (dans un sens comme dans l'autre), la ligne s'allume — c'est le seuil d'action de l'étude.`}
+            />
           </div>
           <div className="overflow-x-auto -mx-1 px-1">
             <table className="w-full min-w-[640px] border-collapse text-sm">
@@ -281,7 +285,7 @@ function PilotagePage() {
                       {r.month}
                       {r.alert && (
                         <Badge variant="warning" className="ml-2 text-[9px] px-1.5 py-0">
-                          &gt; 15 %
+                          &gt; {Math.round(ALERT_THRESHOLD * 100)} %
                         </Badge>
                       )}
                     </th>

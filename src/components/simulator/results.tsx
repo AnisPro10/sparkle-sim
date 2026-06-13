@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import {
+  CAPACITY_CRITICAL,
   euro,
   percent,
   safePercent,
@@ -258,7 +259,7 @@ export function CompteResultatView({ h, m }: { h: Hypotheses; m: ModelResult }) 
                 label="Occupation au pic"
                 term="Taux d'occupation"
                 value={`${percent(m.maxOccupancy)} (${m.peakHours} h)`}
-                tone={m.maxOccupancy > 0.9 ? "bad" : undefined}
+                tone={m.maxOccupancy > CAPACITY_CRITICAL ? "bad" : undefined}
               />
               <Row
                 label="Mois ≥ objectif"

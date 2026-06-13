@@ -192,7 +192,9 @@ export function goalSeek(h: Hypotheses, monthlyGoal: number): GoalSeekResult[] {
     unit: "€/h",
     achievedNet: rate === null ? null : cruiseWith(h, "rate", Math.ceil(rate * 2) / 2),
   });
-  const sites = bisect(h, "sites", 1, 60, monthlyGoal);
+  // Plan de sites entièrement à 0 : la mise à l'échelle (0 × f) est inopérante — le
+  // levier ne peut rien atteindre, on renvoie null plutôt qu'un « 1 site » trompeur.
+  const sites = h.sites[11] === 0 ? null : bisect(h, "sites", 1, 60, monthlyGoal);
   out.push({
     lever: "Sites B2B en fin d'année",
     current: h.sites[11],
@@ -258,7 +260,8 @@ export function monteCarlo(h: Hypotheses, runs = 2000, seed = 42): MonteCarloRes
     const fAirbnb = triangular(rnd, 0.6, 1, 1.25);
     const fPrivate = triangular(rnd, 0.6, 1, 1.25);
     const fGlass = triangular(rnd, 0.6, 1, 1.4);
-    const unpaid = triangular(rnd, 0, Math.min(h.unpaidRate, 0.03), 0.03);
+    // Borne haute élargie au vécu saisi : à unpaidRate ≤ 3 % (presets), inchangé.
+    const unpaid = triangular(rnd, 0, Math.min(h.unpaidRate, 0.03), Math.max(0.03, h.unpaidRate));
     const r = computeModel({
       ...h,
       hourlyB2B: h.hourlyB2B * (1 + dRate),
@@ -303,9 +306,11 @@ export function monteCarlo(h: Hypotheses, runs = 2000, seed = 42): MonteCarloRes
 /* Droits sociaux — trimestres de retraite validés par le CA micro     */
 /* ------------------------------------------------------------------ */
 
-// Critère certifié de l'étude : ≈ 13 000 € de CA de services BIC valident
-// 4 trimestres dans l'année ; paliers intermédiaires proportionnels (ordres de grandeur).
-export const QUARTER_THRESHOLDS = [3250, 6500, 9750, 13000] as const;
+// Règle officielle (art. R351-9 CSS) : 1 trimestre par tranche de 150 SMIC horaire de
+// revenu ; en micro-BIC services le revenu = 50 % du CA → 3 564 € de CA par trimestre,
+// 14 256 € pour les 4 (barème 2026, SMIC 11,88 €). L'étude certifiée retenait ≈ 13 000 €
+// (barème antérieur) : divergence assumée — aucun chiffre financier certifié n'en dépend.
+export const QUARTER_THRESHOLDS = [3564, 7128, 10692, 14256] as const;
 
 export function retirementQuarters(revenue: number): number {
   return QUARTER_THRESHOLDS.filter((t) => revenue >= t).length;

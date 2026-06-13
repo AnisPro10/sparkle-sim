@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { z } from "zod";
+import { toast } from "sonner";
 import { clampHypotheses, computeModel, OFFICIAL, type Hypotheses } from "@/lib/simulator-model";
 
 type SavedScenario = { name: string; hypotheses: Hypotheses };
@@ -98,13 +99,34 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const { hypotheses: initial, fromHash } = readClientState();
+    let scenarios = readSavedScenarios();
     if (initial) setHypotheses(initial);
     if (fromHash) {
       // Le hash est consommé une seule fois puis retiré : sinon chaque rechargement
       // ré-appliquerait silencieusement l'état partagé et écraserait le travail en cours.
       history.replaceState(null, "", window.location.pathname + window.location.search);
+      // Un lien partagé écrase l'état persisté du destinataire : on sauvegarde d'abord
+      // son travail en cours dans les scénarios (s'il diffère de l'état importé).
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored && initial) {
+          const previous = clampHypotheses(JSON.parse(stored));
+          if (JSON.stringify(previous) !== JSON.stringify(initial)) {
+            const backupName = "Avant import du lien partagé";
+            scenarios = [
+              ...scenarios.filter((s) => s.name !== backupName),
+              { name: backupName, hypotheses: previous },
+            ];
+            toast.info(
+              "Simulation partagée chargée — votre travail précédent est sauvegardé dans les scénarios sous « Avant import du lien partagé ».",
+            );
+          }
+        }
+      } catch {
+        /* localStorage indisponible : rien à sauvegarder */
+      }
     }
-    setSaved(readSavedScenarios());
+    setSaved(scenarios);
     setHydrated(true);
   }, []);
 
@@ -287,6 +309,7 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
   return <SimulatorContext.Provider value={value}>{children}</SimulatorContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook co-localisé avec son provider (Fast Refresh dégradé assumé sur ce fichier)
 export function useSimulator() {
   const value = useContext(SimulatorContext);
   if (!value) throw new Error("useSimulator doit être utilisé dans SimulatorProvider");

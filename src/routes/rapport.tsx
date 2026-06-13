@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import {
   percent,
   safePercent,
 } from "@/lib/simulator-model";
+import { FORMALITY_TOTAL } from "@/lib/startup-budget";
 import { useSimulator } from "@/components/simulator-provider";
 
 export const Route = createFileRoute("/rapport")({
@@ -28,8 +30,6 @@ export const Route = createFileRoute("/rapport")({
   }),
   component: RapportPage,
 });
-
-const FORMALITY_TOTAL = 785;
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -57,17 +57,21 @@ function RapportPage() {
   const civil = civilYear2026Check(h, m);
   const viable = m.fundable && m.targetMonth !== null;
   const startupNeed = FORMALITY_TOTAL + h.capex;
-  const today = new Date().toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  // Date du jour calculée APRÈS montage : au rendu SSR l'horloge/fuseau du serveur
+  // peut différer du navigateur (mismatch d'hydratation React autour de minuit).
+  const [today, setToday] = useState("");
+  useEffect(() => {
+    setToday(
+      new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }),
+    );
+  }, []);
 
   return (
     <div className="mx-auto max-w-3xl space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3 print:hidden">
         <div>
-          <h1 className="font-display text-xl font-semibold">Rapport de synthèse</h1>
+          {/* h2 : le h1 de la page est déjà rendu par SimulatorHeader */}
+          <h2 className="font-display text-xl font-semibold">Rapport de synthèse</h2>
           <p className="text-xs text-muted-foreground">
             Le dossier compact à remettre à la banque ou au conseiller — imprimez-le ou
             enregistrez-le en PDF (bouton ci-contre ou Ctrl+P).
@@ -90,8 +94,8 @@ function RapportPage() {
               <h2 className="mt-1 font-display text-2xl font-bold">L'AZ du Clean</h2>
               <p className="text-sm italic text-muted-foreground">La propreté qui tient parole.</p>
               <p className="mt-2 text-xs text-muted-foreground">
-                Nettoyage professionnel B2B — Seine-Saint-Denis & Paris · Anis Azgag · édité le{" "}
-                {today}
+                Nettoyage professionnel B2B — Seine-Saint-Denis & Paris · Anis Azgag
+                {today && <> · édité le {today}</>}
               </p>
             </div>
             <span
@@ -238,8 +242,9 @@ function RapportPage() {
           <p className="mt-4 text-[10px] leading-relaxed text-muted-foreground">
             Document de simulation à visée indicative, généré par le simulateur L'AZ du Clean.
             Hypothèses fiscales et sociales 2026 (cotisations micro-BIC 21,2 %, VFL 1,7 %, CFP
-            artisan 0,3 %, plafond 83 600 €, franchise TVA 37 500 €). À valider avec un
-            expert-comptable.
+            artisan 0,3 %, plafond 83 600 €, franchise TVA 37 500 €) — hors taxe pour frais de
+            chambre CMA (0,48 % du CA, ≈ 176 €/an, comme dans le prévisionnel certifié). À valider
+            avec un expert-comptable.
           </p>
         </CardContent>
       </Card>
