@@ -13,6 +13,7 @@ import {
   Rocket,
   BookOpenText,
   CalendarDays,
+  ReceiptText,
   Sparkles,
 } from "lucide-react";
 import { BrandMark } from "@/components/brand/logo";
@@ -68,6 +69,7 @@ const GROUPS: { label: string; items: Item[] }[] = [
     label: "Annexes",
     items: [
       { to: "/rapport", label: "Rapport (PDF)", icon: FileDown },
+      { to: "/facturation", label: "Facture / Devis", icon: ReceiptText },
       { to: "/dictionnaire", label: "Dictionnaire", icon: BookOpenText },
     ],
   },

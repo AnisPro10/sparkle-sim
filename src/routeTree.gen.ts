@@ -17,6 +17,7 @@ import { Route as RapportRouteImport } from './routes/rapport'
 import { Route as ProjectionRouteImport } from './routes/projection'
 import { Route as PilotageRouteImport } from './routes/pilotage'
 import { Route as HypothesesRouteImport } from './routes/hypotheses'
+import { Route as FacturationRouteImport } from './routes/facturation'
 import { Route as DictionnaireRouteImport } from './routes/dictionnaire'
 import { Route as DemarrageRouteImport } from './routes/demarrage'
 import { Route as CompteResultatRouteImport } from './routes/compte-resultat'
@@ -64,6 +65,11 @@ const HypothesesRoute = HypothesesRouteImport.update({
   path: '/hypotheses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FacturationRoute = FacturationRouteImport.update({
+  id: '/facturation',
+  path: '/facturation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DictionnaireRoute = DictionnaireRouteImport.update({
   id: '/dictionnaire',
   path: '/dictionnaire',
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/compte-resultat': typeof CompteResultatRoute
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
+  '/facturation': typeof FacturationRoute
   '/hypotheses': typeof HypothesesRoute
   '/pilotage': typeof PilotageRoute
   '/projection': typeof ProjectionRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/compte-resultat': typeof CompteResultatRoute
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
+  '/facturation': typeof FacturationRoute
   '/hypotheses': typeof HypothesesRoute
   '/pilotage': typeof PilotageRoute
   '/projection': typeof ProjectionRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/compte-resultat': typeof CompteResultatRoute
   '/demarrage': typeof DemarrageRoute
   '/dictionnaire': typeof DictionnaireRoute
+  '/facturation': typeof FacturationRoute
   '/hypotheses': typeof HypothesesRoute
   '/pilotage': typeof PilotageRoute
   '/projection': typeof ProjectionRoute
@@ -153,6 +162,7 @@ export interface FileRouteTypes {
     | '/compte-resultat'
     | '/demarrage'
     | '/dictionnaire'
+    | '/facturation'
     | '/hypotheses'
     | '/pilotage'
     | '/projection'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/compte-resultat'
     | '/demarrage'
     | '/dictionnaire'
+    | '/facturation'
     | '/hypotheses'
     | '/pilotage'
     | '/projection'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/compte-resultat'
     | '/demarrage'
     | '/dictionnaire'
+    | '/facturation'
     | '/hypotheses'
     | '/pilotage'
     | '/projection'
@@ -202,6 +214,7 @@ export interface RootRouteChildren {
   CompteResultatRoute: typeof CompteResultatRoute
   DemarrageRoute: typeof DemarrageRoute
   DictionnaireRoute: typeof DictionnaireRoute
+  FacturationRoute: typeof FacturationRoute
   HypothesesRoute: typeof HypothesesRoute
   PilotageRoute: typeof PilotageRoute
   ProjectionRoute: typeof ProjectionRoute
@@ -270,6 +283,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HypothesesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/facturation': {
+      id: '/facturation'
+      path: '/facturation'
+      fullPath: '/facturation'
+      preLoaderRoute: typeof FacturationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dictionnaire': {
       id: '/dictionnaire'
       path: '/dictionnaire'
@@ -322,6 +342,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompteResultatRoute: CompteResultatRoute,
   DemarrageRoute: DemarrageRoute,
   DictionnaireRoute: DictionnaireRoute,
+  FacturationRoute: FacturationRoute,
   HypothesesRoute: HypothesesRoute,
   PilotageRoute: PilotageRoute,
   ProjectionRoute: ProjectionRoute,

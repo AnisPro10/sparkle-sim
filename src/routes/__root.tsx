@@ -169,7 +169,8 @@ function SimulatorShell() {
         <Outlet />
       </main>
     );
-  const showRecap = pathname !== "/hypotheses";
+  // Le bandeau récap d'hypothèses n'a pas de sens sur la page de facturation.
+  const showRecap = pathname !== "/hypotheses" && pathname !== "/facturation";
   return (
     <SidebarProvider>
       <AppSidebar />
