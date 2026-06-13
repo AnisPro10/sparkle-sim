@@ -232,6 +232,13 @@ export const TERMES: Terme[] = [
     exemple: "Un site ≈ 301 €/mois de CA. Le plan officiel monte de 1 à 12 sites sur l'année.",
   },
   {
+    mot: "Portefeuille de contrats B2B",
+    cat: "Métier propreté",
+    def: "Option avancée du Plan d'activité : au lieu d'un « site moyen », vous décrivez chaque client réel séparément (passages/semaine, heures/passage, taux €/h, nombre de sites, mois de début). Le CA et surtout les HEURES B2B deviennent la somme exacte de vos contrats. Désactivé par défaut → parité stricte avec le prévisionnel certifié.",
+    exemple:
+      "Client A : 5 passages × 1 h ; client B : 2 passages × 2 h, à 30 €/h — chacun compté à sa juste charge horaire (utile pour la capacité et le pic d'heures).",
+  },
+  {
     mot: "Saisonnalité",
     cat: "Métier propreté",
     def: "Coefficient appliqué au B2B selon le mois : 0,9 en décembre et juillet, 0,65 en août (fermetures des bureaux).",

@@ -276,6 +276,52 @@ describe("cohérences internes", () => {
   });
 });
 
+describe("portefeuille de contrats B2B (mode avancé)", () => {
+  it("vide ou désactivé : chiffres certifiés strictement inchangés (parité)", () => {
+    expect(computeModel({ ...OFFICIAL, b2bContractsEnabled: true, b2bContracts: [] }).realNet).toBe(
+      22521,
+    );
+    expect(computeModel(OFFICIAL).realNet).toBe(22521);
+  });
+
+  it("contrats hétérogènes : CA et heures = somme réelle des contrats", () => {
+    // Client A : 5 passages/sem × 1 h ; Client B : 2 passages/sem × 2 h ; 30 €/h.
+    const h = computeModel({
+      ...OFFICIAL,
+      enabledGlass: false,
+      enabledAirbnb: false,
+      enabledPrivate: false,
+      seasonality: Array(12).fill(1),
+      unpaidRate: 0,
+      b2bContractsEnabled: true,
+      b2bContracts: [
+        { label: "A", visitsPerWeek: 5, hoursPerVisit: 1, rate: 30, sites: 1, startMonth: 0 },
+        { label: "B", visitsPerWeek: 2, hoursPerVisit: 2, rate: 30, sites: 1, startMonth: 0 },
+      ],
+    });
+    // (5×4,33×1 + 2×4,33×2) × 30 = 1 169,1 → 1 169 ; heures = 21,65 + 17,32 = 38,97 → 39
+    expect(h.months[0].b2b).toBe(1169);
+    expect(h.months[0].hours).toBe(39);
+  });
+
+  it("mois de début : un contrat ne compte qu'à partir de son mois de signature", () => {
+    const h = computeModel({
+      ...OFFICIAL,
+      enabledGlass: false,
+      enabledAirbnb: false,
+      enabledPrivate: false,
+      seasonality: Array(12).fill(1),
+      unpaidRate: 0,
+      b2bContractsEnabled: true,
+      b2bContracts: [
+        { label: "Tardif", visitsPerWeek: 5, hoursPerVisit: 1, rate: 30, sites: 1, startMonth: 3 },
+      ],
+    });
+    expect(h.months[2].b2b).toBe(0);
+    expect(h.months[3].b2b).toBeGreaterThan(0);
+  });
+});
+
 describe("année civile 2026 — alerte réglementaire TVA/micro", () => {
   // Valeurs littérales : elles figent à la fois la tranche de mois (sept.-déc. 2026,
   // soit months[0..3]) ET le prorata 122/365 — un recalcul dans le test serait circulaire.

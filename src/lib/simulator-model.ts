@@ -127,9 +127,24 @@ export const hypothesesSchema = z.object({
   airbnb: monthArray(0, 500),
   privateJobs: monthArray(0, 500),
   growth: z.array(num.min(-0.9).max(3)).length(4),
+  // Portefeuille de contrats B2B sur mesure (option avancée) : désactivé/vide par
+  // défaut → le moteur reste en parité stricte (site moyen). Quand activé, le CA et
+  // les heures B2B sont la somme de contrats hétérogènes (chacun ses passages/heures/taux).
+  b2bContractsEnabled: z.boolean(),
+  b2bContracts: z.array(
+    z.object({
+      label: z.string(),
+      visitsPerWeek: num.min(0).max(14),
+      hoursPerVisit: num.min(0).max(12),
+      rate: num.min(0).max(200),
+      sites: num.min(0).max(1000),
+      startMonth: num.min(0).max(11),
+    }),
+  ),
 });
 
 export type Hypotheses = z.infer<typeof hypothesesSchema>;
+export type B2bContract = Hypotheses["b2bContracts"][number];
 
 type NumericBounds = { min: number; max: number };
 const FIELD_BOUNDS: Record<string, NumericBounds> = {
@@ -209,6 +224,21 @@ export function clampHypotheses(input: unknown): Hypotheses {
     out[key] = typeof src[key] === "boolean" ? src[key] : true;
   }
   out.progressiveTax = typeof src.progressiveTax === "boolean" ? src.progressiveTax : false;
+  out.b2bContractsEnabled =
+    typeof src.b2bContractsEnabled === "boolean" ? src.b2bContractsEnabled : false;
+  out.b2bContracts = Array.isArray(src.b2bContracts)
+    ? (src.b2bContracts as unknown[]).slice(0, 50).map((c) => {
+        const o = (typeof c === "object" && c ? c : {}) as Record<string, unknown>;
+        return {
+          label: typeof o.label === "string" ? o.label.slice(0, 80) : "",
+          visitsPerWeek: clampNum(o.visitsPerWeek, { min: 0, max: 14 }, 2),
+          hoursPerVisit: clampNum(o.hoursPerVisit, { min: 0, max: 12 }, 1),
+          rate: clampNum(o.rate, { min: 0, max: 200 }, 30),
+          sites: clampNum(o.sites, { min: 0, max: 1000 }, 1),
+          startMonth: Math.round(clampNum(o.startMonth, { min: 0, max: 11 }, 0)),
+        };
+      })
+    : [];
   return out as Hypotheses;
 }
 
@@ -259,6 +289,8 @@ export const OFFICIAL: Hypotheses = {
   airbnb: [2, 3, 3, 4, 5, 6, 7, 8, 9, 10, 12, 12],
   privateJobs: [2, 4, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8],
   growth: [0.3, 0.2, 0.1, 0.1],
+  b2bContractsEnabled: false,
+  b2bContracts: [],
 };
 
 // Preset « Réaliste terrain » = colonne réaliste du Comparatif_Realiste de l'Excel
@@ -431,9 +463,34 @@ function effectiveSites(h: Hypotheses, i: number): number {
   return h.sites[i] * Math.max(0, 1 - h.churnRate * ((i + 0.5) / 12));
 }
 
-function monthlyRows(h: Hypotheses): MonthResult[] {
+/**
+ * Base mensuelle B2B avant saisonnalité et impayés : CA brut et heures.
+ * - Portefeuille de contrats activé : somme des contrats actifs ce mois (chacun ses
+ *   passages/heures/taux) — le cas hétérogène (ex. 5×1 h vs 2×2 h).
+ * - Sinon : site moyen, EXACTEMENT l'expression flottante d'origine (parité stricte).
+ */
+function b2bMonthlyBase(h: Hypotheses, i: number): { revenue: number; hours: number } {
+  if (h.b2bContractsEnabled && h.b2bContracts.length > 0) {
+    let revenue = 0;
+    let hours = 0;
+    for (const c of h.b2bContracts) {
+      if (i < c.startMonth) continue;
+      const mh = c.sites * c.visitsPerWeek * WEEKS_PER_MONTH * c.hoursPerVisit;
+      revenue += mh * c.rate;
+      hours += mh;
+    }
+    return { revenue, hours };
+  }
   const effectiveRate = h.hourlyB2B * (1 - h.annualShare * h.annualDiscount); // 28,995 — jamais arrondi
   const siteMonthly = h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * effectiveRate; // 301,31604
+  const sites = effectiveSites(h, i);
+  return {
+    revenue: sites * siteMonthly,
+    hours: sites * h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit,
+  };
+}
+
+function monthlyRows(h: Hypotheses): MonthResult[] {
   const rate = globalRate(h);
   // Activité décochée = volumes neutralisés partout (équivalent Excel : zéros sur 12 mois)
   const onB2b = h.enabledB2b ? 1 : 0;
@@ -441,14 +498,14 @@ function monthlyRows(h: Hypotheses): MonthResult[] {
   const onAirbnb = h.enabledAirbnb ? 1 : 0;
   const onPrivate = h.enabledPrivate ? 1 : 0;
   return MONTHS.map((month, i) => {
-    const sites = effectiveSites(h, i);
-    const b2b = onB2b * excelRound(sites * siteMonthly * h.seasonality[i] * (1 - h.unpaidRate));
+    const base = b2bMonthlyBase(h, i);
+    const b2b = onB2b * excelRound(base.revenue * h.seasonality[i] * (1 - h.unpaidRate));
     const glass = onGlass * h.glassJobs[i] * h.glassRate * GLASS_HOURS;
     const airbnb = onAirbnb * h.airbnb[i] * h.airbnbPrice;
     const privateRevenue = onPrivate * h.privateJobs[i] * h.privateRate * h.privateHours;
     const ca = b2b + glass + airbnb + privateRevenue;
     const hours = excelRound(
-      onB2b * sites * h.visitsPerWeek * WEEKS_PER_MONTH * h.hoursPerVisit * h.seasonality[i] +
+      onB2b * base.hours * h.seasonality[i] +
         onGlass * h.glassJobs[i] * GLASS_HOURS +
         onAirbnb * h.airbnb[i] * AIRBNB_HOURS +
         onPrivate * h.privateJobs[i] * h.privateHours,

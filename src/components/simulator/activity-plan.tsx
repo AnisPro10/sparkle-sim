@@ -1,9 +1,12 @@
+import { Plus, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
-import { boundsOf, euro, MONTHS, type Hypotheses } from "@/lib/simulator-model";
+import { boundsOf, euro, MONTHS, type B2bContract, type Hypotheses } from "@/lib/simulator-model";
 import { useSimulator } from "@/components/simulator-provider";
 import { SectionHead } from "./results";
+import { InfoDot } from "./form-fields";
 import { InfoTerm } from "./info-term";
 
 type SeriesKey = "sites" | "seasonality" | "glassJobs" | "airbnb" | "privateJobs";
@@ -199,6 +202,9 @@ export function ActivityPlan() {
           </table>
         </div>
       </Card>
+
+      <B2bContractsCard />
+
       {disabledCount > 0 && (
         <p className="mt-3 text-xs font-medium text-warning">
           {disabledCount === 1
@@ -214,5 +220,160 @@ export function ActivityPlan() {
         -{h.hourlyB2B + 4} €/h) ou préparer le palier d'embauche.
       </p>
     </section>
+  );
+}
+
+/** Petit champ numérique compact pour une cellule de contrat. */
+function CNum({
+  label,
+  value,
+  onChange,
+  step = 1,
+  width = "w-20",
+}: {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  step?: number;
+  width?: string;
+}) {
+  return (
+    <label className="flex flex-col gap-0.5">
+      <span className="text-[10px] text-muted-foreground">{label}</span>
+      <input
+        type="number"
+        inputMode="decimal"
+        step={step}
+        value={value}
+        onChange={(e) => {
+          const n = Number(e.target.value.replace(",", "."));
+          if (Number.isFinite(n) && n >= 0) onChange(n);
+        }}
+        className={cn(
+          "h-8 rounded-md border border-input bg-background px-2 text-right text-sm font-mono tabular-nums outline-none focus-visible:ring-2 focus-visible:ring-ring [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
+          width,
+        )}
+      />
+    </label>
+  );
+}
+
+/** Portefeuille de contrats B2B hétérogènes (option avancée, parité préservée à OFF). */
+function B2bContractsCard() {
+  const { hypotheses: h, setField } = useSimulator();
+  const enabled = h.b2bContractsEnabled;
+  const contracts = h.b2bContracts;
+  const setContracts = (next: B2bContract[]) => setField("b2bContracts", next);
+  const add = () =>
+    setContracts([
+      ...contracts,
+      { label: "", visitsPerWeek: 2, hoursPerVisit: 1, rate: h.hourlyB2B, sites: 1, startMonth: 0 },
+    ]);
+  const upd = (i: number, patch: Partial<B2bContract>) =>
+    setContracts(contracts.map((c, j) => (j === i ? { ...c, ...patch } : c)));
+  const del = (i: number) => setContracts(contracts.filter((_, j) => j !== i));
+
+  return (
+    <Card className="mt-4">
+      <CardContent className="space-y-3 p-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <label className="flex cursor-pointer items-center gap-2">
+            <Checkbox
+              checked={enabled}
+              onCheckedChange={(v) => setField("b2bContractsEnabled", v === true)}
+            />
+            <span className="font-display text-sm font-semibold">
+              Portefeuille de contrats B2B sur mesure
+            </span>
+            <InfoDot text="Activez-le pour décrire chaque client B2B séparément (ex. un client 5 passages/sem × 1 h, un autre 2 passages/sem × 2 h). Le CA et surtout les HEURES B2B deviennent la somme exacte de vos contrats, au lieu d'un « site moyen ». Désactivé (par défaut), le modèle reste en parité stricte avec le prévisionnel certifié." />
+          </label>
+          {enabled && (
+            <span className="rounded-full bg-warning/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-warning">
+              mode avancé
+            </span>
+          )}
+        </div>
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          {enabled
+            ? "Le CA et les heures B2B viennent désormais de la somme de vos contrats (la ligne « Sites B2B » ci-dessus est ignorée). Chaque contrat est actif à partir de son mois de début. Note : Scénarios et Sensibilité restent calculés sur l'agrégat (approximation en mode avancé)."
+            : "Par défaut : un seul « site moyen » (réglages des Hypothèses). Activez pour saisir des contrats clients hétérogènes."}
+        </p>
+
+        {enabled && (
+          <div className="space-y-2">
+            {contracts.length === 0 && (
+              <p className="text-xs italic text-muted-foreground">
+                Aucun contrat — ajoutez vos clients ci-dessous.
+              </p>
+            )}
+            {contracts.map((c, i) => (
+              <div
+                key={i}
+                className="flex flex-wrap items-end gap-3 rounded-md border border-border p-2.5"
+              >
+                <label className="flex min-w-40 flex-1 flex-col gap-0.5">
+                  <span className="text-[10px] text-muted-foreground">Client / contrat</span>
+                  <input
+                    type="text"
+                    value={c.label}
+                    placeholder={`Contrat ${i + 1}`}
+                    onChange={(e) => upd(i, { label: e.target.value.slice(0, 80) })}
+                    className="h-8 rounded-md border border-input bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  />
+                </label>
+                <CNum
+                  label="Passages/sem"
+                  value={c.visitsPerWeek}
+                  step={0.5}
+                  onChange={(v) => upd(i, { visitsPerWeek: v })}
+                />
+                <CNum
+                  label="Heures/passage"
+                  value={c.hoursPerVisit}
+                  step={0.25}
+                  onChange={(v) => upd(i, { hoursPerVisit: v })}
+                />
+                <CNum
+                  label="Taux €/h"
+                  value={c.rate}
+                  step={1}
+                  onChange={(v) => upd(i, { rate: v })}
+                />
+                <CNum
+                  label="Nb sites"
+                  value={c.sites}
+                  step={1}
+                  onChange={(v) => upd(i, { sites: v })}
+                />
+                <label className="flex flex-col gap-0.5">
+                  <span className="text-[10px] text-muted-foreground">Mois de début</span>
+                  <select
+                    value={c.startMonth}
+                    onChange={(e) => upd(i, { startMonth: Number(e.target.value) })}
+                    className="h-8 rounded-md border border-input bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {MONTHS.map((m, idx) => (
+                      <option key={m} value={idx}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button
+                  onClick={() => del(i)}
+                  aria-label={`Supprimer le contrat ${i + 1}`}
+                  className="mb-1.5 text-muted-foreground hover:text-destructive"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+            ))}
+            <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={add}>
+              <Plus className="h-3.5 w-3.5" /> Ajouter un contrat
+            </Button>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }
