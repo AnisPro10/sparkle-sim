@@ -65,8 +65,8 @@
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
   --color-overlay: var(--overlay);
-  --font-display: "Roboto Condensed", "Arial Narrow", sans-serif;
-  --font-sans: "Segoe UI", Arial, Helvetica, sans-serif;
+  --font-display: "Space Grotesk", "Roboto Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "DM Sans", "Segoe UI", Arial, Helvetica, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
@@ -274,6 +274,37 @@
     opacity: 1;
     transform: scale(1.08);
   }
+}
+@keyframes az-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes az-bubble {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--bubble-op, 0.4);
+  }
+  100% {
+    transform: translateY(-120vh) translateX(40px) scale(1);
+    opacity: 0;
+  }
+}
+.az-bubble {
+  animation-name: az-bubble;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+/* Quand le curseur magnétique est actif, on cache le curseur natif sur la landing */
+html.az-cursor-on body[data-landing="true"],
+html.az-cursor-on body[data-landing="true"] * {
+  cursor: none !important;
 }
 .az-reveal {
   opacity: 0;
