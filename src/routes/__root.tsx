@@ -88,32 +88,10 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "L'AZ du Clean — Simulateur financier" },
-      {
-        name: "description",
-        content:
-          "Simulateur professionnel de viabilité financière et juridique pour L'AZ du Clean — nettoyage B2B en Seine-Saint-Denis & Paris.",
-      },
       { name: "author", content: "L'AZ du Clean" },
-      { property: "og:title", content: "L'AZ du Clean — Simulateur financier" },
-      { property: "og:description", content: "La propreté qui tient parole." },
+      { property: "og:site_name", content: "L'AZ du Clean" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "L'AZ du Clean — Simulateur financier" },
-      { name: "twitter:description", content: "La propreté qui tient parole." },
-      // L'image est aussi sauvegardée dans public/og-image.png (le bucket Lovable peut
-      // être purgé sans préavis) : dès que le domaine de production est connu, remplacer
-      // ces deux URLs par https://<domaine>/og-image.png (les crawlers exigent un absolu).
-      {
-        property: "og:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/f4219723-20b8-4d4e-8b34-188d78a2ac40",
-      },
-      {
-        name: "twitter:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/f4219723-20b8-4d4e-8b34-188d78a2ac40",
-      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
