@@ -22,6 +22,10 @@ import { euro, safePercent } from "@/lib/simulator-model";
 import { useSimulator } from "@/components/simulator-provider";
 import { BrandLockup, BrandMark } from "@/components/brand/logo";
 
+const SITE_URL = "https://l-az-du-cleann.lovable.app";
+const OG_IMAGE =
+  "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/f4219723-20b8-4d4e-8b34-188d78a2ac40";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -29,12 +33,36 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Nettoyage professionnel B2B en Seine-Saint-Denis & Paris : bureaux, commerces, cabinets, vitrerie, Airbnb. Devis sous 48 h, même intervenant, preuve photo, rattrapage garanti — et le simulateur financier du projet.",
+          "Nettoyage B2B en Seine-Saint-Denis & Paris : bureaux, commerces, vitrerie, Airbnb. Devis 48 h, preuve photo, rattrapage garanti. Simulateur financier inclus.",
       },
       { property: "og:title", content: "L'AZ du Clean — La propreté qui tient parole" },
       {
         property: "og:description",
         content: "Nettoyage professionnel B2B & simulateur financier certifié.",
+      },
+      { property: "og:url", content: SITE_URL + "/" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "L'AZ du Clean",
+          description:
+            "Nettoyage professionnel B2B : bureaux, commerces, cabinets, vitrerie et rotations Airbnb.",
+          url: SITE_URL,
+          logo: SITE_URL + "/logo.svg",
+          image: OG_IMAGE,
+          areaServed: [
+            { "@type": "AdministrativeArea", name: "Seine-Saint-Denis" },
+            { "@type": "AdministrativeArea", name: "Paris" },
+          ],
+          slogan: "La propreté qui tient parole.",
+        }),
       },
     ],
   }),
